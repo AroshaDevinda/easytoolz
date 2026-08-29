@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Watermark — EasyToolz</title>
+  <meta name="description" content="Free Image Watermark tool — add custom text watermark to any image in your browser. No upload, 100% private." />
+  <link rel="canonical" href="https://easytoolz.click/tools/image-watermark.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Watermark</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">🔖</div><div><h1>Image Watermark</h1><p>Add text watermark to your images — free, browser-only</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+        <div class="drop-icon">🔖</div>
+        <div class="drop-text">Click or drag & drop an image here</div>
+        <div class="drop-sub">JPG, PNG, WebP supported</div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
+      </div>
+      <div id="editor" style="display:none;">
+        <div class="form-row" style="margin:16px 0;gap:12px;flex-wrap:wrap;">
+          <div class="form-group" style="flex:2;min-width:160px;">
+            <label class="form-label">Watermark Text</label>
+            <input type="text" id="wText" class="form-input" value="© EasyToolz" oninput="render()" />
+          </div>
+          <div class="form-group" style="flex:1;min-width:100px;">
+            <label class="form-label">Font Size</label>
+            <input type="number" id="wSize" class="form-input" value="40" min="8" max="300" oninput="render()" />
+          </div>
+          <div class="form-group" style="flex:1;min-width:100px;">
+            <label class="form-label">Color</label>
+            <input type="color" id="wColor" value="#ffffff" oninput="render()" style="width:100%;height:44px;border-radius:var(--radius-sm);border:1px solid var(--border);background:none;cursor:pointer;" />
+          </div>
+        </div>
+        <div class="form-row" style="gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Opacity: <span id="opacVal">70</span>%</label>
+            <input type="range" id="opacity" min="10" max="100" value="70" oninput="document.getElementById('opacVal').textContent=this.value;render()" style="width:100%;accent-color:var(--teal);" />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Position</label>
+            <select id="position" class="form-select" onchange="render()">
+              <option value="br">Bottom Right</option>
+              <option value="bl">Bottom Left</option>
+              <option value="tr">Top Right</option>
+              <option value="tl">Top Left</option>
+              <option value="center">Center</option>
+              <option value="tile">Tile (Repeat)</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label class="form-label">Rotation (°)</label>
+            <input type="number" id="wRot" class="form-input" value="-30" min="-180" max="180" oninput="render()" />
+          </div>
+        </div>
+        <canvas id="canvas" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--border);display:block;"></canvas>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+          <select id="fmtSel" class="form-select" style="width:auto;">
+            <option value="image/jpeg" selected>JPEG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+          <button class="btn btn-primary" onclick="download()">⬇ Download Watermarked Image</button>
+          <button class="btn btn-secondary" onclick="changeImage()">Change Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+let origImg = null;
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => { origImg = img; render(); document.getElementById('dropZone').style.display = 'none'; document.getElementById('editor').style.display = ''; };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function changeImage() { document.getElementById('dropZone').style.display=''; document.getElementById('editor').style.display='none'; origImg=null; }
+
+function render() {
+  if (!origImg) return;
+  const c = document.getElementById('canvas');
+  c.width = origImg.naturalWidth; c.height = origImg.naturalHeight;
+  const ctx = c.getContext('2d');
+  ctx.drawImage(origImg, 0, 0);
+  const text    = document.getElementById('wText').value || '© Watermark';
+  const size    = parseInt(document.getElementById('wSize').value) || 40;
+  const color   = document.getElementById('wColor').value;
+  const opacity = parseInt(document.getElementById('opacity').value) / 100;
+  const pos     = document.getElementById('position').value;
+  const rot     = (parseInt(document.getElementById('wRot').value) || 0) * Math.PI / 180;
+  ctx.font      = `bold ${size}px Inter, Arial, sans-serif`;
+  ctx.fillStyle = color;
+  ctx.globalAlpha = opacity;
+  const tw = ctx.measureText(text).width;
+  const pad = 20;
+  if (pos === 'tile') {
+    for (let y = size; y < c.height + size; y += size * 3) {
+      for (let x = -tw; x < c.width + tw; x += tw + 60) {
+        ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.fillText(text, 0, 0); ctx.restore();
+      }
+    }
+  } else {
+    let x, y;
+    if (pos==='br') { x=c.width-tw-pad; y=c.height-pad; }
+    else if (pos==='bl') { x=pad; y=c.height-pad; }
+    else if (pos==='tr') { x=c.width-tw-pad; y=size+pad; }
+    else if (pos==='tl') { x=pad; y=size+pad; }
+    else { x=(c.width-tw)/2; y=c.height/2; }
+    ctx.save(); ctx.translate(x+tw/2, y-size/2); ctx.rotate(rot); ctx.fillText(text, -tw/2, size/2); ctx.restore();
+  }
+  ctx.globalAlpha = 1;
+}
+function download() {
+  const fmt = document.getElementById('fmtSel').value;
+  const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
+  const a = document.createElement('a'); a.href = document.getElementById('canvas').toDataURL(fmt,0.92); a.download = `watermarked.${ext}`; a.click();
+}
+</script>
+<style>
+.tool-page-icon.images { background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6; }
+.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
+.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
+.drop-icon { font-size:3rem;margin-bottom:12px; }
+.drop-text { font-weight:600;margin-bottom:6px; }
+.drop-sub  { font-size:.8rem;color:var(--text-3); }
+</style>
+</body></html>

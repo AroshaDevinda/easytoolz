@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMI Calculator — EasyToolz</title>
+  <meta name="description" content="Free EMI Calculator — calculate your monthly loan EMI, total interest and total payment instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/emi-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">EMI Calculator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon calculators">🏦</div><div><h1>EMI Calculator</h1><p>Calculate monthly loan installments & total interest</p></div></div>
+  <div class="tool-layout">
+    <div class="tool-box">
+      <div class="form-group"><label class="form-label">Loan Amount (₹ / $)</label><input type="number" id="loan" class="form-input" placeholder="e.g. 500000" /></div>
+      <div class="form-group"><label class="form-label">Annual Interest Rate (%)</label><input type="number" id="rate" class="form-input" placeholder="e.g. 8.5" step="0.1" /></div>
+      <div class="form-group"><label class="form-label">Loan Tenure (Months)</label><input type="number" id="tenure" class="form-input" placeholder="e.g. 60" /></div>
+      <button class="btn btn-primary btn-block" onclick="calcEMI()">Calculate EMI</button>
+      <div id="emiResult" style="display:none;margin-top:20px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:12px;padding:16px;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Monthly EMI</div>
+            <div id="emi" style="font-size:1.3rem;font-weight:800;color:var(--teal);"></div>
+          </div>
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.2);border-radius:12px;padding:16px;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Total Interest</div>
+            <div id="totalInt" style="font-size:1.3rem;font-weight:800;color:var(--purple);"></div>
+          </div>
+          <div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:12px;padding:16px;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Total Payment</div>
+            <div id="totalPay" style="font-size:1.3rem;font-weight:800;color:#f87171;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="ad-slot"><p>Advertisement</p></div>
+      <div class="sidebar-info"><h4>EMI Formula</h4><ul>
+        <li>EMI = P × r × (1+r)ⁿ / ((1+r)ⁿ-1)</li><li>P = Principal loan amount</li><li>r = Monthly interest rate</li><li>n = Loan tenure in months</li>
+      </ul></div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+function calcEMI(){
+  const P=parseFloat(document.getElementById('loan').value);
+  const annual=parseFloat(document.getElementById('rate').value);
+  const n=parseInt(document.getElementById('tenure').value);
+  if(!P||!annual||!n) return alert('Please fill all fields.');
+  const r=annual/(12*100);
+  const emi = P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const total=emi*n, interest=total-P;
+  const fmt=v=>v.toLocaleString('en-IN',{minimumFractionDigits:0,maximumFractionDigits:0});
+  document.getElementById('emi').textContent     = '₹ '+fmt(emi);
+  document.getElementById('totalInt').textContent = '₹ '+fmt(interest);
+  document.getElementById('totalPay').textContent = '₹ '+fmt(total);
+  document.getElementById('emiResult').style.display='';
+}
+</script>
+</body></html>

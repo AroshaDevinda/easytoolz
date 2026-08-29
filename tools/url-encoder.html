@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Encoder/Decoder — EasyToolz</title>
+  <meta name="description" content="Free URL Encoder Decoder — encode or decode any URL or query string instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/url-encoder.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">URL Encoder/Decoder</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon developer">🔗</div><div><h1>URL Encoder / Decoder</h1><p>Encode or decode any URL or query string</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div class="form-group"><label class="form-label">Input</label><textarea id="urlIn" class="form-textarea" placeholder="Paste your URL or text here…"></textarea></div>
+      <div class="btn-group" style="margin-bottom:16px;">
+        <button class="btn btn-primary" onclick="encode()">🔒 Encode URL</button>
+        <button class="btn btn-secondary" onclick="decode()">🔓 Decode URL</button>
+        <button class="btn btn-secondary" onclick="encFull()">Encode (Full)</button>
+        <button class="btn btn-secondary" onclick="swap()">⇄ Swap</button>
+      </div>
+      <div class="form-group"><label class="form-label">Output</label>
+        <div id="urlOut" class="output-box" style="min-height:80px;">—</div>
+      </div>
+      <button class="copy-btn" onclick="copyText(document.getElementById('urlOut').textContent,this)">Copy Output</button>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  const inp=()=>document.getElementById('urlIn').value;
+  const out=(v)=>document.getElementById('urlOut').textContent=v;
+  function encode(){if(!inp().trim())return;try{out(encodeURIComponent(inp()));}catch(e){out('Error: '+e.message);}}
+  function decode(){if(!inp().trim())return;try{out(decodeURIComponent(inp().replace(/\+/g,' ')));}catch(e){out('Error: '+e.message);}}
+  function encFull(){if(!inp().trim())return;try{out(encodeURI(inp()));}catch(e){out('Error: '+e.message);}}
+  function swap(){const cur=document.getElementById('urlOut').textContent;document.getElementById('urlIn').value=cur==='—'?'':cur;}
+</script>
+</body></html>

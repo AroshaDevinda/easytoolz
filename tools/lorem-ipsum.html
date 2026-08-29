@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lorem Ipsum Generator — EasyToolz</title>
+  <meta name="description" content="Free Lorem Ipsum Generator — generate placeholder text for your designs and mockups." />
+  <link rel="canonical" href="https://easytoolz.click/tools/lorem-ipsum.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Lorem Ipsum Generator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon text">📄</div><div><h1>Lorem Ipsum Generator</h1><p>Generate placeholder text for designs and mockups</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Type</label>
+          <select id="loremType" class="form-select">
+            <option value="paragraphs">Paragraphs</option>
+            <option value="sentences">Sentences</option>
+            <option value="words">Words</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Count</label><input type="number" id="loremCount" class="form-input" value="3" min="1" max="50" /></div>
+      </div>
+      <div class="toggle-row"><span class="toggle-label">Start with "Lorem ipsum dolor sit amet…"</span><button class="toggle on" id="startClassic" onclick="this.classList.toggle('on')"></button></div>
+      <br/>
+      <button class="btn btn-primary btn-block" onclick="generate()">Generate Text</button>
+      <div id="loremOut" style="display:none;margin-top:20px;">
+        <div class="output-box" id="loremText" style="font-size:0.875rem;line-height:1.8;max-height:400px;overflow-y:auto;"></div>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('loremText').innerText,this)">Copy Text</button>
+          <button class="btn btn-secondary btn-sm" onclick="generate()">Regenerate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+const WORDS=['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','aliquip','ex','ea','commodo','consequat','duis','aute','irure','in','reprehenderit','voluptate','velit','esse','cillum','fugiat','nulla','pariatur','excepteur','sint','occaecat','cupidatat','non','proident','sunt','culpa','qui','officia','deserunt','mollit','anim','id','est','laborum','sed','perspiciatis','unde','omnis','iste','natus','error','accusantium','doloremque','laudantium','totam','rem','aperiam','eaque','ipsa','quae','ab','illo','inventore','veritatis','quasi','architecto','beatae','vitae','dicta','explicabo'];
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function sentence(){const n=rnd(8,20);const words=Array.from({length:n},()=>WORDS[rnd(0,WORDS.length-1)]);words[0]=words[0].charAt(0).toUpperCase()+words[0].slice(1);return words.join(' ')+'.';}
+function paragraph(){return Array.from({length:rnd(4,8)},()=>sentence()).join(' ');}
+function generate(){
+  const type=document.getElementById('loremType').value;
+  const count=Math.min(50,parseInt(document.getElementById('loremCount').value)||3);
+  const classic=document.getElementById('startClassic').classList.contains('on');
+  let text='';
+  if(type==='words'){
+    const words=Array.from({length:count},()=>WORDS[rnd(0,WORDS.length-1)]);
+    if(classic)words.splice(0,Math.min(5,count),'lorem','ipsum','dolor','sit','amet');
+    text=words.join(' ')+'.';
+  }else if(type==='sentences'){
+    const sents=Array.from({length:count},()=>sentence());
+    if(classic)sents[0]='Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+    text=sents.join(' ');
+  }else{
+    const paras=Array.from({length:count},()=>paragraph());
+    if(classic)paras[0]='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+    text=paras.join('\n\n');
+  }
+  document.getElementById('loremText').textContent=text;
+  document.getElementById('loremOut').style.display='';
+}
+</script>
+</body></html>

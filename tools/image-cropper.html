@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Cropper — EasyToolz</title>
+  <meta name="description" content="Free online Image Cropper — crop any image visually in your browser. No upload needed, 100% private." />
+  <link rel="canonical" href="https://easytoolz.click/tools/image-cropper.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Cropper</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">✂️</div><div><h1>Image Cropper</h1><p>Crop images visually right in your browser — free & private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:800px;">
+    <div class="tool-box">
+      <div id="uploadArea">
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+          <div class="drop-icon">✂️</div>
+          <div class="drop-text">Click or drag & drop an image here</div>
+          <div class="drop-sub">JPG, PNG, WebP, GIF supported</div>
+          <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImage(this.files[0])" />
+        </div>
+      </div>
+      <div id="cropArea" style="display:none;">
+        <div style="margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:0.85rem;color:var(--text-3);">Aspect Ratio:</span>
+          <button class="btn btn-secondary btn-sm ratio-btn active" data-ratio="free" onclick="setRatio('free',this)">Free</button>
+          <button class="btn btn-secondary btn-sm ratio-btn" data-ratio="1" onclick="setRatio(1,this)">1:1</button>
+          <button class="btn btn-secondary btn-sm ratio-btn" data-ratio="1.333" onclick="setRatio(1.333,this)">4:3</button>
+          <button class="btn btn-secondary btn-sm ratio-btn" data-ratio="1.778" onclick="setRatio(1.778,this)">16:9</button>
+          <button class="btn btn-secondary btn-sm ratio-btn" data-ratio="0.75" onclick="setRatio(0.75,this)">3:4</button>
+          <button class="btn btn-secondary btn-sm" onclick="resetCrop()">↺ Reset</button>
+          <button class="btn btn-primary btn-sm" onclick="changeImage()">Change Image</button>
+        </div>
+        <div id="cropWrapper" style="position:relative;display:inline-block;cursor:crosshair;user-select:none;max-width:100%;overflow:hidden;">
+          <img id="sourceImg" style="display:block;max-width:100%;max-height:500px;" />
+          <div id="overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.5);pointer-events:none;"></div>
+          <div id="selection" style="position:absolute;border:2px solid var(--teal);box-shadow:0 0 0 9999px rgba(0,0,0,0.5);display:none;pointer-events:none;"></div>
+        </div>
+        <div id="selInfo" style="margin-top:8px;font-size:0.8rem;color:var(--text-3);"></div>
+        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+          <select id="fmtSel" class="form-select" style="width:auto;">
+            <option value="image/png">PNG</option>
+            <option value="image/jpeg" selected>JPEG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+          <button class="btn btn-primary" id="cropBtn" onclick="doCrop()" disabled>✂️ Crop & Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+let img, startX, startY, isDragging = false, sel = {x:0,y:0,w:0,h:0}, ratio = 'free';
+let scaleX = 1, scaleY = 1;
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f=e.dataTransfer.files[0]; if(f) loadImage(f); });
+
+function loadImage(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const si = document.getElementById('sourceImg');
+    si.onload = () => {
+      scaleX = si.naturalWidth  / si.offsetWidth;
+      scaleY = si.naturalHeight / si.offsetHeight;
+      document.getElementById('overlay').style.display = 'none';
+      setupDrag();
+    };
+    si.src = e.target.result;
+    document.getElementById('uploadArea').style.display = 'none';
+    document.getElementById('cropArea').style.display = '';
+    document.getElementById('selection').style.display = 'none';
+    document.getElementById('cropBtn').disabled = true;
+  };
+  reader.readAsDataURL(file);
+}
+function changeImage() { document.getElementById('uploadArea').style.display=''; document.getElementById('cropArea').style.display='none'; }
+function setRatio(r, btn) {
+  ratio = r;
+  document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function resetCrop() { document.getElementById('selection').style.display='none'; document.getElementById('cropBtn').disabled=true; }
+
+function setupDrag() {
+  const wrap = document.getElementById('cropWrapper');
+  wrap.addEventListener('mousedown', e => {
+    const rect = wrap.getBoundingClientRect();
+    startX = e.clientX - rect.left; startY = e.clientY - rect.top;
+    isDragging = true;
+  });
+  wrap.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const rect = wrap.getBoundingClientRect();
+    let mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    let w = mx - startX, h = my - startY;
+    if (ratio !== 'free') { const abs = Math.max(Math.abs(w),Math.abs(Math.abs(h)/ratio)); w = Math.sign(w)*abs; h = Math.sign(h)*abs*ratio; }
+    const sx = w<0?startX+w:startX, sy = h<0?startY+h:startY;
+    sel = {x:Math.max(0,sx), y:Math.max(0,sy), w:Math.abs(w), h:Math.abs(h)};
+    const s = document.getElementById('selection');
+    s.style.cssText = `position:absolute;border:2px solid var(--teal);box-shadow:0 0 0 9999px rgba(0,0,0,0.5);display:block;left:${sel.x}px;top:${sel.y}px;width:${sel.w}px;height:${sel.h}px;pointer-events:none;`;
+    document.getElementById('selInfo').textContent = `Selection: ${Math.round(sel.w*scaleX)} × ${Math.round(sel.h*scaleY)} px`;
+    document.getElementById('cropBtn').disabled = (sel.w < 5 || sel.h < 5);
+  });
+  wrap.addEventListener('mouseup', () => { isDragging = false; });
+}
+function doCrop() {
+  const si = document.getElementById('sourceImg');
+  const canvas = document.createElement('canvas');
+  canvas.width  = Math.round(sel.w * scaleX);
+  canvas.height = Math.round(sel.h * scaleY);
+  canvas.getContext('2d').drawImage(si, sel.x*scaleX, sel.y*scaleY, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+  const fmt = document.getElementById('fmtSel').value;
+  const ext = fmt === 'image/png' ? 'png' : fmt === 'image/webp' ? 'webp' : 'jpg';
+  const a = document.createElement('a'); a.href = canvas.toDataURL(fmt, 0.92); a.download = `cropped.${ext}`; a.click();
+}
+</script>
+<style>
+.tool-page-icon.images { background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6; }
+.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
+.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
+.drop-icon { font-size:3rem;margin-bottom:12px; }
+.drop-text { font-weight:600;margin-bottom:6px; }
+.drop-sub  { font-size:.8rem;color:var(--text-3); }
+.ratio-btn.active { background:var(--teal);color:#000;border-color:var(--teal); }
+</style>
+</body></html>

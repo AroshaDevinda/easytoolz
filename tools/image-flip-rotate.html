@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Flip & Rotate — EasyToolz</title>
+  <meta name="description" content="Free Image Flip and Rotate tool — flip horizontally or vertically, rotate 90°/180°/270° in your browser. No upload needed." />
+  <link rel="canonical" href="https://easytoolz.click/tools/image-flip-rotate.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Flip & Rotate</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">🔃</div><div><h1>Image Flip & Rotate</h1><p>Flip or rotate any image instantly — free, no upload needed</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()" id="dz">
+        <div class="drop-icon">🔃</div>
+        <div class="drop-text">Click or drag & drop an image here</div>
+        <div class="drop-sub">JPG, PNG, WebP, GIF supported</div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
+      </div>
+      <div id="editor" style="display:none;">
+        <div style="text-align:center;margin:16px 0;">
+          <canvas id="canvas" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--border);"></canvas>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;">
+          <button class="btn btn-secondary" onclick="applyTransform('rotL')">↺ Rotate 90° Left</button>
+          <button class="btn btn-secondary" onclick="applyTransform('rotR')">↻ Rotate 90° Right</button>
+          <button class="btn btn-secondary" onclick="applyTransform('rot180')">🔁 Rotate 180°</button>
+          <button class="btn btn-secondary" onclick="applyTransform('flipH')">↔ Flip Horizontal</button>
+          <button class="btn btn-secondary" onclick="applyTransform('flipV')">↕ Flip Vertical</button>
+          <button class="btn btn-secondary" onclick="resetTransform()">↺ Reset</button>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <select id="fmtSel" class="form-select" style="width:auto;">
+            <option value="image/jpeg" selected>JPEG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+          <button class="btn btn-primary" onclick="download()">⬇ Download</button>
+          <button class="btn btn-secondary" onclick="changeImage()">Change Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+let origImg = null;
+let rotation = 0, flipH = false, flipV = false;
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => { origImg = img; rotation = 0; flipH = false; flipV = false; render(); document.getElementById('dropZone').style.display = 'none'; document.getElementById('editor').style.display = ''; };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function changeImage() { document.getElementById('dropZone').style.display = ''; document.getElementById('editor').style.display = 'none'; origImg=null; }
+function applyTransform(t) {
+  if (t==='rotL')   { rotation = (rotation - 90 + 360) % 360; }
+  if (t==='rotR')   { rotation = (rotation + 90) % 360; }
+  if (t==='rot180') { rotation = (rotation + 180) % 360; }
+  if (t==='flipH')  { flipH = !flipH; }
+  if (t==='flipV')  { flipV = !flipV; }
+  render();
+}
+function resetTransform() { rotation = 0; flipH = false; flipV = false; render(); }
+function render() {
+  const c = document.getElementById('canvas');
+  const rotated = rotation === 90 || rotation === 270;
+  c.width  = rotated ? origImg.naturalHeight : origImg.naturalWidth;
+  c.height = rotated ? origImg.naturalWidth  : origImg.naturalHeight;
+  const ctx = c.getContext('2d');
+  ctx.save();
+  ctx.translate(c.width/2, c.height/2);
+  ctx.rotate(rotation * Math.PI / 180);
+  ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
+  ctx.drawImage(origImg, -origImg.naturalWidth/2, -origImg.naturalHeight/2);
+  ctx.restore();
+}
+function download() {
+  const fmt = document.getElementById('fmtSel').value;
+  const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
+  const a = document.createElement('a'); a.href = document.getElementById('canvas').toDataURL(fmt,0.92); a.download = `transformed.${ext}`; a.click();
+}
+</script>
+<style>
+.tool-page-icon.images { background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6; }
+.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
+.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
+.drop-icon { font-size:3rem;margin-bottom:12px; }
+.drop-text { font-weight:600;margin-bottom:6px; }
+.drop-sub  { font-size:.8rem;color:var(--text-3); }
+</style>
+</body></html>

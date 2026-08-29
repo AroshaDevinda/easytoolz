@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meme Generator — EasyToolz</title>
+  <meta name="description" content="Free online Meme Generator — add top and bottom text to any image, download your meme instantly. No upload needed." />
+  <link rel="canonical" href="https://easytoolz.click/tools/meme-generator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Meme Generator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">😂</div><div><h1>Meme Generator</h1><p>Create memes with custom text on any image — free & instant</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+        <div class="drop-icon">😂</div>
+        <div class="drop-text">Click or drag & drop an image here</div>
+        <div class="drop-sub">JPG, PNG, WebP, GIF supported</div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImg(this.files[0])" />
+      </div>
+      <div id="editor" style="display:none;margin-top:20px;">
+        <div class="form-row" style="margin-bottom:12px;">
+          <div class="form-group">
+            <label class="form-label">Top Text</label>
+            <input type="text" id="topText" class="form-input" placeholder="TOP TEXT" oninput="render()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bottom Text</label>
+            <input type="text" id="botText" class="form-input" placeholder="BOTTOM TEXT" oninput="render()" />
+          </div>
+        </div>
+        <div class="form-row" style="margin-bottom:16px;">
+          <div class="form-group">
+            <label class="form-label">Font Size</label>
+            <input type="range" id="fontSize" min="20" max="120" value="52" style="width:100%;accent-color:var(--teal);" oninput="render()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Text Color</label>
+            <select id="textColor" class="form-select" onchange="render()">
+              <option value="white">White (classic)</option>
+              <option value="black">Black</option>
+              <option value="#ffff00">Yellow</option>
+              <option value="#ff4444">Red</option>
+            </select>
+          </div>
+        </div>
+        <canvas id="memeCanvas" style="max-width:100%;display:block;border-radius:var(--radius);margin-bottom:16px;"></canvas>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="download()">⬇ Download Meme</button>
+          <button class="btn btn-secondary" onclick="changeImg()">Change Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+let img=null;
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadImg(e.dataTransfer.files[0]);});
+
+function loadImg(file){
+  if(!file||!file.type.startsWith('image/'))return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const i=new Image();
+    i.onload=()=>{img=i;render();document.getElementById('dropZone').style.display='none';document.getElementById('editor').style.display='';};
+    i.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function changeImg(){document.getElementById('dropZone').style.display='';document.getElementById('editor').style.display='none';img=null;}
+function render(){
+  if(!img)return;
+  const c=document.getElementById('memeCanvas');
+  c.width=img.naturalWidth; c.height=img.naturalHeight;
+  const ctx=c.getContext('2d');
+  ctx.drawImage(img,0,0);
+  const fs=parseInt(document.getElementById('fontSize').value)||52;
+  const color=document.getElementById('textColor').value;
+  ctx.font=`900 ${fs}px Impact, Arial Black, sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='top';
+  ctx.fillStyle=color;ctx.strokeStyle='#000';ctx.lineWidth=fs*0.08;
+  const topText=document.getElementById('topText').value.toUpperCase();
+  const botText=document.getElementById('botText').value.toUpperCase();
+  const pad=fs*0.4;
+  if(topText){ctx.strokeText(topText,c.width/2,pad);ctx.fillText(topText,c.width/2,pad);}
+  if(botText){
+    ctx.textBaseline='bottom';
+    ctx.strokeText(botText,c.width/2,c.height-pad);
+    ctx.fillText(botText,c.width/2,c.height-pad);
+  }
+}
+function download(){
+  const a=document.createElement('a');a.href=document.getElementById('memeCanvas').toDataURL('image/jpeg',.92);a.download='meme.jpg';a.click();
+}
+</script>
+<style>
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.images{background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6}
+</style>
+</body></html>

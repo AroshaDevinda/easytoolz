@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List — EasyToolz</title>
+  <meta name="description" content="Free online To-Do List. Simple task manager — no sign-up, no account. Tasks save in your browser." />
+  <link rel="canonical" href="https://easytoolz.click/tools/todo-list.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">To-Do List</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon daily">✅</div><div><h1>To-Do List</h1><p>Simple daily task manager — saved in your browser</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
+    <div class="tool-box">
+      <div class="todo-input-row">
+        <input type="text" id="newTask" class="form-input" placeholder="Add a new task…" maxlength="200" onkeydown="if(event.key==='Enter')addTask()" />
+        <button class="btn btn-primary" onclick="addTask()">+ Add</button>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <span id="taskStats" style="font-size:0.82rem;color:var(--text-3);">0 tasks</span>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-secondary" onclick="clearDone()">Clear done</button>
+          <button class="btn btn-sm btn-danger" onclick="clearAll()">Clear all</button>
+        </div>
+      </div>
+      <ul class="todo-list-items" id="taskList"></ul>
+      <div id="emptyState" style="text-align:center;padding:40px;color:var(--text-3);">
+        <div style="font-size:2.5rem;margin-bottom:8px;">📋</div>
+        <p>No tasks yet. Add one above!</p>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  const STORAGE_KEY = 'easytoolz_todos';
+  let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); }
+
+  function render() {
+    const list = document.getElementById('taskList');
+    const empty = document.getElementById('emptyState');
+    list.innerHTML = '';
+    const done = tasks.filter(t => t.done).length;
+    document.getElementById('taskStats').textContent = `${tasks.length} task${tasks.length!==1?'s':''} · ${done} done`;
+    empty.style.display = tasks.length === 0 ? '' : 'none';
+    tasks.forEach((t, i) => {
+      const li = document.createElement('li');
+      li.className = 'todo-item' + (t.done ? ' done' : '');
+      li.innerHTML = `
+        <button class="todo-check ${t.done?'checked':''}" onclick="toggle(${i})">${t.done?'✓':''}</button>
+        <span class="todo-text">${escHtml(t.text)}</span>
+        <button class="todo-del" onclick="del(${i})">✕</button>`;
+      list.appendChild(li);
+    });
+  }
+
+  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function addTask() {
+    const inp = document.getElementById('newTask');
+    const text = inp.value.trim();
+    if (!text) return;
+    tasks.unshift({ text, done: false });
+    inp.value = ''; save(); render();
+  }
+
+  function toggle(i) { tasks[i].done = !tasks[i].done; save(); render(); }
+  function del(i)    { tasks.splice(i, 1); save(); render(); }
+  function clearDone(){ tasks = tasks.filter(t => !t.done); save(); render(); }
+  function clearAll() { if (confirm('Clear all tasks?')) { tasks = []; save(); render(); } }
+
+  render();
+</script>
+</body></html>

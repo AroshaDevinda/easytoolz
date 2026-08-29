@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EasyToolz — 38 Free Online Tools for Everyone</title>
+  <meta name="description" content="EasyToolz.click — 38 free online tools including PDF tools, image tools, calculators, text converters and more. No sign-up, no install, works in browser." />
+  <meta name="keywords" content="free online tools, PDF merger, image cropper, image converter, PDF to images, image watermark, BMI calculator, QR code generator, age calculator, unit converter, online notepad, stopwatch" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://easytoolz.click/" />
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Open Graph -->
+  <meta property="og:title" content="EasyToolz — 38 Free Online Tools for Everyone" />
+  <meta property="og:description" content="38+ free browser-based tools — PDF, image, calculators, text & more. No sign-up. No install. Just tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EasyToolz",
+    "url": "https://easytoolz.click",
+    "description": "38 free browser-based tools — PDF, image, calculators, text & more.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <!-- AdSense: replace with your pub ID when ready -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="brand">EasyToolz</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="privacy-policy.html">Privacy</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="container">
+    <div class="hero-badge">✨ 100% Free &nbsp;·&nbsp; No Sign-up &nbsp;·&nbsp; Works in Browser</div>
+    <h1>Free Tools for <span class="gradient-text">Everyone</span></h1>
+    <p>All the tools you need for everyday tasks — image editing, calculators, text tools, daily utilities and more.</p>
+
+    <!-- Search -->
+    <div class="search-wrapper">
+      <span class="search-icon-left">🔍</span>
+      <input type="search" id="searchInput" placeholder='Search tools… or press "/" to focus' autocomplete="off" />
+      <button id="searchClear" aria-label="Clear search">✕</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <span>🛠️ <strong>60+</strong> Free Tools</span>
+      <span>📦 <strong>7</strong> Categories</span>
+      <span>🔒 <strong>No</strong> Sign-up</span>
+      <span>⚡ <strong>Works</strong> Offline</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TOOLS ═══════════ -->
+<main class="tools-section">
+  <div class="container">
+
+    <!-- AdSense Top -->
+    <div class="ad-slot">
+      <!-- AdSense Ad Unit — Top Banner -->
+      <!-- Replace with actual ad code when AdSense is approved -->
+      <p>Advertisement</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="cat-bar" role="tablist">
+      <button class="cat-tab active" data-cat="all"         role="tab">🔥 All Tools</button>
+      <button class="cat-tab"        data-cat="images"      role="tab">🖼️ Images</button>
+      <button class="cat-tab"        data-cat="pdf"         role="tab">📄 PDF</button>
+      <button class="cat-tab"        data-cat="calculators" role="tab">🧮 Calculators</button>
+      <button class="cat-tab"        data-cat="text"        role="tab">📝 Text</button>
+      <button class="cat-tab"        data-cat="developer"   role="tab">🔧 Developer</button>
+      <button class="cat-tab"        data-cat="utilities"   role="tab">🛠️ Utilities</button>
+      <button class="cat-tab"        data-cat="daily"       role="tab">📅 Daily</button>
+    </div>
+
+    <!-- Section header -->
+    <div class="section-header">
+      <h2 class="section-title">All Tools</h2>
+      <span id="toolsCount">60+ tools</span>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="tools-grid" id="toolsGrid">
+
+      <!-- 🖼️ IMAGES -->
+      <a href="tools/image-compressor.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🖼️</div>
+        <h3>Image Compressor</h3>
+        <p>Compress images without losing quality, right in your browser.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-resizer.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">📐</div>
+        <h3>Image Resizer</h3>
+        <p>Resize images to any dimension instantly — no upload needed.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-to-base64.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🔢</div>
+        <h3>Image to Base64</h3>
+        <p>Convert any image to a Base64 encoded string instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-cropper.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">✂️</div>
+        <h3>Image Cropper</h3>
+        <p>Crop images visually in your browser — free and instant.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-converter.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🔄</div>
+        <h3>Image Converter</h3>
+        <p>Convert JPG, PNG, WebP images to any format instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-flip-rotate.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🔃</div>
+        <h3>Image Flip &amp; Rotate</h3>
+        <p>Flip horizontally, vertically or rotate 90°/180°/270° free.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-watermark.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🔖</div>
+        <h3>Image Watermark</h3>
+        <p>Add a custom text watermark to any image easily.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-color-extractor.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🎨</div>
+        <h3>Image Color Extractor</h3>
+        <p>Extract dominant colors and full palette from any image.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge images">Images</span>
+        </div>
+      </a>
+
+      <a href="tools/image-upscale.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🔭</div>
+        <h3>Image Upscale</h3>
+        <p>Enlarge images 2× or 4× with high-quality interpolation.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge images">Images</span></div>
+      </a>
+
+      <a href="tools/image-blur-face.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🌫️</div>
+        <h3>Blur Face / Area</h3>
+        <p>Select and blur any region of an image — faces, plates, text.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge images">Images</span></div>
+      </a>
+
+      <a href="tools/image-remove-bg.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">✂️</div>
+        <h3>Remove Background</h3>
+        <p>Background removal alternatives & free AI tools guide.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge images">Images</span></div>
+      </a>
+
+      <a href="tools/meme-generator.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">😂</div>
+        <h3>Meme Generator</h3>
+        <p>Add top/bottom text to any image — create memes instantly.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge images">Images</span></div>
+      </a>
+
+      <a href="tools/photo-editor.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🖌️</div>
+        <h3>Photo Editor</h3>
+        <p>Adjust brightness, contrast, saturation & apply filters free.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge images">Images</span></div>
+      </a>
+
+      <a href="tools/html-to-image.html" class="tool-card" data-cat="images">
+        <div class="tool-icon">🌐</div>
+        <h3>HTML to Image</h3>
+        <p>Convert HTML/CSS code into a downloadable PNG image.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge images">Images</span></div>
+      </a>
+      <a href="tools/pdf-page-counter.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📄</div>
+        <h3>PDF Page Counter</h3>
+        <p>Count the number of pages in any PDF file instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge pdf">PDF</span>
+        </div>
+      </a>
+
+      <a href="tools/pdf-to-images.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🖼️</div>
+        <h3>PDF to Images</h3>
+        <p>Convert each page of a PDF to a PNG image in your browser.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge pdf">PDF</span>
+        </div>
+      </a>
+
+      <a href="tools/images-to-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📎</div>
+        <h3>Images to PDF</h3>
+        <p>Combine multiple JPG or PNG images into one PDF file.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge pdf">PDF</span>
+        </div>
+      </a>
+
+      <a href="tools/pdf-merger.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🔗</div>
+        <h3>PDF Merger</h3>
+        <p>Merge multiple PDF files into one — browser-only, no upload.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge pdf">PDF</span>
+        </div>
+      </a>
+
+      <a href="tools/pdf-text-extractor.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📋</div>
+        <h3>PDF Text Extractor</h3>
+        <p>Extract all readable text from any PDF file easily.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge pdf">PDF</span>
+        </div>
+      </a>
+
+      <!-- New PDF tools -->
+      <a href="tools/pdf-split.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">✂️</div>
+        <h3>PDF Split</h3>
+        <p>Split a PDF into individual pages or custom page ranges.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-remove-pages.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🗑️</div>
+        <h3>Remove PDF Pages</h3>
+        <p>Delete specific pages from any PDF file easily.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-extract-pages.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📤</div>
+        <h3>Extract PDF Pages</h3>
+        <p>Extract specific pages into a separate PDF document.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-organize.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📋</div>
+        <h3>Organize PDF</h3>
+        <p>Reorder and rearrange pages in any PDF file.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/scan-to-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📸</div>
+        <h3>Scan to PDF</h3>
+        <p>Use your camera or upload images to create a PDF.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-compress.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📦</div>
+        <h3>Compress PDF</h3>
+        <p>Reduce PDF file size — browser-based, no upload needed.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-repair.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🔧</div>
+        <h3>Repair PDF</h3>
+        <p>Free PDF repair alternatives guide and best tools.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/ocr-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🔍</div>
+        <h3>OCR PDF</h3>
+        <p>Extract text from scanned PDFs using Tesseract.js — browser-only.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/word-to-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📝</div>
+        <h3>WORD to PDF</h3>
+        <p>Free alternatives guide for converting Word to PDF.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/powerpoint-to-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📊</div>
+        <h3>PPT to PDF</h3>
+        <p>Free alternatives guide for converting PowerPoint to PDF.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/excel-to-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📊</div>
+        <h3>EXCEL to PDF</h3>
+        <p>Free alternatives guide for converting Excel to PDF.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/html-to-pdf.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🌐</div>
+        <h3>HTML to PDF</h3>
+        <p>Convert HTML/CSS code into a printable PDF.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-to-word.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📝</div>
+        <h3>PDF to WORD</h3>
+        <p>Free alternatives guide for converting PDF to Word.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-to-excel.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">📊</div>
+        <h3>PDF to EXCEL</h3>
+        <p>Free alternatives guide for converting PDF to Excel.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-rotate.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🔄</div>
+        <h3>Rotate PDF</h3>
+        <p>Rotate all or specific PDF pages 90°, 180°, 270°.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-add-page-numbers.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🔢</div>
+        <h3>Add Page Numbers</h3>
+        <p>Add customizable page numbers to any PDF — free.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-add-watermark.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">💧</div>
+        <h3>PDF Watermark</h3>
+        <p>Add text watermark to all PDF pages — diagonal, tiled, or bottom.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-compare.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🔍</div>
+        <h3>Compare PDF</h3>
+        <p>Free PDF compare alternatives and best tools guide.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-sign.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">✍️</div>
+        <h3>Sign PDF</h3>
+        <p>Draw your signature and embed it into a PDF page.</p>
+        <div class="tool-card-footer"><span class="use-btn">Use Tool →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-redact.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🖊️</div>
+        <h3>Redact PDF</h3>
+        <p>Secure PDF redaction alternatives & free tools guide.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-ai-summarizer.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🤖</div>
+        <h3>AI PDF Summarizer</h3>
+        <p>AI summarizer free alternatives & tools guide.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+
+      <a href="tools/pdf-translate.html" class="tool-card" data-cat="pdf">
+        <div class="tool-icon">🌐</div>
+        <h3>Translate PDF</h3>
+        <p>PDF translation free alternatives & best tools guide.</p>
+        <div class="tool-card-footer"><span class="use-btn">View Guide →</span><span class="cat-badge pdf">PDF</span></div>
+      </a>
+      <a href="tools/age-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">🎂</div>
+        <h3>Age Calculator</h3>
+        <p>Calculate your exact age in years, months and days.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <a href="tools/bmi-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">⚖️</div>
+        <h3>BMI Calculator</h3>
+        <p>Check your Body Mass Index and health status in seconds.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <a href="tools/percentage-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">💯</div>
+        <h3>Percentage Calculator</h3>
+        <p>Quick percentage calculations — of, change, increase/decrease.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <a href="tools/emi-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">🏦</div>
+        <h3>EMI Calculator</h3>
+        <p>Calculate monthly loan installments and total interest payable.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <a href="tools/tip-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">🍽️</div>
+        <h3>Tip Calculator</h3>
+        <p>Calculate tips and split bills among friends effortlessly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <a href="tools/discount-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">🏷️</div>
+        <h3>Discount Calculator</h3>
+        <p>Find the final price after any discount or coupon code.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <a href="tools/scientific-calculator.html" class="tool-card" data-cat="calculators">
+        <div class="tool-icon">🧮</div>
+        <h3>Scientific Calculator</h3>
+        <p>Full-featured scientific calculator with trig, log, and more.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge calculators">Calculators</span>
+        </div>
+      </a>
+
+      <!-- 📝 TEXT -->
+      <a href="tools/word-counter.html" class="tool-card" data-cat="text">
+        <div class="tool-icon">📝</div>
+        <h3>Word Counter</h3>
+        <p>Count words, characters, sentences, paragraphs and reading time.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge text">Text</span>
+        </div>
+      </a>
+
+      <a href="tools/case-converter.html" class="tool-card" data-cat="text">
+        <div class="tool-icon">🔤</div>
+        <h3>Case Converter</h3>
+        <p>Convert text to UPPER, lower, Title Case, camelCase and more.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge text">Text</span>
+        </div>
+      </a>
+
+      <a href="tools/lorem-ipsum.html" class="tool-card" data-cat="text">
+        <div class="tool-icon">📄</div>
+        <h3>Lorem Ipsum Generator</h3>
+        <p>Generate placeholder text for your designs and mockups.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge text">Text</span>
+        </div>
+      </a>
+
+      <a href="tools/text-repeater.html" class="tool-card" data-cat="text">
+        <div class="tool-icon">🔁</div>
+        <h3>Text Repeater</h3>
+        <p>Repeat any text or character any number of times instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge text">Text</span>
+        </div>
+      </a>
+
+      <!-- 🔧 DEVELOPER -->
+      <a href="tools/json-formatter.html" class="tool-card" data-cat="developer">
+        <div class="tool-icon">{ }</div>
+        <h3>JSON Formatter</h3>
+        <p>Format, validate and beautify messy JSON data instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge developer">Developer</span>
+        </div>
+      </a>
+
+      <a href="tools/url-encoder.html" class="tool-card" data-cat="developer">
+        <div class="tool-icon">🔗</div>
+        <h3>URL Encoder/Decoder</h3>
+        <p>Encode or decode any URL or query string easily.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge developer">Developer</span>
+        </div>
+      </a>
+
+      <a href="tools/color-picker.html" class="tool-card" data-cat="developer">
+        <div class="tool-icon">🎨</div>
+        <h3>Color Picker</h3>
+        <p>Pick colors and get HEX, RGB and HSL codes instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge developer">Developer</span>
+        </div>
+      </a>
+
+      <!-- 🛠️ UTILITIES -->
+      <a href="tools/qr-code-generator.html" class="tool-card" data-cat="utilities">
+        <div class="tool-icon">📱</div>
+        <h3>QR Code Generator</h3>
+        <p>Create QR codes for any URL, text or contact info instantly.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge utilities">Utilities</span>
+        </div>
+      </a>
+
+      <a href="tools/password-generator.html" class="tool-card" data-cat="utilities">
+        <div class="tool-icon">🔐</div>
+        <h3>Password Generator</h3>
+        <p>Generate strong, secure random passwords with custom rules.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge utilities">Utilities</span>
+        </div>
+      </a>
+
+      <a href="tools/unit-converter.html" class="tool-card" data-cat="utilities">
+        <div class="tool-icon">📏</div>
+        <h3>Unit Converter</h3>
+        <p>Convert length, weight, temperature, speed and more.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge utilities">Utilities</span>
+        </div>
+      </a>
+
+      <a href="tools/currency-converter.html" class="tool-card" data-cat="utilities">
+        <div class="tool-icon">💱</div>
+        <h3>Currency Converter</h3>
+        <p>Convert between world currencies with up-to-date rates.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge utilities">Utilities</span>
+        </div>
+      </a>
+
+      <!-- 📅 DAILY -->
+      <a href="tools/stopwatch.html" class="tool-card" data-cat="daily">
+        <div class="tool-icon">⏱️</div>
+        <h3>Stopwatch</h3>
+        <p>Online stopwatch with lap timer — start, pause, and record laps.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge daily">Daily</span>
+        </div>
+      </a>
+
+      <a href="tools/countdown-timer.html" class="tool-card" data-cat="daily">
+        <div class="tool-icon">⏳</div>
+        <h3>Countdown Timer</h3>
+        <p>Set a countdown timer for any duration with sound alert.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge daily">Daily</span>
+        </div>
+      </a>
+
+      <a href="tools/notepad.html" class="tool-card" data-cat="daily">
+        <div class="tool-icon">📓</div>
+        <h3>Online Notepad</h3>
+        <p>Quick notes that auto-save in your browser — always there when you need them.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge daily">Daily</span>
+        </div>
+      </a>
+
+      <a href="tools/todo-list.html" class="tool-card" data-cat="daily">
+        <div class="tool-icon">✅</div>
+        <h3>To-Do List</h3>
+        <p>Simple daily task manager — no account or sign-up needed.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge daily">Daily</span>
+        </div>
+      </a>
+
+      <a href="tools/date-calculator.html" class="tool-card" data-cat="daily">
+        <div class="tool-icon">📅</div>
+        <h3>Date Calculator</h3>
+        <p>Calculate the exact number of days, weeks or months between two dates.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge daily">Daily</span>
+        </div>
+      </a>
+
+      <a href="tools/fuel-calculator.html" class="tool-card" data-cat="daily">
+        <div class="tool-icon">⛽</div>
+        <h3>Fuel Cost Calculator</h3>
+        <p>Calculate the fuel cost for any trip based on distance and mileage.</p>
+        <div class="tool-card-footer">
+          <span class="use-btn">Use Tool →</span>
+          <span class="cat-badge daily">Daily</span>
+        </div>
+      </a>
+
+      <!-- No results message -->
+      <div class="no-results" id="noResults">
+        <span class="emoji">🔍</span>
+        <strong>No tools found</strong>
+        <p>Try a different search term</p>
+      </div>
+
+    </div><!-- /tools-grid -->
+
+    <!-- AdSense Bottom -->
+    <div class="ad-slot" style="margin-top:40px;">
+      <!-- AdSense Ad Unit — Bottom Banner -->
+      <p>Advertisement</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          <span class="brand">EasyToolz</span>
+        </a>
+        <p>Free browser-based tools for everyday tasks. No sign-up, no download, just tools.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="tools/image-compressor.html">Image Compressor</a></li>
+          <li><a href="tools/bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="tools/qr-code-generator.html">QR Generator</a></li>
+          <li><a href="tools/password-generator.html">Password Generator</a></li>
+          <li><a href="tools/stopwatch.html">Stopwatch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Daily Tools</h4>
+        <ul>
+          <li><a href="tools/notepad.html">Online Notepad</a></li>
+          <li><a href="tools/todo-list.html">To-Do List</a></li>
+          <li><a href="tools/countdown-timer.html">Countdown Timer</a></li>
+          <li><a href="tools/date-calculator.html">Date Calculator</a></li>
+          <li><a href="tools/fuel-calculator.html">Fuel Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 EasyToolz.click — All rights reserved</span>
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

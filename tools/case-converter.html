@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Converter — EasyToolz</title>
+  <meta name="description" content="Free online Case Converter — convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case and more." />
+  <link rel="canonical" href="https://easytoolz.click/tools/case-converter.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Case Converter</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon text">🔤</div><div><h1>Case Converter</h1><p>Convert text to any case instantly</p></div></div>
+  <div class="tool-layout full-width">
+    <div class="tool-box">
+      <div class="form-group"><label class="form-label">Input Text</label><textarea id="inp" class="form-textarea" placeholder="Type or paste your text here…"></textarea></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <button class="btn btn-sm btn-secondary" onclick="conv('upper')">UPPERCASE</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('lower')">lowercase</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('title')">Title Case</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('sentence')">Sentence case</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('camel')">camelCase</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('pascal')">PascalCase</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('snake')">snake_case</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('kebab')">kebab-case</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('alt')">aLtErNaTiNg</button>
+      </div>
+      <div class="form-group"><label class="form-label">Output</label>
+        <div id="out" class="output-box" style="min-height:100px;">—</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('out').textContent,this)">Copy Output</button>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('inp').value='';document.getElementById('out').textContent='—'">Clear</button>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function conv(type){
+    const inp=document.getElementById('inp').value;
+    if(!inp.trim())return;
+    let out='';
+    const words=inp.trim().split(/\s+/);
+    switch(type){
+      case 'upper':    out=inp.toUpperCase(); break;
+      case 'lower':    out=inp.toLowerCase(); break;
+      case 'title':    out=words.map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(' '); break;
+      case 'sentence': out=inp.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g,c=>c.toUpperCase()); break;
+      case 'camel':    out=words.map((w,i)=>i===0?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(''); break;
+      case 'pascal':   out=words.map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(''); break;
+      case 'snake':    out=words.map(w=>w.toLowerCase()).join('_'); break;
+      case 'kebab':    out=words.map(w=>w.toLowerCase()).join('-'); break;
+      case 'alt':      out=[...inp].map((c,i)=>i%2===0?c.toLowerCase():c.toUpperCase()).join(''); break;
+    }
+    document.getElementById('out').textContent=out;
+  }
+</script>
+</body></html>

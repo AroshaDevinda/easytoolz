@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator — EasyToolz</title>
+  <meta name="description" content="Calculate your exact age in years, months and days with our free online Age Calculator." />
+  <link rel="canonical" href="https://easytoolz.click/tools/age-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html">Home</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><a href="../index.html">Tools</a><span class="sep">›</span><span class="current">Age Calculator</span></nav>
+
+  <div class="tool-page-header">
+    <div class="tool-page-icon calculators">🎂</div>
+    <div><h1>Age Calculator</h1><p>Calculate your exact age in years, months and days</p></div>
+  </div>
+
+  <div class="tool-layout">
+    <div class="tool-box">
+      <div class="form-group">
+        <label class="form-label">Your Date of Birth</label>
+        <input type="date" id="dob" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Calculate Age On</label>
+        <input type="date" id="today" class="form-input" />
+      </div>
+      <button class="btn btn-primary btn-block" onclick="calcAge()">Calculate Age</button>
+
+      <div class="result-box" id="result" style="margin-top:20px;">
+        <div class="result-value" id="mainAge"></div>
+        <div class="result-label" id="subAge"></div>
+        <div class="result-sub" id="nextBday"></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="ad-slot"><p>Advertisement</p></div>
+      <div class="sidebar-info"><h4>About This Tool</h4><ul>
+        <li>Calculates exact age</li><li>Works for any date range</li><li>Shows next birthday</li><li>No data stored</li>
+      </ul></div>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
+<script src="../js/main.js"></script>
+<script>
+  // Set today's date as default
+  const todayInput = document.getElementById('today');
+  const dobInput   = document.getElementById('dob');
+  const now = new Date();
+  todayInput.value = now.toISOString().split('T')[0];
+
+  function calcAge() {
+    const dob   = new Date(dobInput.value);
+    const today = new Date(todayInput.value);
+    if (!dobInput.value || isNaN(dob)) return alert('Please enter your date of birth.');
+    if (dob >= today) return alert('Date of birth must be before the target date.');
+
+    let years  = today.getFullYear() - dob.getFullYear();
+    let months = today.getMonth()    - dob.getMonth();
+    let days   = today.getDate()     - dob.getDate();
+
+    if (days   < 0) { months--; days   += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+    if (months < 0) { years--;  months += 12; }
+
+    const totalDays = Math.floor((today - dob) / 86400000);
+
+    // Next birthday
+    const nextBday = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+    if (nextBday <= today) nextBday.setFullYear(today.getFullYear() + 1);
+    const daysToNext = Math.ceil((nextBday - today) / 86400000);
+
+    document.getElementById('mainAge').textContent = `${years} Years, ${months} Months, ${days} Days`;
+    document.getElementById('subAge').textContent  = `Total: ${totalDays.toLocaleString()} days lived`;
+    document.getElementById('nextBday').textContent = `🎂 Next birthday in ${daysToNext} day${daysToNext===1?'':'s'}`;
+    document.getElementById('result').classList.add('show');
+  }
+</script>
+</body></html>

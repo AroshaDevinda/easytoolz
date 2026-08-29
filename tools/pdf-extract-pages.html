@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extract PDF Pages — EasyToolz</title>
+  <meta name="description" content="Free PDF page extractor — extract specific pages from a PDF into a new file. No upload needed." />
+  <link rel="canonical" href="https://easytoolz.click/tools/pdf-extract-pages.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Extract PDF Pages</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon pdf">📤</div><div><h1>Extract PDF Pages</h1><p>Extract specific pages from a PDF into a new document — free & private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
+        <div class="drop-icon">📄</div>
+        <div class="drop-text">Click or drag & drop a PDF here</div>
+        <div class="drop-sub">File never leaves your device</div>
+        <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="loadPDF(this.files[0])" />
+      </div>
+      <div id="controls" style="display:none;margin-top:20px;">
+        <div id="fileInfo" style="font-size:.85rem;color:var(--text-3);margin-bottom:16px;"></div>
+        <div class="form-group">
+          <label class="form-label">Pages to extract <span style="color:var(--text-3);font-weight:400;">(e.g. 1-3, 5, 7-9)</span></label>
+          <input type="text" id="pageInput" class="form-input" placeholder="e.g. 1-3, 5, 7-9" />
+        </div>
+        <div id="pageGrid" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
+        <button class="btn btn-primary btn-block" onclick="doExtract()">📤 Extract Pages & Download</button>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Extracting…</div>
+        <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+const { PDFDocument } = PDFLib;
+let pdfDoc=null, totalPages=0, fileName='', selected=new Set();
+
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadPDF(e.dataTransfer.files[0]);});
+
+async function loadPDF(file){
+  if(!file||file.type!=='application/pdf'){showErr('Please select a valid PDF.');return;}
+  fileName=file.name.replace(/\.pdf$/i,'');
+  const buf=await file.arrayBuffer();
+  try{
+    pdfDoc=await PDFDocument.load(buf);
+    totalPages=pdfDoc.getPageCount();
+    document.getElementById('fileInfo').textContent=`📄 ${file.name} · ${totalPages} pages`;
+    renderGrid();
+    document.getElementById('controls').style.display='';
+  }catch(e){showErr('Could not read PDF.');}
+}
+function renderGrid(){
+  const grid=document.getElementById('pageGrid');
+  grid.innerHTML='<div style="width:100%;font-size:.8rem;color:var(--text-3);margin-bottom:4px;">Click pages to select:</div>';
+  for(let i=1;i<=totalPages;i++){
+    const btn=document.createElement('button');
+    btn.textContent=i;btn.dataset.page=i;
+    btn.style.cssText='width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);cursor:pointer;font-size:.85rem;transition:all .15s;';
+    btn.onclick=()=>{
+      if(selected.has(i)){selected.delete(i);btn.style.background='var(--glass)';btn.style.borderColor='var(--border)';btn.style.color='var(--text)';}
+      else{selected.add(i);btn.style.background='rgba(0,212,170,.15)';btn.style.borderColor='var(--teal)';btn.style.color='var(--teal)';}
+      syncToInput();
+    };
+    grid.appendChild(btn);
+  }
+  document.getElementById('pageInput').addEventListener('input',syncFromInput);
+}
+function syncToInput(){document.getElementById('pageInput').value=[...selected].sort((a,b)=>a-b).join(', ');}
+function syncFromInput(){
+  selected.clear();
+  parseList(document.getElementById('pageInput').value).forEach(n=>selected.add(n));
+  document.querySelectorAll('#pageGrid button[data-page]').forEach(btn=>{
+    const n=parseInt(btn.dataset.page);
+    if(selected.has(n)){btn.style.background='rgba(0,212,170,.15)';btn.style.borderColor='var(--teal)';btn.style.color='var(--teal)';}
+    else{btn.style.background='var(--glass)';btn.style.borderColor='var(--border)';btn.style.color='var(--text)';}
+  });
+}
+function parseList(str){
+  const pages=[];
+  str.split(',').map(s=>s.trim()).filter(Boolean).forEach(p=>{
+    if(p.includes('-')){const[a,b]=p.split('-').map(Number);for(let i=a;i<=b;i++)if(i>=1&&i<=totalPages)pages.push(i);}
+    else{const n=parseInt(p);if(!isNaN(n)&&n>=1&&n<=totalPages)pages.push(n);}
+  });
+  return pages;
+}
+async function doExtract(){
+  if(!pdfDoc||!selected.size){showErr('Please select at least one page.');return;}
+  document.getElementById('loading').style.display='block';
+  document.getElementById('errMsg').style.display='none';
+  try{
+    const indices=[...selected].sort((a,b)=>a-b).map(n=>n-1);
+    const newDoc=await PDFDocument.create();
+    const copied=await newDoc.copyPages(pdfDoc,indices);
+    copied.forEach(p=>newDoc.addPage(p));
+    const bytes=await newDoc.save();
+    const blob=new Blob([bytes],{type:'application/pdf'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${fileName}-extracted.pdf`;a.click();
+  }catch(e){showErr('Failed: '+e.message);}
+  document.getElementById('loading').style.display='none';
+}
+function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+</script>
+<style>
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.pdf{background:rgba(251,146,60,.15);color:#fb923c}
+</style>
+</body></html>
