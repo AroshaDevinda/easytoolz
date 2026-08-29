@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scientific Calculator — EasyToolz</title>
+  <meta name="description" content="Free online Scientific Calculator with trigonometry, logarithm, and more." />
+  <link rel="canonical" href="https://easytoolz.click/tools/scientific-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Scientific Calculator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon calculators">🧮</div><div><h1>Scientific Calculator</h1><p>Full-featured scientific calculator</p></div></div>
+  <div class="tool-layout full-width" style="max-width:480px;">
+    <div class="tool-box" style="padding:20px;">
+      <div class="sci-display">
+        <div class="sci-expr" id="sciExpr"></div>
+        <div class="sci-val" id="sciVal">0</div>
+      </div>
+      <div class="sci-grid">
+        <button class="sci-btn fn" onclick="fn('sin(')">sin</button>
+        <button class="sci-btn fn" onclick="fn('cos(')">cos</button>
+        <button class="sci-btn fn" onclick="fn('tan(')">tan</button>
+        <button class="sci-btn fn" onclick="fn('Math.PI')">π</button>
+        <button class="sci-btn fn" onclick="fn('Math.log(')">ln</button>
+        <button class="sci-btn fn" onclick="fn('Math.log10(')">log</button>
+        <button class="sci-btn fn" onclick="fn('Math.sqrt(')">√</button>
+        <button class="sci-btn fn" onclick="fn('**2')">x²</button>
+        <button class="sci-btn fn" onclick="fn('**')">xⁿ</button>
+        <button class="sci-btn fn" onclick="fn('Math.abs(')">|x|</button>
+        <button class="sci-btn fn" onclick="fn('(')">( </button>
+        <button class="sci-btn fn" onclick="fn(')')"> )</button>
+        <button class="sci-btn clr" onclick="del()">⌫</button>
+        <button class="sci-btn clr" onclick="clear()" style="grid-column:span 2">CE</button>
+        <button class="sci-btn op" onclick="fn('%')">%</button>
+        <button class="sci-btn" onclick="p('7')">7</button>
+        <button class="sci-btn" onclick="p('8')">8</button>
+        <button class="sci-btn" onclick="p('9')">9</button>
+        <button class="sci-btn op" onclick="fn('/')">÷</button>
+        <button class="sci-btn" onclick="p('4')">4</button>
+        <button class="sci-btn" onclick="p('5')">5</button>
+        <button class="sci-btn" onclick="p('6')">6</button>
+        <button class="sci-btn op" onclick="fn('*')">×</button>
+        <button class="sci-btn" onclick="p('1')">1</button>
+        <button class="sci-btn" onclick="p('2')">2</button>
+        <button class="sci-btn" onclick="p('3')">3</button>
+        <button class="sci-btn op" onclick="fn('-')">−</button>
+        <button class="sci-btn" onclick="p('0')" style="grid-column:span 2">0</button>
+        <button class="sci-btn" onclick="fn('.')">.</button>
+        <button class="sci-btn op" onclick="fn('+')">+</button>
+        <button class="sci-btn eq" onclick="calc()" style="grid-column:span 4">=</button>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  let expr='', ans=0;
+  const exprEl=document.getElementById('sciExpr'), valEl=document.getElementById('sciVal');
+  function p(v){expr+=v;valEl.textContent=expr;}
+  function fn(v){expr+=v;valEl.textContent=expr;}
+  function del(){expr=expr.slice(0,-1);valEl.textContent=expr||'0';}
+  function clear(){expr='';ans=0;exprEl.textContent='';valEl.textContent='0';}
+  function calc(){
+    try{
+      const toEval=expr
+        .replace(/sin\(/g,'Math.sin(Math.PI/180*')
+        .replace(/cos\(/g,'Math.cos(Math.PI/180*')
+        .replace(/tan\(/g,'Math.tan(Math.PI/180*');
+      ans=Function('"use strict";return ('+toEval+')')();
+      if(isNaN(ans)||!isFinite(ans))throw new Error();
+      exprEl.textContent=expr+'=';
+      const disp=Number.isInteger(ans)?ans.toString():parseFloat(ans.toFixed(10)).toString();
+      valEl.textContent=disp;
+      expr=disp;
+    }catch(e){valEl.textContent='Error';expr='';}
+  }
+  // Keyboard support
+  document.addEventListener('keydown',e=>{
+    if(e.key>='0'&&e.key<='9')p(e.key);
+    else if(['+','-','*','/','.','(',')','^','%'].includes(e.key))fn(e.key);
+    else if(e.key==='Enter')calc();
+    else if(e.key==='Backspace')del();
+    else if(e.key==='Escape')clear();
+  });
+</script>
+</body></html>

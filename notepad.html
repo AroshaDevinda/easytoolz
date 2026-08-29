@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Notepad — EasyToolz</title>
+  <meta name="description" content="Free online notepad that auto-saves in your browser. No sign-up, no account needed." />
+  <link rel="canonical" href="https://easytoolz.click/tools/notepad.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Online Notepad</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon daily">📓</div><div><h1>Online Notepad</h1><p>Auto-saves in your browser — always there when you need it</p></div></div>
+  <div class="tool-layout full-width">
+    <div class="tool-box" style="padding:0;">
+      <!-- Toolbar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;">
+        <div class="btn-group">
+          <button class="btn btn-sm btn-secondary" onclick="fmt('bold')"><strong>B</strong></button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('italic')"><em>I</em></button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('underline')"><u>U</u></button>
+          <button class="btn btn-sm btn-secondary" onclick="download()">⬇ Download</button>
+          <button class="btn btn-sm btn-secondary" onclick="clearNote()">🗑 Clear</button>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-3)" id="saveStatus">Auto-saved ✓</div>
+      </div>
+      <div id="noteContent" contenteditable="true" style="min-height:420px;padding:20px;outline:none;line-height:1.7;font-size:0.9rem;color:var(--text);" spellcheck="true"></div>
+      <div style="padding:10px 20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-3);">
+        <span id="charCount">0 characters</span>
+        <span id="wordCount">0 words</span>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  const note = document.getElementById('noteContent');
+  // Load saved
+  note.innerHTML = localStorage.getItem('easytoolz_notepad') || '';
+  let saveTimer;
+  note.addEventListener('input', () => {
+    clearTimeout(saveTimer);
+    document.getElementById('saveStatus').textContent = 'Saving…';
+    const txt = note.innerText;
+    document.getElementById('charCount').textContent = txt.length + ' characters';
+    document.getElementById('wordCount').textContent = (txt.trim() ? txt.trim().split(/\s+/).length : 0) + ' words';
+    saveTimer = setTimeout(() => {
+      localStorage.setItem('easytoolz_notepad', note.innerHTML);
+      document.getElementById('saveStatus').textContent = 'Auto-saved ✓';
+    }, 600);
+  });
+  // Init counts
+  const initTxt = note.innerText;
+  document.getElementById('charCount').textContent = initTxt.length + ' characters';
+  document.getElementById('wordCount').textContent = (initTxt.trim() ? initTxt.trim().split(/\s+/).length : 0) + ' words';
+
+  function fmt(cmd) { document.execCommand(cmd, false, null); note.focus(); }
+  function clearNote() { if (confirm('Clear all notes?')) { note.innerHTML = ''; localStorage.removeItem('easytoolz_notepad'); } }
+  function download() {
+    const a = document.createElement('a');
+    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(note.innerText);
+    a.download = 'my-notes.txt'; a.click();
+  }
+</script>
+</body></html>

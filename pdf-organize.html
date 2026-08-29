@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Organize — EasyToolz</title>
+  <meta name="description" content="Free PDF Organizer — reorder and rearrange PDF pages in your browser. No upload needed." />
+  <link rel="canonical" href="https://easytoolz.click/tools/pdf-organize.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Organize PDF</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon pdf">📋</div><div><h1>Organize PDF</h1><p>Reorder PDF pages by entering the new page order — free & private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
+        <div class="drop-icon">📄</div>
+        <div class="drop-text">Click or drag & drop a PDF here</div>
+        <div class="drop-sub">File never leaves your device</div>
+        <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="loadPDF(this.files[0])" />
+      </div>
+      <div id="controls" style="display:none;margin-top:20px;">
+        <div id="fileInfo" style="font-size:.85rem;color:var(--text-3);margin-bottom:16px;"></div>
+        <div class="form-group">
+          <label class="form-label">New Page Order <span style="color:var(--text-3);font-weight:400;">(Enter page numbers in desired order, comma-separated)</span></label>
+          <input type="text" id="orderInput" class="form-input" placeholder="e.g. 3, 1, 2, 4, 5" />
+          <div style="font-size:.75rem;color:var(--text-3);margin-top:6px;">Enter all page numbers. Example: "3,1,2" moves page 3 first, then 1, then 2.</div>
+        </div>
+        <div id="pageList" style="margin-bottom:16px;"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="reverseOrder()">↕ Reverse Order</button>
+          <button class="btn btn-primary" onclick="doOrganize()">📋 Reorder & Download</button>
+        </div>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Reordering…</div>
+        <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+const { PDFDocument } = PDFLib;
+let pdfDoc=null, totalPages=0, fileName='';
+
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadPDF(e.dataTransfer.files[0]);});
+
+async function loadPDF(file){
+  if(!file||file.type!=='application/pdf'){showErr('Please select a valid PDF.');return;}
+  fileName=file.name.replace(/\.pdf$/i,'');
+  const buf=await file.arrayBuffer();
+  try{
+    pdfDoc=await PDFDocument.load(buf);
+    totalPages=pdfDoc.getPageCount();
+    document.getElementById('fileInfo').textContent=`📄 ${file.name} · ${totalPages} pages`;
+    document.getElementById('orderInput').value=[...Array(totalPages).keys()].map(i=>i+1).join(', ');
+    renderPageList();
+    document.getElementById('controls').style.display='';
+  }catch(e){showErr('Could not read PDF.');}
+}
+function renderPageList(){
+  const list=document.getElementById('pageList');
+  list.innerHTML='<div style="font-size:.78rem;color:var(--text-3);margin-bottom:6px;">Current pages (drag reordering via text field above):</div>';
+  const row=document.createElement('div');
+  row.style.cssText='display:flex;flex-wrap:wrap;gap:6px;';
+  for(let i=1;i<=totalPages;i++){
+    const chip=document.createElement('div');
+    chip.style.cssText='background:var(--glass);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.8rem;color:var(--text-2);';
+    chip.textContent=`Page ${i}`;
+    row.appendChild(chip);
+  }
+  list.appendChild(row);
+}
+function reverseOrder(){
+  const cur=document.getElementById('orderInput').value.split(',').map(s=>s.trim()).filter(Boolean);
+  document.getElementById('orderInput').value=cur.reverse().join(', ');
+}
+function parseOrder(str){
+  return str.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)&&n>=1&&n<=totalPages);
+}
+async function doOrganize(){
+  if(!pdfDoc)return;
+  const order=parseOrder(document.getElementById('orderInput').value);
+  if(!order.length){showErr('Please enter a valid page order.');return;}
+  document.getElementById('loading').style.display='block';
+  document.getElementById('errMsg').style.display='none';
+  try{
+    const indices=order.map(n=>n-1);
+    const newDoc=await PDFDocument.create();
+    const copied=await newDoc.copyPages(pdfDoc,indices);
+    copied.forEach(p=>newDoc.addPage(p));
+    const bytes=await newDoc.save();
+    const blob=new Blob([bytes],{type:'application/pdf'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${fileName}-organized.pdf`;a.click();
+  }catch(e){showErr('Failed: '+e.message);}
+  document.getElementById('loading').style.display='none';
+}
+function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+</script>
+<style>
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.pdf{background:rgba(251,146,60,.15);color:#fb923c}
+</style>
+</body></html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image to Base64 — EasyToolz</title>
+  <meta name="description" content="Free Image to Base64 converter — convert any image to a Base64 encoded string instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/image-to-base64.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image to Base64</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">🔢</div><div><h1>Image to Base64</h1><p>Convert any image to a Base64 encoded string</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div style="border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:20px;" onclick="document.getElementById('b64Input').click()">
+        <div style="font-size:2.5rem;margin-bottom:8px;">📁</div>
+        <div style="font-weight:600;margin-bottom:4px;">Click to select an image</div>
+        <input type="file" id="b64Input" accept="image/*" style="display:none;" onchange="convert(this.files[0])" />
+      </div>
+      <div id="b64Out" style="display:none;">
+        <div class="form-group"><label class="form-label">Base64 String (with Data URI)</label>
+          <textarea id="b64Str" class="form-textarea" style="min-height:140px;font-family:monospace;font-size:0.75rem;" readonly></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">Base64 Only (no prefix)</label>
+          <textarea id="b64Only" class="form-textarea" style="min-height:80px;font-family:monospace;font-size:0.75rem;" readonly></textarea>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('b64Str').value,this)">Copy Full Data URI</button>
+          <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('b64Only').value,this)">Copy Base64 Only</button>
+        </div>
+        <div style="margin-top:16px;"><label class="form-label">Preview</label><img id="b64Preview" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" /></div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function convert(f){
+    if(!f)return;
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const full=e.target.result;
+      const b64=full.split(',')[1];
+      document.getElementById('b64Str').value=full;
+      document.getElementById('b64Only').value=b64;
+      document.getElementById('b64Preview').src=full;
+      document.getElementById('b64Out').style.display='';
+    };
+    reader.readAsDataURL(f);
+  }
+</script>
+</body></html>

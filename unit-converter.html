@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit Converter — EasyToolz</title>
+  <meta name="description" content="Free Unit Converter — convert length, weight, temperature, speed, area and more." />
+  <link rel="canonical" href="https://easytoolz.click/tools/unit-converter.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Unit Converter</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon utilities">📏</div><div><h1>Unit Converter</h1><p>Convert length, weight, temperature, speed and more</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div class="form-group"><label class="form-label">Category</label>
+        <select id="category" class="form-select" onchange="loadCategory()">
+          <option value="length">Length</option>
+          <option value="weight">Weight / Mass</option>
+          <option value="temp">Temperature</option>
+          <option value="speed">Speed</option>
+          <option value="area">Area</option>
+          <option value="volume">Volume</option>
+          <option value="data">Data Storage</option>
+          <option value="time">Time</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">From</label><select id="fromUnit" class="form-select" onchange="convert()"></select></div>
+        <div class="form-group"><label class="form-label">To</label><select id="toUnit"   class="form-select" onchange="convert()"></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Value</label><input type="number" id="fromVal" class="form-input" placeholder="Enter value" oninput="convert()" /></div>
+      <div class="result-box show" id="result">
+        <div class="result-value" id="resultVal">—</div>
+        <div class="result-label" id="resultLabel">Select units and enter a value</div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+const UNITS = {
+  length:  { m:1, km:1e-3, cm:100, mm:1000, mi:1/1609.344, yd:1/0.9144, ft:1/0.3048, 'in':1/0.0254, nm:1e9 },
+  weight:  { kg:1, g:1000, mg:1e6, lb:2.20462, oz:35.274, t:0.001, stone:0.157473 },
+  speed:   { 'km/h':1, 'm/s':1/3.6, 'mph':0.621371, knot:0.539957 },
+  area:    { 'm²':1, 'km²':1e-6, 'cm²':1e4, 'ft²':10.7639, 'in²':1550, acre:0.000247105, hectare:1e-4 },
+  volume:  { L:1, mL:1000, 'cm³':1000, 'm³':0.001, gal:0.264172, qt:1.05669, pt:2.11338, cup:4.22675, floz:33.814, tbsp:67.628, tsp:202.884 },
+  data:    { B:1, KB:1/1024, MB:1/1048576, GB:1/1073741824, TB:1/1.0995e12, bit:8, Kbit:8/1024, Mbit:8/1048576, Gbit:8/1073741824 },
+  time:    { s:1, ms:1000, min:1/60, h:1/3600, day:1/86400, week:1/604800, month:1/2629800, year:1/31557600 },
+};
+
+function loadCategory(){
+  const cat=document.getElementById('category').value;
+  const fromSel=document.getElementById('fromUnit');
+  const toSel=document.getElementById('toUnit');
+  fromSel.innerHTML=''; toSel.innerHTML='';
+  if(cat==='temp'){
+    ['°C','°F','K'].forEach(u=>{ fromSel.add(new Option(u,u)); toSel.add(new Option(u,u)); });
+    toSel.value='°F';
+  } else {
+    Object.keys(UNITS[cat]).forEach(u=>{ fromSel.add(new Option(u,u)); toSel.add(new Option(u,u)); });
+    toSel.selectedIndex=1;
+  }
+  convert();
+}
+
+function convert(){
+  const cat=document.getElementById('category').value;
+  const from=document.getElementById('fromUnit').value;
+  const to=document.getElementById('toUnit').value;
+  const val=parseFloat(document.getElementById('fromVal').value);
+  if(isNaN(val)){ document.getElementById('resultVal').textContent='—'; document.getElementById('resultLabel').textContent='Enter a value above'; return; }
+  let result;
+  if(cat==='temp'){
+    let celcius;
+    if(from==='°C') celcius=val;
+    else if(from==='°F') celcius=(val-32)*5/9;
+    else celcius=val-273.15;
+    if(to==='°C') result=celcius;
+    else if(to==='°F') result=celcius*9/5+32;
+    else result=celcius+273.15;
+  } else {
+    const base=val/UNITS[cat][from];
+    result=base*UNITS[cat][to];
+  }
+  const disp=result>=1e6||result<0.001?(result.toExponential(4)):(+result.toFixed(6)).toString();
+  document.getElementById('resultVal').textContent = disp + ' ' + to;
+  document.getElementById('resultLabel').textContent = val + ' ' + from + ' = ' + disp + ' ' + to;
+}
+loadCategory();
+</script>
+</body></html>

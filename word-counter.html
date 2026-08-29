@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Counter — EasyToolz</title>
+  <meta name="description" content="Free Word Counter — count words, characters, sentences, paragraphs and reading time instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/word-counter.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Word Counter</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon text">📝</div><div><h1>Word Counter</h1><p>Count words, characters, sentences, paragraphs and reading time</p></div></div>
+  <div class="tool-layout full-width">
+    <div class="tool-box">
+      <textarea id="textInput" class="form-textarea" style="min-height:220px;" placeholder="Paste or type your text here…" oninput="countWords()"></textarea>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-top:16px;">
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div id="wWords"  style="font-size:1.6rem;font-weight:800;color:var(--teal);">0</div>
+          <div style="font-size:0.72rem;color:var(--text-3);">Words</div>
+        </div>
+        <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div id="wChars" style="font-size:1.6rem;font-weight:800;color:var(--purple);">0</div>
+          <div style="font-size:0.72rem;color:var(--text-3);">Characters</div>
+        </div>
+        <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div id="wSents" style="font-size:1.6rem;font-weight:800;color:#34d399;">0</div>
+          <div style="font-size:0.72rem;color:var(--text-3);">Sentences</div>
+        </div>
+        <div style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div id="wParas" style="font-size:1.6rem;font-weight:800;color:#fb923c;">0</div>
+          <div style="font-size:0.72rem;color:var(--text-3);">Paragraphs</div>
+        </div>
+        <div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div id="wRead"  style="font-size:1.6rem;font-weight:800;color:#f87171;">0s</div>
+          <div style="font-size:0.72rem;color:var(--text-3);">Read Time</div>
+        </div>
+        <div style="background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div id="wNoSp" style="font-size:1.6rem;font-weight:800;color:#a78bfa;">0</div>
+          <div style="font-size:0.72rem;color:var(--text-3);">No Spaces</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;">
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('textInput').value='';countWords()">Clear</button>
+        <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('textInput').value,this)">Copy Text</button>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function countWords(){
+    const t=document.getElementById('textInput').value;
+    const words   = t.trim() ? t.trim().split(/\s+/).length : 0;
+    const chars   = t.length;
+    const nosp    = t.replace(/\s/g,'').length;
+    const sents   = t.trim() ? (t.match(/[.!?]+/g)||[]).length : 0;
+    const paras   = t.trim() ? t.split(/\n\s*\n/).filter(p=>p.trim()).length : 0;
+    const secs    = Math.round(words/200*60);
+    const readFmt = secs<60 ? secs+'s' : Math.floor(secs/60)+'m '+secs%60+'s';
+    document.getElementById('wWords').textContent = words;
+    document.getElementById('wChars').textContent = chars;
+    document.getElementById('wSents').textContent = sents;
+    document.getElementById('wParas').textContent = paras||1;
+    document.getElementById('wRead').textContent  = readFmt;
+    document.getElementById('wNoSp').textContent  = nosp;
+  }
+</script>
+</body></html>

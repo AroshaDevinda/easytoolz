@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator — EasyToolz</title>
+  <meta name="description" content="Free QR Code Generator — create QR codes for any text, URL, or contact info instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/qr-code-generator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">QR Code Generator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon utilities">📱</div><div><h1>QR Code Generator</h1><p>Create QR codes for any URL, text or contact info</p></div></div>
+  <div class="tool-layout">
+    <div class="tool-box">
+      <div class="form-group"><label class="form-label">Text or URL</label><textarea id="qrText" class="form-textarea" style="min-height:80px;" placeholder="Enter URL, text, email, phone number…" oninput="genQR()"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Size</label>
+          <select id="qrSize" class="form-select" onchange="genQR()">
+            <option value="128">Small (128px)</option>
+            <option value="200" selected>Medium (200px)</option>
+            <option value="300">Large (300px)</option>
+            <option value="400">XL (400px)</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Error Correction</label>
+          <select id="qrEc" class="form-select" onchange="genQR()">
+            <option value="L">Low (L)</option>
+            <option value="M" selected>Medium (M)</option>
+            <option value="Q">Quartile (Q)</option>
+            <option value="H">High (H)</option>
+          </select>
+        </div>
+      </div>
+      <div id="qrOutput" style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0;">
+        <div style="background:white;padding:12px;border-radius:12px;" id="qrWrapper">
+          <div style="color:#64748b;font-size:0.875rem;padding:40px;text-align:center;">Your QR code will appear here</div>
+        </div>
+        <button class="btn btn-primary" id="dlBtn" style="display:none;" onclick="downloadQR()">⬇ Download QR Code</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="ad-slot"><p>Advertisement</p></div>
+      <div class="sidebar-info"><h4>QR Code Tips</h4><ul>
+        <li>Use HTTPS URLs for links</li><li>Higher error correction = more resilient</li><li>Larger QR = easier to scan</li><li>Test before printing</li>
+      </ul></div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  let qrInst = null;
+  function genQR(){
+    const txt = document.getElementById('qrText').value.trim();
+    const size = parseInt(document.getElementById('qrSize').value);
+    const ec   = document.getElementById('qrEc').value;
+    const wrap = document.getElementById('qrWrapper');
+    if(!txt){ wrap.innerHTML='<div style="color:#64748b;font-size:0.875rem;padding:40px;text-align:center;">Your QR code will appear here</div>'; document.getElementById('dlBtn').style.display='none'; return; }
+    wrap.innerHTML='';
+    try{
+      new QRCode(wrap,{text:txt,width:size,height:size,correctLevel:QRCode.CorrectLevel[ec]});
+      document.getElementById('dlBtn').style.display='';
+    }catch(e){ wrap.innerHTML='<div style="color:#f87171;padding:20px;">Error generating QR code. Text may be too long.</div>'; }
+  }
+  function downloadQR(){
+    const img = document.querySelector('#qrWrapper img');
+    if(!img)return;
+    const a=document.createElement('a'); a.href=img.src; a.download='qrcode.png'; a.click();
+  }
+</script>
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text Repeater — EasyToolz</title>
+  <meta name="description" content="Free Text Repeater — repeat any text or character multiple times with custom separators." />
+  <link rel="canonical" href="https://easytoolz.click/tools/text-repeater.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Text Repeater</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon text">🔁</div><div><h1>Text Repeater</h1><p>Repeat any text or character any number of times</p></div></div>
+  <div class="tool-layout full-width" style="max-width:600px;">
+    <div class="tool-box">
+      <div class="form-group"><label class="form-label">Text to Repeat</label><textarea id="repText" class="form-textarea" style="min-height:80px;" placeholder="Enter your text…"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Repeat Times</label><input type="number" id="repTimes" class="form-input" value="5" min="1" max="1000" /></div>
+        <div class="form-group"><label class="form-label">Separator</label>
+          <select id="repSep" class="form-select">
+            <option value="">None</option>
+            <option value=" ">Space</option>
+            <option value=", ">Comma + Space</option>
+            <option value="\n">New Line</option>
+            <option value=" | ">Pipe ( | )</option>
+            <option value=" - ">Dash ( - )</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="repeat()">Repeat Text</button>
+      <div id="repOut" style="display:none;margin-top:16px;">
+        <label class="form-label">Result</label>
+        <div id="repResult" class="output-box" style="max-height:300px;overflow-y:auto;"></div>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('repResult').textContent,this)">Copy</button>
+          <span style="font-size:0.8rem;color:var(--text-3);line-height:34px;" id="repInfo"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function repeat(){
+    const txt=document.getElementById('repText').value;
+    const n=Math.min(1000,parseInt(document.getElementById('repTimes').value)||1);
+    const rawSep=document.getElementById('repSep').value;
+    const sep=rawSep==='\n'?'\n':rawSep;
+    if(!txt.trim())return alert('Enter text to repeat.');
+    const result=Array(n).fill(txt).join(sep);
+    document.getElementById('repResult').textContent=result;
+    document.getElementById('repInfo').textContent=`${n} repetitions · ${result.length} chars`;
+    document.getElementById('repOut').style.display='';
+  }
+</script>
+</body></html>
