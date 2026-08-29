@@ -1,57 +1,77 @@
 // EasyToolz — Main JS (Homepage interactions)
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── Search ── */
   const searchInput = document.getElementById('searchInput');
   const searchClear = document.getElementById('searchClear');
-  const toolsCount  = document.getElementById('toolsCount');
   const noResults   = document.getElementById('noResults');
-  const toolCards   = document.querySelectorAll('.tool-card');
-  const catTabs     = document.querySelectorAll('.cat-tab');
+  const toolsGrid   = document.getElementById('toolsGrid');
+  const categorySections = document.getElementById('categorySections');
+  // Only get cards from category sections so we don't duplicate
+  const toolCards = categorySections ? categorySections.querySelectorAll('.tool-card') : [];
 
-  let activeCategory = 'all';
-  let searchQuery    = '';
+  let searchQuery = '';
 
   function filter() {
+    const q = searchQuery.toLowerCase().trim();
+    
+    if (!q) {
+      if (toolsGrid) toolsGrid.style.display = 'none';
+      if (categorySections) categorySections.style.display = 'block';
+      if (noResults) noResults.style.display = 'none';
+      // Remove all cloned cards
+      if (toolsGrid) {
+        const clones = toolsGrid.querySelectorAll('.search-clone');
+        clones.forEach(c => c.remove());
+      }
+      return;
+    }
+
+    if (categorySections) categorySections.style.display = 'none';
+    if (toolsGrid) toolsGrid.style.display = 'grid'; // Using grid layout
+
+    // Clear previous clones
+    const clones = toolsGrid.querySelectorAll('.search-clone');
+    clones.forEach(c => c.remove());
+
     let visible = 0;
+    
     toolCards.forEach(card => {
-      const cat   = card.dataset.cat;
-      const name  = card.querySelector('h3').textContent.toLowerCase();
-      const desc  = card.querySelector('p').textContent.toLowerCase();
-      const q     = searchQuery.toLowerCase().trim();
-      const okCat = activeCategory === 'all' || cat === activeCategory;
-      const okQ   = !q || name.includes(q) || desc.includes(q);
-      if (okCat && okQ) { card.style.display = ''; visible++; }
-      else              { card.style.display = 'none'; }
+      const name = card.querySelector('h3').textContent.toLowerCase();
+      const desc = card.querySelector('p').textContent.toLowerCase();
+      
+      if (name.includes(q) || desc.includes(q)) {
+        const clone = card.cloneNode(true);
+        clone.classList.add('search-clone');
+        // Insert before noResults
+        if (noResults) {
+          toolsGrid.insertBefore(clone, noResults);
+        } else {
+          toolsGrid.appendChild(clone);
+        }
+        visible++;
+      }
     });
-    if (toolsCount) toolsCount.textContent = visible + ' tools';
-    if (noResults)  noResults.style.display = visible === 0 ? 'flex' : 'none';
+
+    if (noResults) noResults.style.display = visible === 0 ? 'flex' : 'none';
   }
 
   if (searchInput) {
     searchInput.addEventListener('input', function () {
       searchQuery = this.value;
-      searchClear.classList.toggle('visible', searchQuery.length > 0);
+      if (searchClear) searchClear.classList.toggle('visible', searchQuery.length > 0);
       filter();
     });
   }
 
   if (searchClear) {
     searchClear.addEventListener('click', function () {
-      searchInput.value = ''; searchQuery = '';
+      searchInput.value = ''; 
+      searchQuery = '';
       this.classList.remove('visible');
-      filter(); searchInput.focus();
+      filter(); 
+      searchInput.focus();
     });
   }
-
-  catTabs.forEach(tab => {
-    tab.addEventListener('click', function () {
-      catTabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      activeCategory = this.dataset.cat;
-      filter();
-    });
-  });
 
   /* ── Mobile nav ── */
   const navToggle = document.getElementById('navToggle');

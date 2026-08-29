@@ -1,64 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Percentage Calculator — EasyToolz</title>
-  <meta name="description" content="Free online Percentage Calculator — calculate percentage of a number, percentage change, and more." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Calculator Online — Quick Percentage Math | EasyToolz</title>
+  <meta name="description" content="Free online Percentage Calculator. Easily calculate what percent X is of Y, find the percentage of a number, or determine the percentage change between two values." />
   <link rel="canonical" href="https://easytoolz.click/tools/percentage-calculator.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Percentage Calculator",
+    "url": "https://easytoolz.click/tools/percentage-calculator.html",
+    "description": "Free online Percentage Calculator. Easily calculate what percent X is of Y, find the percentage of a number, or determine the percentage change.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
-<main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Percentage Calculator</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon calculators">💯</div><div><h1>Percentage Calculator</h1><p>Quick percentage calculations of any kind</p></div></div>
-  <div class="tool-layout full-width">
-    <div class="tool-box">
-      <!-- Section 1 -->
-      <h3 style="margin-bottom:16px;font-size:1rem;">What is X% of Y?</h3>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Percentage (%)</label><input type="number" id="p1" class="form-input" placeholder="e.g. 15" /></div>
-        <div class="form-group"><label class="form-label">Number (Y)</label><input type="number" id="n1" class="form-input" placeholder="e.g. 200" /></div>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="brand">EasyToolz</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../calculators/index.html">Calculators</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </div>
+</nav>
+
+<main class="tool-page">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../calculators/index.html">Calculators</a><span class="sep">›</span>
+      <span class="current">Percentage Calculator</span>
+    </nav>
+    
+    <div class="tool-page-header">
+      <div class="tool-page-icon calculators">💯</div>
+      <div>
+        <h1>Percentage Calculator</h1>
+        <p>Quick and accurate percentage calculations of any kind</p>
       </div>
-      <button class="btn btn-primary" onclick="calc1()">Calculate</button>
-      <div class="result-box" id="r1" style="margin-top:16px;text-align:left;padding:16px;">
-        <span class="result-label">Result: </span><strong id="r1val" style="color:var(--teal);font-size:1.2rem;"></strong>
+    </div>
+    
+    <div class="tool-layout full-width">
+      <!-- ACTUAL TOOL -->
+      <div class="tool-box" style="margin-bottom: 40px; max-width: 640px; margin-left: auto; margin-right: auto;">
+        <!-- Section 1 -->
+        <h3 style="margin-bottom:16px;font-size:1rem;">What is X% of Y?</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Percentage (%)</label><input type="number" id="p1" class="form-input" placeholder="e.g. 15" /></div>
+          <div class="form-group"><label class="form-label">Number (Y)</label><input type="number" id="n1" class="form-input" placeholder="e.g. 200" /></div>
+        </div>
+        <button class="btn btn-primary" onclick="calc1()">Calculate</button>
+        <div class="result-box" id="r1" style="margin-top:16px;text-align:left;padding:16px;display:none;">
+          <span class="result-label">Result: </span><strong id="r1val" style="color:var(--teal);font-size:1.2rem;"></strong>
+        </div>
+        <hr class="divider" style="margin: 24px 0;" />
+        
+        <!-- Section 2 -->
+        <h3 style="margin-bottom:16px;font-size:1rem;">X is what % of Y?</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Value (X)</label><input type="number" id="p2x" class="form-input" placeholder="e.g. 30" /></div>
+          <div class="form-group"><label class="form-label">Total (Y)</label><input type="number" id="p2y" class="form-input" placeholder="e.g. 200" /></div>
+        </div>
+        <button class="btn btn-primary" onclick="calc2()">Calculate</button>
+        <div class="result-box" id="r2" style="margin-top:16px;text-align:left;padding:16px;display:none;">
+          <span class="result-label">Result: </span><strong id="r2val" style="color:var(--teal);font-size:1.2rem;"></strong>
+        </div>
+        <hr class="divider" style="margin: 24px 0;" />
+        
+        <!-- Section 3 -->
+        <h3 style="margin-bottom:16px;font-size:1rem;">Percentage Change (from X to Y)</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">From (X)</label><input type="number" id="p3x" class="form-input" placeholder="e.g. 100" /></div>
+          <div class="form-group"><label class="form-label">To (Y)</label><input type="number" id="p3y" class="form-input" placeholder="e.g. 120" /></div>
+        </div>
+        <button class="btn btn-primary" onclick="calc3()">Calculate</button>
+        <div class="result-box" id="r3" style="margin-top:16px;text-align:left;padding:16px;display:none;">
+          <span class="result-label">Change: </span><strong id="r3val" style="color:var(--teal);font-size:1.2rem;"></strong>
+        </div>
       </div>
-      <hr class="divider" />
-      <!-- Section 2 -->
-      <h3 style="margin-bottom:16px;font-size:1rem;">X is what % of Y?</h3>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Value (X)</label><input type="number" id="p2x" class="form-input" placeholder="e.g. 30" /></div>
-        <div class="form-group"><label class="form-label">Total (Y)</label><input type="number" id="p2y" class="form-input" placeholder="e.g. 200" /></div>
+
+      <!-- SEO & HOW-TO CONTENT -->
+      <article class="tool-content">
+        <h2>How to Use the Percentage Calculator</h2>
+        <p>Dealing with percentages doesn't have to require a confusing formula or a bulky desktop calculator. Our online percentage calculator simplifies everyday math problems into plain English.</p>
+        
+        <ol style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Identify your problem:</strong> Choose the section that matches your question. Do you want to find a percentage of a number, figure out what percentage one number is of another, or calculate a percentage increase/decrease?</li>
+          <li><strong>Enter the values:</strong> Type your numbers into the corresponding input fields.</li>
+          <li><strong>Get instant results:</strong> Click the "Calculate" button below the fields to immediately see the precise answer.</li>
+        </ol>
+
+        <h2>Common Uses for Percentage Calculations</h2>
+        <ul style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Shopping & Discounts:</strong> Use "What is X% of Y" to figure out exactly how much money a 15% off coupon will save you on a $200 purchase.</li>
+          <li><strong>Test Scores:</strong> Use "X is what % of Y" to determine your final grade if you scored 85 points out of a possible 110 on an exam.</li>
+          <li><strong>Business & Finance:</strong> Use the "Percentage Change" calculator to see if your website traffic or monthly revenue grew compared to the previous month.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">What is a percentage?</h3>
+            <p>A percentage is a number or ratio expressed as a fraction of 100. It is often denoted using the percent sign, "%". For example, 45% (read as "forty-five percent") is equal to 45 / 100, or 0.45.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">How do I calculate percentage change manually?</h3>
+            <p>To find the percentage change between two numbers, subtract the old value from the new value, then divide the result by the absolute value of the old value. Finally, multiply that result by 100 to get the percentage.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          <span class="brand">EasyToolz</span>
+        </a>
+        <p>Free browser-based tools for everyday tasks. No sign-up, no download, just tools.</p>
       </div>
-      <button class="btn btn-primary" onclick="calc2()">Calculate</button>
-      <div class="result-box" id="r2" style="margin-top:16px;text-align:left;padding:16px;">
-        <span class="result-label">Result: </span><strong id="r2val" style="color:var(--teal);font-size:1.2rem;"></strong>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="qr-code-generator.html">QR Generator</a></li>
+          <li><a href="password-generator.html">Password Generator</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+        </ul>
       </div>
-      <hr class="divider" />
-      <!-- Section 3 -->
-      <h3 style="margin-bottom:16px;font-size:1rem;">Percentage Change (from X to Y)</h3>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">From (X)</label><input type="number" id="p3x" class="form-input" placeholder="e.g. 100" /></div>
-        <div class="form-group"><label class="form-label">To (Y)</label><input type="number" id="p3y" class="form-input" placeholder="e.g. 120" /></div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
+        </ul>
       </div>
-      <button class="btn btn-primary" onclick="calc3()">Calculate</button>
-      <div class="result-box" id="r3" style="margin-top:16px;text-align:left;padding:16px;">
-        <span class="result-label">Change: </span><strong id="r3val" style="color:var(--teal);font-size:1.2rem;"></strong>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All rights reserved</span>
+      <div class="footer-links">
+        <a href="../privacy-policy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
       </div>
     </div>
   </div>
-</div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+</footer>
+
 <script src="../js/main.js"></script>
 <script>
-  function show(id,val){ document.getElementById(id).classList.add('show'); document.getElementById(id+'val').textContent=val; }
-  function calc1(){ const p=parseFloat(document.getElementById('p1').value),n=parseFloat(document.getElementById('n1').value); if(isNaN(p)||isNaN(n))return; show('r1',(p/100*n).toFixed(4).replace(/\.?0+$/,'')); }
-  function calc2(){ const x=parseFloat(document.getElementById('p2x').value),y=parseFloat(document.getElementById('p2y').value); if(isNaN(x)||isNaN(y)||y===0)return; show('r2',(x/y*100).toFixed(2)+'%'); }
-  function calc3(){ const x=parseFloat(document.getElementById('p3x').value),y=parseFloat(document.getElementById('p3y').value); if(isNaN(x)||isNaN(y)||x===0)return; const ch=((y-x)/Math.abs(x)*100).toFixed(2); show('r3',(ch>0?'+':'')+ch+'%'); }
+  function show(id,val){ 
+    const el = document.getElementById(id);
+    el.style.display = 'block'; 
+    document.getElementById(id+'val').textContent=val; 
+  }
+  function calc1(){ 
+    const p=parseFloat(document.getElementById('p1').value);
+    const n=parseFloat(document.getElementById('n1').value); 
+    if(isNaN(p)||isNaN(n))return; 
+    show('r1',(p/100*n).toFixed(4).replace(/\.?0+$/,'')); 
+  }
+  function calc2(){ 
+    const x=parseFloat(document.getElementById('p2x').value);
+    const y=parseFloat(document.getElementById('p2y').value); 
+    if(isNaN(x)||isNaN(y)||y===0)return; 
+    show('r2',(x/y*100).toFixed(2)+'%'); 
+  }
+  function calc3(){ 
+    const x=parseFloat(document.getElementById('p3x').value);
+    const y=parseFloat(document.getElementById('p3y').value); 
+    if(isNaN(x)||isNaN(y)||x===0)return; 
+    const ch=((y-x)/Math.abs(x)*100).toFixed(2); 
+    show('r3',(ch>0?'+':'')+ch+'%'); 
+  }
 </script>
-</body></html>
+</body>
+</html>

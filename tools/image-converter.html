@@ -1,54 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Converter — EasyToolz</title>
-  <meta name="description" content="Free Image Converter — convert JPG, PNG, WebP, BMP images to any format in your browser. No upload, 100% private." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Converter Online — Convert JPG, PNG, WebP Free | EasyToolz</title>
+  <meta name="description" content="Free Image Converter. Convert your photos between JPG, PNG, WebP, and BMP formats directly in your browser. No upload required, 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-converter.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Converter",
+    "url": "https://easytoolz.click/tools/image-converter.html",
+    "description": "Free Image Converter. Convert your photos between JPG, PNG, WebP, and BMP formats directly in your browser.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
-<main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Converter</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🔄</div><div><h1>Image Converter</h1><p>Convert JPG ↔ PNG ↔ WebP ↔ BMP — free, browser-only</p></div></div>
-  <div class="tool-layout full-width" style="max-width:640px;">
-    <div class="tool-box">
-      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
-        <div class="drop-icon">🔄</div>
-        <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP, BMP, GIF supported</div>
-        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
+
+<nav class="navbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="brand">EasyToolz</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../image-tools/index.html">Image Tools</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </div>
+</nav>
+
+<main class="tool-page">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../image-tools/index.html">Image Tools</a><span class="sep">›</span>
+      <span class="current">Image Converter</span>
+    </nav>
+    
+    <div class="tool-page-header">
+      <div class="tool-page-icon images">🔄</div>
+      <div>
+        <h1>Image Converter</h1>
+        <p>Convert JPG ↔ PNG ↔ WebP ↔ BMP — free, browser-only</p>
       </div>
-      <div id="controls" style="display:none;margin-top:20px;">
-        <div id="preview" style="text-align:center;margin-bottom:16px;">
-          <img id="previewImg" style="max-width:100%;max-height:240px;border-radius:var(--radius);border:1px solid var(--border);" />
-          <div id="origInfo" style="font-size:0.8rem;color:var(--text-3);margin-top:8px;"></div>
+    </div>
+    
+    <div class="tool-layout full-width">
+      <!-- ACTUAL TOOL -->
+      <div class="tool-box" style="margin-bottom: 40px; max-width: 640px; margin-left: auto; margin-right: auto;">
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+          <div class="drop-icon">🔄</div>
+          <div class="drop-text">Click or drag & drop an image here</div>
+          <div class="drop-sub">JPG, PNG, WebP, BMP, GIF supported</div>
+          <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
         </div>
-        <div class="form-row">
-          <div class="form-group" style="flex:1;">
-            <label class="form-label">Convert to</label>
-            <select id="fmtSel" class="form-select" onchange="updateQuality()">
-              <option value="image/jpeg">JPEG (.jpg)</option>
-              <option value="image/png">PNG (.png)</option>
-              <option value="image/webp">WebP (.webp)</option>
-            </select>
+        <div id="controls" style="display:none;margin-top:20px;">
+          <div id="preview" style="text-align:center;margin-bottom:16px;">
+            <img id="previewImg" style="max-width:100%;max-height:240px;border-radius:var(--radius);border:1px solid var(--border);" />
+            <div id="origInfo" style="font-size:0.8rem;color:var(--text-3);margin-top:8px;"></div>
           </div>
-          <div class="form-group" style="flex:1;" id="qualityGroup">
-            <label class="form-label">Quality: <span id="qualVal">92</span>%</label>
-            <input type="range" id="quality" min="10" max="100" value="92" oninput="document.getElementById('qualVal').textContent=this.value" style="width:100%;accent-color:var(--teal);" />
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label">Convert to</label>
+              <select id="fmtSel" class="form-select" onchange="updateQuality()">
+                <option value="image/jpeg">JPEG (.jpg)</option>
+                <option value="image/png">PNG (.png)</option>
+                <option value="image/webp">WebP (.webp)</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:1;" id="qualityGroup">
+              <label class="form-label">Quality: <span id="qualVal">92</span>%</label>
+              <input type="range" id="quality" min="10" max="100" value="92" oninput="document.getElementById('qualVal').textContent=this.value" style="width:100%;accent-color:var(--teal);" />
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" onclick="convert()">🔄 Convert & Download</button>
+        </div>
+      </div>
+
+      <!-- SEO & HOW-TO CONTENT -->
+      <article class="tool-content">
+        <h2>How to Convert Images Online for Free</h2>
+        <p>Whether you need to convert an Apple HEIC file (if supported by your browser) to a standard JPEG, turn a JPEG into a transparent PNG, or modernize your web images by switching to WebP, our free online image converter handles it instantly.</p>
+        
+        <ol style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Upload your image:</strong> Drag and drop your image into the drop zone, or click to select a file from your computer or mobile device.</li>
+          <li><strong>Choose the output format:</strong> Select the file format you want to convert to (e.g., JPEG, PNG, WebP).</li>
+          <li><strong>Adjust the quality:</strong> If you are converting to a compressed format like JPEG or WebP, use the slider to set the output quality. (Note: PNG is a lossless format, so the quality slider will be disabled).</li>
+          <li><strong>Convert and Download:</strong> Click the primary button to process the image and save the newly formatted file to your device.</li>
+        </ol>
+
+        <h2>Why Choose Our Browser-Based Converter?</h2>
+        <p>Many online tools force you to upload your files to their servers, wait in a queue, and then download the result. Our Image Converter uses modern HTML5 technology to do all the heavy lifting locally on your device.</p>
+        <ul style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>100% Privacy:</strong> Your photos remain on your device. We do not upload, view, or store any of your images on our servers.</li>
+          <li><strong>Lightning Fast Conversion:</strong> Because there is no upload step, conversion happens in milliseconds. It's much faster than server-based tools.</li>
+          <li><strong>No Limits:</strong> Convert as many images as you need without hitting daily limits or having to create an account.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Which format should I choose?</h3>
+            <p><strong>JPEG</strong> is best for photographs and images with complex colors. <strong>PNG</strong> is best when you need a transparent background or sharp lines (like logos or text). <strong>WebP</strong> is a modern format developed by Google that provides excellent quality at very small file sizes, making it perfect for websites.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Why does my PNG lose transparency when converted to JPEG?</h3>
+            <p>The JPEG format does not support transparency (alpha channels). When you convert a PNG with a transparent background to a JPEG, the transparent areas will automatically be filled in with a solid color, typically black or white depending on the browser.</p>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" onclick="convert()">🔄 Convert & Download</button>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          <span class="brand">EasyToolz</span>
+        </a>
+        <p>Free browser-based tools for everyday tasks. No sign-up, no download, just tools.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="qr-code-generator.html">QR Generator</a></li>
+          <li><a href="password-generator.html">Password Generator</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All rights reserved</span>
+      <div class="footer-links">
+        <a href="../privacy-policy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
       </div>
     </div>
   </div>
-</div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+</footer>
+
 <script src="../js/main.js"></script>
 <script>
 let imgEl = null;
@@ -96,4 +210,5 @@ function convert() {
 .drop-text { font-weight:600;margin-bottom:6px; }
 .drop-sub  { font-size:.8rem;color:var(--text-3); }
 </style>
-</body></html>
+</body>
+</html>

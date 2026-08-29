@@ -1,54 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Resizer — EasyToolz</title>
-  <meta name="description" content="Free online Image Resizer — resize images to any dimension instantly in your browser." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Resizer Online — Resize Photos to Any Dimension | EasyToolz</title>
+  <meta name="description" content="Free online Image Resizer. Resize your JPG, PNG, and WebP images to exact pixel dimensions instantly in your browser without uploading." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-resizer.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Resizer",
+    "url": "https://easytoolz.click/tools/image-resizer.html",
+    "description": "Free online Image Resizer. Resize your JPG, PNG, and WebP images to exact pixel dimensions instantly in your browser without uploading.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
-<main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Resizer</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">📐</div><div><h1>Image Resizer</h1><p>Resize images to any dimension — no upload required</p></div></div>
-  <div class="tool-layout">
-    <div class="tool-box">
-      <div id="dropZone2" style="border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('imgInput2').click()">
-        <div style="font-size:2.5rem;margin-bottom:8px;">📁</div>
-        <div style="font-weight:600;margin-bottom:4px;">Drop image or click to browse</div>
-        <div style="font-size:0.8rem;color:var(--text-3);">JPG, PNG, WebP, GIF</div>
-        <input type="file" id="imgInput2" accept="image/*" style="display:none;" onchange="loadImg(this.files[0])" />
-      </div>
-      <div id="resizeForm" style="display:none;margin-top:20px;">
-        <div style="font-size:0.8rem;color:var(--text-3);margin-bottom:12px;">Original: <span id="origDims"></span></div>
-        <!-- Preset sizes -->
-        <div style="font-size:0.82rem;margin-bottom:10px;font-weight:600;">Quick Presets</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
-          <button class="btn btn-sm btn-secondary" onclick="setSize(800,600)">800×600</button>
-          <button class="btn btn-sm btn-secondary" onclick="setSize(1280,720)">1280×720 HD</button>
-          <button class="btn btn-sm btn-secondary" onclick="setSize(1920,1080)">1920×1080 FHD</button>
-          <button class="btn btn-sm btn-secondary" onclick="setSize(1080,1080)">1080×1080</button>
-          <button class="btn btn-sm btn-secondary" onclick="setSize(800,800)">800×800</button>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Width (px)</label><input type="number" id="newW" class="form-input" oninput="sync('w')" /></div>
-          <div class="form-group"><label class="form-label">Height (px)</label><input type="number" id="newH" class="form-input" oninput="sync('h')" /></div>
-        </div>
-        <div class="toggle-row"><span class="toggle-label">Maintain Aspect Ratio</span><button class="toggle on" id="lockRatio" onclick="this.classList.toggle('on')"></button></div>
-        <br/>
-        <button class="btn btn-primary btn-block" onclick="resizeImg()">Resize & Download</button>
-        <div id="resPreview" style="margin-top:16px;display:none;"><img id="resImg" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" /></div>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="brand">EasyToolz</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../image-tools/index.html">Image Tools</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </div>
+</nav>
+
+<main class="tool-page">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../image-tools/index.html">Image Tools</a><span class="sep">›</span>
+      <span class="current">Image Resizer</span>
+    </nav>
+    
+    <div class="tool-page-header">
+      <div class="tool-page-icon images">📐</div>
+      <div>
+        <h1>Image Resizer</h1>
+        <p>Resize images to any exact dimension — no upload required</p>
       </div>
     </div>
-    <div class="sidebar"><div class="ad-slot"><p>Advertisement</p></div></div>
+    
+    <div class="tool-layout full-width">
+      <!-- ACTUAL TOOL -->
+      <div class="tool-box" style="margin-bottom: 40px;">
+        <div id="dropZone2" style="border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('imgInput2').click()">
+          <div style="font-size:2.5rem;margin-bottom:8px;">📁</div>
+          <div style="font-weight:600;margin-bottom:4px;">Drop image or click to browse</div>
+          <div style="font-size:0.8rem;color:var(--text-3);">JPG, PNG, WebP, GIF</div>
+          <input type="file" id="imgInput2" accept="image/*" style="display:none;" onchange="loadImg(this.files[0])" />
+        </div>
+        <div id="resizeForm" style="display:none;margin-top:20px;">
+          <div style="font-size:0.8rem;color:var(--text-3);margin-bottom:12px;">Original: <span id="origDims"></span></div>
+          <!-- Preset sizes -->
+          <div style="font-size:0.82rem;margin-bottom:10px;font-weight:600;">Quick Presets</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+            <button class="btn btn-sm btn-secondary" onclick="setSize(800,600)">800×600</button>
+            <button class="btn btn-sm btn-secondary" onclick="setSize(1280,720)">1280×720 HD</button>
+            <button class="btn btn-sm btn-secondary" onclick="setSize(1920,1080)">1920×1080 FHD</button>
+            <button class="btn btn-sm btn-secondary" onclick="setSize(1080,1080)">1080×1080</button>
+            <button class="btn btn-sm btn-secondary" onclick="setSize(800,800)">800×800</button>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Width (px)</label><input type="number" id="newW" class="form-input" oninput="sync('w')" /></div>
+            <div class="form-group"><label class="form-label">Height (px)</label><input type="number" id="newH" class="form-input" oninput="sync('h')" /></div>
+          </div>
+          <div class="toggle-row"><span class="toggle-label">Maintain Aspect Ratio</span><button class="toggle on" id="lockRatio" onclick="this.classList.toggle('on')"></button></div>
+          <br/>
+          <button class="btn btn-primary btn-block" onclick="resizeImg()">Resize & Download</button>
+          <div id="resPreview" style="margin-top:16px;display:none;"><img id="resImg" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" /></div>
+        </div>
+      </div>
+
+      <!-- SEO & HOW-TO CONTENT -->
+      <article class="tool-content">
+        <h2>How to Resize Images Online for Free</h2>
+        <p>Whether you need to meet the strict image dimension requirements for a passport photo, resize a banner for your blog, or scale down a massive 4K photograph for an email attachment, our free image resizer makes it effortless.</p>
+        
+        <ol style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Select your image:</strong> Drag and drop your JPG, PNG, WebP, or GIF image into the area above, or tap the box to choose a file from your device.</li>
+          <li><strong>Enter custom dimensions:</strong> Type the exact Width and Height in pixels that you need. Alternatively, click one of our quick presets (like 1920×1080 FHD) to instantly populate the dimensions.</li>
+          <li><strong>Lock the aspect ratio (Optional):</strong> Keep the "Maintain Aspect Ratio" toggle enabled to ensure your image doesn't look stretched or squished when you change one dimension.</li>
+          <li><strong>Resize and Download:</strong> Click the primary button to instantly resize your image and trigger the download to your device.</li>
+        </ol>
+
+        <h2>Why Choose Our Browser-Based Resizer?</h2>
+        <p>Unlike bulky desktop software like Photoshop or other web tools that force you to upload your files to their servers, the EasyToolz image resizer operates entirely within your browser environment.</p>
+        <ul style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Zero Uploads, 100% Secure:</strong> Because we utilize HTML5 Canvas, your photo never leaves your device. This guarantees total privacy for sensitive or personal images.</li>
+          <li><strong>Instant Processing:</strong> You don't have to wait for an upload to complete or a server queue to finish. The resizing happens in milliseconds on your own device's processor.</li>
+          <li><strong>No Limits:</strong> Resize as many images as you want. There are no daily limits, hidden paywalls, or annoying watermarks on your finished images.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">What does "Maintain Aspect Ratio" mean?</h3>
+            <p>Aspect ratio is the proportional relationship between the width and height of an image. If you maintain it, changing the width will automatically adjust the height so that your image doesn't look distorted.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Will resizing an image reduce its file size?</h3>
+            <p>Yes, reducing the physical dimensions (width and height) of an image significantly reduces the total number of pixels, which in turn results in a smaller file size in megabytes (MB) or kilobytes (KB).</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Can I enlarge a small image?</h3>
+            <p>While you can enter dimensions larger than your original image, doing so is called "upscaling." Upscaling typically results in a blurry or pixelated image because the browser has to invent new pixels to fill the larger space.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
   </div>
-</div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          <span class="brand">EasyToolz</span>
+        </a>
+        <p>Free browser-based tools for everyday tasks. No sign-up, no download, just tools.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="qr-code-generator.html">QR Generator</a></li>
+          <li><a href="password-generator.html">Password Generator</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All rights reserved</span>
+      <div class="footer-links">
+        <a href="../privacy-policy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
 <script>
   let img=null,origW=0,origH=0;
@@ -65,12 +182,18 @@
     };
     img.src=url;
   }
-  function setSize(w,h){document.getElementById('newW').value=w;document.getElementById('newH').value=h;}
+  function setSize(w,h){
+    document.getElementById('newW').value=w;
+    document.getElementById('newH').value=h;
+  }
   function sync(changed){
     if(!document.getElementById('lockRatio').classList.contains('on'))return;
     const ratio=origW/origH;
-    if(changed==='w'){document.getElementById('newH').value=Math.round(document.getElementById('newW').value/ratio);}
-    else{document.getElementById('newW').value=Math.round(document.getElementById('newH').value*ratio);}
+    if(changed==='w'){
+      document.getElementById('newH').value=Math.round(document.getElementById('newW').value/ratio);
+    } else {
+      document.getElementById('newW').value=Math.round(document.getElementById('newH').value*ratio);
+    }
   }
   function resizeImg(){
     const w=parseInt(document.getElementById('newW').value);
@@ -84,4 +207,5 @@
     const a=document.createElement('a');a.href=url;a.download='resized_'+w+'x'+h+'.jpg';a.click();
   }
 </script>
-</body></html>
+</body>
+</html>

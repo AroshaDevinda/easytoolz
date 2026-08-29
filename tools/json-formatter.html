@@ -1,48 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON Formatter — EasyToolz</title>
-  <meta name="description" content="Free JSON Formatter — format, validate and beautify messy JSON data instantly." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Formatter & Validator Online — Format JSON Instantly | EasyToolz</title>
+  <meta name="description" content="Free online JSON Formatter and Validator. Beautify messy JSON data, minify code, and check for syntax errors instantly in your browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/json-formatter.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON Formatter",
+    "url": "https://easytoolz.click/tools/json-formatter.html",
+    "description": "Free online JSON Formatter and Validator. Beautify messy JSON data, minify code, and check for syntax errors instantly in your browser.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
-<main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">JSON Formatter</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon developer">{ }</div><div><h1>JSON Formatter</h1><p>Format, validate and beautify JSON instantly</p></div></div>
-  <div class="tool-layout full-width">
-    <div class="tool-box">
-      <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
-        <button class="btn btn-primary btn-sm" onclick="format()">⟳ Format JSON</button>
-        <button class="btn btn-secondary btn-sm" onclick="minify()">Minify</button>
-        <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('jsonOut').textContent,this)">Copy</button>
-        <button class="btn btn-secondary btn-sm" onclick="clear()">Clear</button>
-        <div id="jsonStatus" style="font-size:0.8rem;padding:4px 10px;border-radius:20px;"></div>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="brand">EasyToolz</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../developer-tools/index.html">Developer Tools</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </div>
+</nav>
+
+<main class="tool-page">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../developer-tools/index.html">Developer Tools</a><span class="sep">›</span>
+      <span class="current">JSON Formatter</span>
+    </nav>
+    
+    <div class="tool-page-header">
+      <div class="tool-page-icon developer">{ }</div>
+      <div>
+        <h1>JSON Formatter & Validator</h1>
+        <p>Format, validate and beautify messy JSON data instantly.</p>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div>
-          <label class="form-label">Input JSON</label>
-          <textarea id="jsonIn" class="form-textarea" style="min-height:380px;font-family:'Courier New',monospace;font-size:0.82rem;" placeholder='{"key": "value", "arr": [1, 2, 3]}'></textarea>
+    </div>
+    
+    <div class="tool-layout full-width">
+      <!-- ACTUAL TOOL -->
+      <div class="tool-box" style="margin-bottom: 40px;">
+        <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-primary btn-sm" onclick="format()">⟳ Format JSON</button>
+          <button class="btn btn-secondary btn-sm" onclick="minify()">Minify</button>
+          <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('jsonOut').textContent,this)">Copy</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearTool()">Clear</button>
+          <div id="jsonStatus" style="font-size:0.8rem;padding:4px 10px;border-radius:20px;"></div>
         </div>
-        <div>
-          <label class="form-label">Formatted Output</label>
-          <div id="jsonOut" class="output-box" style="min-height:380px;font-size:0.82rem;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <label class="form-label">Input JSON</label>
+            <textarea id="jsonIn" class="form-textarea" style="min-height:380px;font-family:'Courier New',monospace;font-size:0.82rem;" placeholder='{"key": "value", "arr": [1, 2, 3]}'></textarea>
+          </div>
+          <div>
+            <label class="form-label">Formatted Output</label>
+            <div id="jsonOut" class="output-box" style="min-height:380px;font-size:0.82rem; white-space: pre-wrap; font-family:'Courier New',monospace;"></div>
+          </div>
         </div>
+      </div>
+
+      <!-- SEO & HOW-TO CONTENT -->
+      <article class="tool-content">
+        <h2>How to Format JSON Online</h2>
+        <p>Formatting and validating JSON (JavaScript Object Notation) doesn't have to be a tedious task. Our free online JSON formatter makes it incredibly simple to read messy API responses and configuration files.</p>
+        
+        <ol style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Paste your code:</strong> Copy your raw, unformatted JSON data and paste it into the "Input JSON" box on the left.</li>
+          <li><strong>Click Format:</strong> Hit the "Format JSON" button. Our tool will immediately parse the data, check for errors, and indent it properly.</li>
+          <li><strong>Validate syntax:</strong> If your JSON has syntax errors (like missing quotes or trailing commas), the status indicator will highlight the issue so you can fix it.</li>
+          <li><strong>Copy the result:</strong> Once you are satisfied with the beautified JSON, click the "Copy" button to save it to your clipboard.</li>
+        </ol>
+
+        <h2>Why Use Our JSON Formatter?</h2>
+        <p>Developers frequently encounter minified JSON strings that are impossible to read with the human eye. Finding a missing bracket or a typo in a 5,000-line minified JSON string can consume hours of debugging time.</p>
+        <ul style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>100% Privacy:</strong> This JSON formatter works entirely inside your browser. Your sensitive API data or config files are <strong>never</strong> uploaded to our servers.</li>
+          <li><strong>Instant Validation:</strong> As you type or paste, the tool checks for validity. If your JSON is broken, you'll know instantly.</li>
+          <li><strong>Minify Option:</strong> Working on production code? Use the "Minify" button to strip all whitespace and reduce file size before deployment.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Is my JSON data safe?</h3>
+            <p>Yes. EasyToolz uses local browser-side execution for the JSON Formatter. No data is transmitted across the internet, ensuring your confidential information remains secure on your machine.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">What causes 'Invalid JSON' errors?</h3>
+            <p>The most common causes for invalid JSON include missing quotation marks around keys, using single quotes instead of double quotes, missing commas between elements, and trailing commas at the end of an array or object.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Is there a file size limit?</h3>
+            <p>Because the parsing happens in your browser's memory, you can format very large JSON files (often up to tens of megabytes) depending on your computer's RAM, without waiting for long server uploads.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          <span class="brand">EasyToolz</span>
+        </a>
+        <p>Free browser-based tools for everyday tasks. No sign-up, no download, just tools.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="qr-code-generator.html">QR Generator</a></li>
+          <li><a href="password-generator.html">Password Generator</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All rights reserved</span>
+      <div class="footer-links">
+        <a href="../privacy-policy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
       </div>
     </div>
   </div>
-</div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+</footer>
+
 <script src="../js/main.js"></script>
 <script>
   const statusEl = document.getElementById('jsonStatus');
-  function setStatus(ok,msg){statusEl.textContent=msg;statusEl.style.background=ok?'rgba(52,211,153,0.1)':'rgba(248,113,113,0.1)';statusEl.style.color=ok?'#34d399':'#f87171';}
+  function setStatus(ok,msg){
+    statusEl.textContent=msg;
+    statusEl.style.background=ok?'rgba(52,211,153,0.1)':'rgba(248,113,113,0.1)';
+    statusEl.style.color=ok?'#34d399':'#f87171';
+  }
   function format(){
     try{
       const parsed=JSON.parse(document.getElementById('jsonIn').value);
@@ -57,11 +179,22 @@
       setStatus(true,'✓ Minified');
     }catch(e){setStatus(false,'✗ '+e.message);}
   }
-  function clear(){document.getElementById('jsonIn').value='';document.getElementById('jsonOut').textContent='';statusEl.textContent='';}
+  function clearTool(){
+    document.getElementById('jsonIn').value='';
+    document.getElementById('jsonOut').textContent='';
+    statusEl.textContent='';
+  }
   // Live validation
   document.getElementById('jsonIn').addEventListener('input',()=>{
-    try{JSON.parse(document.getElementById('jsonIn').value);setStatus(true,'✓ Valid JSON');}
-    catch(e){if(document.getElementById('jsonIn').value.trim())setStatus(false,'✗ Invalid JSON');else statusEl.textContent='';}
+    try{
+      JSON.parse(document.getElementById('jsonIn').value);
+      setStatus(true,'✓ Valid JSON');
+    }
+    catch(e){
+      if(document.getElementById('jsonIn').value.trim()) setStatus(false,'✗ Invalid JSON');
+      else statusEl.textContent='';
+    }
   });
 </script>
-</body></html>
+</body>
+</html>
