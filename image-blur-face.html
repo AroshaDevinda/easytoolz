@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blur Face / Blur Area — EasyToolz</title>
+  <meta name="description" content="Free Blur Face tool — select any area in an image and apply a blur effect. No upload, 100% private." />
+  <link rel="canonical" href="https://easytoolz.click/tools/image-blur-face.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Blur Face</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">🌫️</div><div><h1>Blur Face / Blur Area</h1><p>Select any region to blur — faces, text, license plates — free & private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:820px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+        <div class="drop-icon">🌫️</div>
+        <div class="drop-text">Click or drag & drop an image here</div>
+        <div class="drop-sub">JPG, PNG, WebP supported</div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImg(this.files[0])" />
+      </div>
+      <div id="editor" style="display:none;margin-top:20px;">
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+          <span style="font-size:.85rem;color:var(--text-2);">Drag on the image to select areas to blur. Click Apply after each selection.</span>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+            <label style="font-size:.8rem;color:var(--text-3);">Blur:</label>
+            <input type="range" id="blurAmount" min="4" max="40" value="16" style="width:80px;accent-color:var(--teal);" />
+            <span id="blurVal" style="font-size:.8rem;color:var(--text-3);">16px</span>
+          </div>
+        </div>
+        <div style="position:relative;display:inline-block;max-width:100%;user-select:none;" id="canvasWrapper">
+          <canvas id="mainCanvas" style="display:block;max-width:100%;cursor:crosshair;border-radius:var(--radius);"></canvas>
+          <canvas id="overlayCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;cursor:crosshair;" id="overlayCanvas"></canvas>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button class="btn btn-primary" onclick="applyBlur()">✅ Apply Blur to Selection</button>
+          <button class="btn btn-secondary" onclick="undoBlur()">↺ Undo Last</button>
+          <button class="btn btn-secondary" onclick="clearAll()">✕ Reset</button>
+          <button class="btn btn-primary" onclick="download()" style="margin-left:auto;">⬇ Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+let img=null, origData=null, history=[];
+let dragging=false, startX=0, startY=0, selX=0, selY=0, selW=0, selH=0;
+let scaleX=1, scaleY=1;
+const main=document.getElementById('mainCanvas'), mainCtx=main.getContext('2d');
+const ov=document.getElementById('overlayCanvas'), ovCtx=ov.getContext('2d');
+document.getElementById('blurAmount').oninput=function(){document.getElementById('blurVal').textContent=this.value+'px';};
+
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadImg(e.dataTransfer.files[0]);});
+
+function loadImg(file){
+  if(!file||!file.type.startsWith('image/'))return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    img=new Image();img.onload=()=>{
+      main.width=img.naturalWidth;main.height=img.naturalHeight;
+      ov.width=img.naturalWidth;ov.height=img.naturalHeight;
+      mainCtx.drawImage(img,0,0);
+      origData=mainCtx.getImageData(0,0,main.width,main.height);
+      history=[];
+      document.getElementById('dropZone').style.display='none';document.getElementById('editor').style.display='';
+      updateScale();
+    };img.src=e.target.result;
+  };reader.readAsDataURL(file);
+}
+function updateScale(){
+  const rect=main.getBoundingClientRect();
+  scaleX=main.width/rect.width;scaleY=main.height/rect.height;
+}
+function getCanvasPos(e){
+  updateScale();const r=ov.getBoundingClientRect();
+  const src=e.touches?e.touches[0]:e;
+  return{x:(src.clientX-r.left)*scaleX,y:(src.clientY-r.top)*scaleY};
+}
+ov.addEventListener('mousedown',e=>{dragging=true;const p=getCanvasPos(e);startX=p.x;startY=p.y;});
+ov.addEventListener('mousemove',e=>{if(!dragging)return;const p=getCanvasPos(e);selX=Math.min(p.x,startX);selY=Math.min(p.y,startY);selW=Math.abs(p.x-startX);selH=Math.abs(p.y-startY);drawOverlay();});
+ov.addEventListener('mouseup',()=>dragging=false);
+ov.addEventListener('touchstart',e=>{e.preventDefault();dragging=true;const p=getCanvasPos(e);startX=p.x;startY=p.y;},{passive:false});
+ov.addEventListener('touchmove',e=>{e.preventDefault();if(!dragging)return;const p=getCanvasPos(e);selX=Math.min(p.x,startX);selY=Math.min(p.y,startY);selW=Math.abs(p.x-startX);selH=Math.abs(p.y-startY);drawOverlay();},{passive:false});
+ov.addEventListener('touchend',()=>dragging=false);
+function drawOverlay(){
+  ovCtx.clearRect(0,0,ov.width,ov.height);
+  ovCtx.strokeStyle='rgba(0,212,170,.8)';ovCtx.lineWidth=2;
+  ovCtx.fillStyle='rgba(0,212,170,.1)';
+  ovCtx.fillRect(selX,selY,selW,selH);
+  ovCtx.strokeRect(selX,selY,selW,selH);
+}
+function applyBlur(){
+  if(selW<4||selH<4)return;
+  history.push(mainCtx.getImageData(0,0,main.width,main.height));
+  const amt=parseInt(document.getElementById('blurAmount').value)||16;
+  // Use CSS filter trick via offscreen canvas
+  const tmp=document.createElement('canvas');tmp.width=Math.ceil(selW);tmp.height=Math.ceil(selH);
+  const tc=tmp.getContext('2d');
+  tc.filter=`blur(${amt}px)`;
+  tc.drawImage(main,selX,selY,selW,selH,0,0,selW,selH);
+  mainCtx.drawImage(tmp,selX,selY,selW,selH);
+  ovCtx.clearRect(0,0,ov.width,ov.height);
+  selW=0;selH=0;
+}
+function undoBlur(){if(!history.length)return;mainCtx.putImageData(history.pop(),0,0);}
+function clearAll(){mainCtx.drawImage(img,0,0);history=[];ovCtx.clearRect(0,0,ov.width,ov.height);}
+function download(){
+  const a=document.createElement('a');a.href=main.toDataURL('image/jpeg',.95);a.download='blurred.jpg';a.click();
+}
+</script>
+<style>
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.images{background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6}
+</style>
+</body></html>

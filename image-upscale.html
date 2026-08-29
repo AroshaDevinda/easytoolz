@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Upscale — EasyToolz</title>
+  <meta name="description" content="Free Image Upscaler — enlarge images 2× or 4× in your browser. No upload, no AI required." />
+  <link rel="canonical" href="https://easytoolz.click/tools/image-upscale.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Upscale</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon images">🔭</div><div><h1>Image Upscale</h1><p>Enlarge your images 2× or 4× — free, browser-based</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
+    <div class="tool-box">
+      <div class="info-chip" style="margin-bottom:16px;">ℹ️ This tool uses high-quality canvas interpolation. For AI-powered upscaling, try waifu2x or Upscayl.</div>
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+        <div class="drop-icon">🔭</div>
+        <div class="drop-text">Click or drag & drop an image here</div>
+        <div class="drop-sub">JPG, PNG, WebP supported</div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImg(this.files[0])" />
+      </div>
+      <div id="controls" style="display:none;margin-top:20px;">
+        <div id="origInfo" style="font-size:.85rem;color:var(--text-3);margin-bottom:16px;"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Upscale Factor</label>
+            <select id="factor" class="form-select" onchange="updateInfo()">
+              <option value="2">2× (double size)</option>
+              <option value="4">4× (quadruple size)</option>
+              <option value="1.5">1.5×</option>
+              <option value="3">3×</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quality</label>
+            <select id="fmt" class="form-select">
+              <option value="image/png">PNG (lossless)</option>
+              <option value="image/jpeg">JPEG (smaller)</option>
+              <option value="image/webp">WebP</option>
+            </select>
+          </div>
+        </div>
+        <div id="newInfo" style="font-size:.82rem;color:var(--text-2);margin-bottom:16px;"></div>
+        <button class="btn btn-primary btn-block" onclick="doUpscale()">🔭 Upscale & Download</button>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Upscaling…</div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+let img=null;
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadImg(e.dataTransfer.files[0]);});
+
+function loadImg(file){
+  if(!file||!file.type.startsWith('image/'))return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const i=new Image();
+    i.onload=()=>{img=i;document.getElementById('origInfo').textContent=`Original: ${i.naturalWidth} × ${i.naturalHeight} px`;updateInfo();document.getElementById('controls').style.display='';};
+    i.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function updateInfo(){
+  if(!img)return;
+  const f=parseFloat(document.getElementById('factor').value);
+  document.getElementById('newInfo').textContent=`→ Output: ${Math.round(img.naturalWidth*f)} × ${Math.round(img.naturalHeight*f)} px`;
+}
+async function doUpscale(){
+  if(!img)return;
+  document.getElementById('loading').style.display='block';
+  await new Promise(r=>setTimeout(r,30));
+  const f=parseFloat(document.getElementById('factor').value);
+  const fmt=document.getElementById('fmt').value;
+  const ext=fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
+  // Multi-step upscaling for better quality
+  let src=img;
+  const steps=f>=2?2:1;
+  const stepFactor=Math.pow(f,1/steps);
+  let w=img.naturalWidth,h=img.naturalHeight;
+  let c=document.createElement('canvas');
+  for(let s=0;s<steps;s++){
+    w=Math.round(w*stepFactor);h=Math.round(h*stepFactor);
+    c=document.createElement('canvas');c.width=w;c.height=h;
+    const ctx=c.getContext('2d');
+    ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+    ctx.drawImage(src,0,0,w,h);
+    src=c;
+  }
+  const a=document.createElement('a');a.href=c.toDataURL(fmt,.95);a.download=`upscaled-${f}x.${ext}`;a.click();
+  document.getElementById('loading').style.display='none';
+}
+</script>
+<style>
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.images{background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6}
+.info-chip{background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;color:var(--text-2);}
+</style>
+</body></html>

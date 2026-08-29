@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Converter — EasyToolz</title>
+  <meta name="description" content="Free Currency Converter — convert between world currencies with approximate exchange rates." />
+  <link rel="canonical" href="https://easytoolz.click/tools/currency-converter.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Currency Converter</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon utilities">💱</div><div><h1>Currency Converter</h1><p>Convert between world currencies</p></div></div>
+  <div class="tool-layout full-width" style="max-width:600px;">
+    <div class="tool-box">
+      <div class="info-chip" style="margin-bottom:20px;">ℹ️ Rates are approximate and updated periodically</div>
+      <div class="form-group"><label class="form-label">Amount</label><input type="number" id="amount" class="form-input" value="1" oninput="convert()" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">From</label>
+          <select id="fromCur" class="form-select" onchange="convert()"></select>
+        </div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:18px;">
+          <button class="btn btn-secondary btn-sm" onclick="swap()" style="height:44px;">⇄</button>
+        </div>
+        <div class="form-group"><label class="form-label">To</label>
+          <select id="toCur" class="form-select" onchange="convert()"></select>
+        </div>
+      </div>
+      <div class="result-box show" id="result">
+        <div class="result-value" id="resultVal">—</div>
+        <div class="result-label" id="resultLabel">Enter an amount above</div>
+        <div class="result-sub" id="rateLabel"></div>
+      </div>
+      <!-- Popular conversions -->
+      <div style="margin-top:20px;">
+        <div style="font-size:0.8rem;color:var(--text-3);margin-bottom:10px;">Quick Conversions (1 USD =)</div>
+        <div id="quickRates" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;"></div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+// Approximate rates vs USD (update periodically)
+const RATES = {
+  USD:1, EUR:0.92, GBP:0.79, INR:83.5, JPY:149.5, CAD:1.36, AUD:1.54,
+  CHF:0.89, CNY:7.24, SGD:1.35, AED:3.67, SAR:3.75, MYR:4.72, THB:35.2,
+  NZD:1.63, HKD:7.83, KRW:1325, BRL:4.97, MXN:17.1, ZAR:18.7, TRY:32.4,
+  NOK:10.6, SEK:10.5, DKK:6.88, PLN:4.02, PHP:56.4, IDR:15800, VND:24500, PKR:278
+};
+const labels = {USD:'🇺🇸 USD',EUR:'🇪🇺 EUR',GBP:'🇬🇧 GBP',INR:'🇮🇳 INR',JPY:'🇯🇵 JPY',CAD:'🇨🇦 CAD',AUD:'🇦🇺 AUD',CHF:'🇨🇭 CHF',CNY:'🇨🇳 CNY',SGD:'🇸🇬 SGD',AED:'🇦🇪 AED',SAR:'🇸🇦 SAR',MYR:'🇲🇾 MYR',THB:'🇹🇭 THB',NZD:'🇳🇿 NZD',HKD:'🇭🇰 HKD',KRW:'🇰🇷 KRW',BRL:'🇧🇷 BRL',MXN:'🇲🇽 MXN',ZAR:'🇿🇦 ZAR',TRY:'🇹🇷 TRY',NOK:'🇳🇴 NOK',SEK:'🇸🇪 SEK',DKK:'🇩🇰 DKK',PLN:'🇵🇱 PLN',PHP:'🇵🇭 PHP',IDR:'🇮🇩 IDR',VND:'🇻🇳 VND',PKR:'🇵🇰 PKR'};
+
+const fromSel=document.getElementById('fromCur'), toSel=document.getElementById('toCur');
+Object.keys(RATES).forEach(c=>{fromSel.add(new Option(labels[c]||c,c));toSel.add(new Option(labels[c]||c,c));});
+toSel.value='INR';
+
+// Quick rates grid
+const quick=['EUR','GBP','INR','JPY','CAD','AED','AUD','SGD'];
+quick.forEach(c=>{
+  const div=document.createElement('div');
+  div.style.cssText='background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px;text-align:center;';
+  div.innerHTML=`<div style="font-size:0.7rem;color:var(--text-3);">${c}</div><div style="font-size:0.9rem;font-weight:700;color:var(--teal);">${RATES[c].toLocaleString()}</div>`;
+  document.getElementById('quickRates').appendChild(div);
+});
+
+function convert(){
+  const amt=parseFloat(document.getElementById('amount').value)||0;
+  const from=fromSel.value, to=toSel.value;
+  const usd=amt/RATES[from];
+  const result=usd*RATES[to];
+  const fmt=v=>v>=100?v.toLocaleString(undefined,{maximumFractionDigits:2}):v.toFixed(4).replace(/\.?0+$/,'');
+  document.getElementById('resultVal').textContent = fmt(result) + ' ' + to;
+  document.getElementById('resultLabel').textContent = amt + ' ' + from + ' = ' + fmt(result) + ' ' + to;
+  document.getElementById('rateLabel').textContent   = '1 ' + from + ' = ' + fmt(RATES[to]/RATES[from]) + ' ' + to;
+}
+function swap(){const t=fromSel.value;fromSel.value=toSel.value;toSel.value=t;convert();}
+convert();
+</script>
+</body></html>

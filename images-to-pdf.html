@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Images to PDF — EasyToolz</title>
+  <meta name="description" content="Free Images to PDF converter — combine multiple JPG or PNG images into a single PDF file in your browser. No upload needed." />
+  <link rel="canonical" href="https://easytoolz.click/tools/images-to-pdf.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Images to PDF</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon pdf">📎</div><div><h1>Images to PDF</h1><p>Combine multiple images into one PDF — free & browser-only</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+        <div class="drop-icon">🖼️</div>
+        <div class="drop-text">Click or drag & drop images here</div>
+        <div class="drop-sub">JPG, PNG, WebP supported • Multiple files allowed</div>
+        <input type="file" id="imgInput" accept="image/*" multiple style="display:none" onchange="addFiles(this.files)" />
+      </div>
+      <div class="form-row" style="margin-top:16px;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Page Size</label>
+          <select id="pageSize" class="form-select">
+            <option value="a4">A4 (210 × 297 mm)</option>
+            <option value="letter">Letter (216 × 279 mm)</option>
+            <option value="a3">A3 (297 × 420 mm)</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Orientation</label>
+          <select id="orient" class="form-select">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </div>
+      </div>
+      <div id="preview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:16px;"></div>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="clearAll()" id="clearBtn" style="display:none;">✕ Clear All</button>
+        <button class="btn btn-primary" onclick="generatePDF()" id="genBtn" style="display:none;">📄 Generate PDF</button>
+      </div>
+      <div id="loading" style="display:none;text-align:center;padding:20px;color:var(--text-2);">⏳ Creating PDF…</div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+const { jsPDF } = window.jspdf;
+let images = [];
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles(e.dataTransfer.files); });
+
+function addFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      images.push({ src: e.target.result, name: file.name });
+      renderPreview();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPreview() {
+  const p = document.getElementById('preview');
+  p.innerHTML = '';
+  images.forEach((img, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'position:relative;';
+    div.innerHTML = `<img src="${img.src}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;border:1px solid var(--border);">
+      <div style="margin-top:4px;font-size:0.7rem;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${img.name}</div>
+      <button onclick="removeImg(${i})" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);border:none;border-radius:50%;width:22px;height:22px;color:#fff;cursor:pointer;font-size:0.75rem;">✕</button>`;
+    p.appendChild(div);
+  });
+  const show = images.length > 0;
+  document.getElementById('clearBtn').style.display = show ? '' : 'none';
+  document.getElementById('genBtn').style.display  = show ? '' : 'none';
+}
+function removeImg(i) { images.splice(i,1); renderPreview(); }
+function clearAll()    { images = []; renderPreview(); }
+
+async function generatePDF() {
+  if (!images.length) return;
+  document.getElementById('loading').style.display = 'block';
+  await new Promise(r => setTimeout(r, 50));
+  const size   = document.getElementById('pageSize').value;
+  const orient = document.getElementById('orient').value;
+  const pdf    = new jsPDF({ orientation: orient, unit: 'mm', format: size });
+  const pw = pdf.internal.pageSize.getWidth();
+  const ph = pdf.internal.pageSize.getHeight();
+  images.forEach((img, i) => {
+    if (i > 0) pdf.addPage();
+    const image = new Image();
+    image.src = img.src;
+    const ratio = Math.min(pw / image.width, ph / image.height);
+    const w = image.width * ratio, h = image.height * ratio;
+    const x = (pw - w) / 2, y = (ph - h) / 2;
+    pdf.addImage(img.src, 'JPEG', x, y, w, h);
+  });
+  pdf.save('images-to-pdf.pdf');
+  document.getElementById('loading').style.display = 'none';
+}
+</script>
+<style>
+.tool-page-icon.pdf { background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c; }
+.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
+.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
+.drop-icon { font-size:3rem;margin-bottom:12px; }
+.drop-text { font-weight:600;margin-bottom:6px; }
+.drop-sub  { font-size:.8rem;color:var(--text-3); }
+</style>
+</body></html>

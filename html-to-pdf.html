@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML to PDF — EasyToolz</title>
+  <meta name="description" content="Free HTML to PDF converter — type or paste HTML and save it as a PDF. No upload needed, browser-only." />
+  <link rel="canonical" href="https://easytoolz.click/tools/html-to-pdf.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">HTML to PDF</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon pdf">🌐</div><div><h1>HTML to PDF</h1><p>Convert any webpage or HTML code to a PDF — free, browser-only</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
+    <div class="tool-box">
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <button class="btn btn-secondary btn-sm tab-btn active" onclick="switchTab('code',this)">📝 HTML Code</button>
+        <button class="btn btn-secondary btn-sm tab-btn" onclick="switchTab('url',this)">🌐 Current Page</button>
+      </div>
+      <div id="codeTab">
+        <div class="form-group">
+          <label class="form-label">HTML Code</label>
+          <textarea id="htmlCode" class="form-textarea" style="min-height:220px;font-family:monospace;font-size:.85rem;" placeholder="Paste your HTML here…">&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;style&gt;
+  body{font-family:Arial,sans-serif;padding:40px;color:#333;max-width:700px;margin:0 auto;}
+  h1{color:#0097a7;border-bottom:2px solid #e0e0e0;padding-bottom:12px;}
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My Document&lt;/h1&gt;
+  &lt;p&gt;This HTML will be saved as a PDF. Edit me!&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Page Size</label>
+            <select id="pageSize" class="form-select">
+              <option value="a4">A4</option>
+              <option value="letter">Letter</option>
+              <option value="a3">A3</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Orientation</label>
+            <select id="orient" class="form-select">
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="htmlToPDF()">📄 Convert to PDF</button>
+      </div>
+      <div id="urlTab" style="display:none;">
+        <div style="background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.2);border-radius:var(--radius-sm);padding:16px;margin-bottom:16px;">
+          <div style="font-weight:600;margin-bottom:8px;">💡 How to use:</div>
+          <ol style="font-size:.85rem;color:var(--text-2);margin:0;padding-left:20px;line-height:1.8;">
+            <li>Navigate to any webpage in your browser</li>
+            <li>Press <kbd>Ctrl+P</kbd> (or <kbd>Cmd+P</kbd> on Mac)</li>
+            <li>Set destination to <strong>"Save as PDF"</strong></li>
+            <li>Click <strong>Save</strong></li>
+          </ol>
+        </div>
+        <p style="font-size:.85rem;color:var(--text-2);">This is the most reliable way to convert any live webpage to PDF — it captures all dynamic content, fonts, and styles perfectly.</p>
+      </div>
+      <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('codeTab').style.display = tab === 'code' ? '' : 'none';
+  document.getElementById('urlTab').style.display = tab === 'url' ? '' : 'none';
+}
+function htmlToPDF() {
+  const html = document.getElementById('htmlCode').value;
+  if (!html.trim()) { showErr('Please enter some HTML.'); return; }
+  const size = document.getElementById('pageSize').value;
+  const orient = document.getElementById('orient').value;
+  // Open in new window and trigger print dialog
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head>
+    <style>
+      @page { size: ${size} ${orient}; margin: 15mm; }
+      @media print { body { margin: 0; } }
+    </style>
+    </head><body>${html}</body></html>`);
+  win.document.close();
+  win.focus();
+  setTimeout(() => { win.print(); }, 500);
+}
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
+</script>
+<style>
+.tab-btn.active { background: var(--teal) !important; border-color: var(--teal) !important; color: #000 !important; font-weight: 700; }
+.tool-page-icon.pdf { background: rgba(251,146,60,.15); color: #fb923c; }
+kbd { background: var(--glass); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-size: .85em; }
+</style>
+</body></html>

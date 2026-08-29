@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fuel Cost Calculator — EasyToolz</title>
+  <meta name="description" content="Free Fuel Cost Calculator — calculate the fuel cost for any trip based on distance and mileage." />
+  <link rel="canonical" href="https://easytoolz.click/tools/fuel-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Fuel Cost Calculator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon daily">⛽</div><div><h1>Fuel Cost Calculator</h1><p>Calculate the fuel cost for any trip</p></div></div>
+  <div class="tool-layout full-width" style="max-width:600px;">
+    <div class="tool-box">
+      <div class="form-group">
+        <label class="form-label">Unit System</label>
+        <select id="unitSys" class="form-select" onchange="toggleUnits()">
+          <option value="metric">Metric (km, litres)</option>
+          <option value="imperial">Imperial (miles, gallons)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label" id="distLabel">Distance (km)</label><input type="number" id="distance" class="form-input" placeholder="e.g. 200" /></div>
+        <div class="form-group"><label class="form-label" id="mileLabel">Fuel Efficiency (km/L)</label><input type="number" id="efficiency" class="form-input" placeholder="e.g. 15" /></div>
+      </div>
+      <div class="form-group"><label class="form-label" id="priceLabel">Fuel Price (per litre)</label><input type="number" id="fuelPrice" class="form-input" placeholder="e.g. 95" step="0.01" /></div>
+      <button class="btn btn-primary btn-block" onclick="calcFuel()">Calculate Cost</button>
+      <div class="result-box" id="result" style="margin-top:20px;">
+        <div class="result-value" id="totalCost"></div>
+        <div class="result-label" id="fuelUsed"></div>
+        <div class="result-sub" id="costPer"></div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function toggleUnits(){
+    const m = document.getElementById('unitSys').value === 'metric';
+    document.getElementById('distLabel').textContent  = m ? 'Distance (km)' : 'Distance (miles)';
+    document.getElementById('mileLabel').textContent  = m ? 'Fuel Efficiency (km/L)' : 'Fuel Efficiency (mpg)';
+    document.getElementById('priceLabel').textContent = m ? 'Fuel Price (per litre)' : 'Fuel Price (per gallon)';
+    document.getElementById('efficiency').placeholder = m ? 'e.g. 15' : 'e.g. 30';
+    document.getElementById('fuelPrice').placeholder  = m ? 'e.g. 95' : 'e.g. 3.50';
+  }
+  function calcFuel(){
+    const dist  = parseFloat(document.getElementById('distance').value);
+    const eff   = parseFloat(document.getElementById('efficiency').value);
+    const price = parseFloat(document.getElementById('fuelPrice').value);
+    if(!dist||!eff||!price) return alert('Please fill all fields.');
+    const metric = document.getElementById('unitSys').value === 'metric';
+    const fuel   = dist / eff;
+    const cost   = fuel * price;
+    const unit   = metric ? 'litres' : 'gallons';
+    const sym    = metric ? '₹' : '$';
+    document.getElementById('totalCost').textContent = sym + cost.toFixed(2);
+    document.getElementById('fuelUsed').textContent  = fuel.toFixed(2) + ' ' + unit + ' required';
+    document.getElementById('costPer').textContent   = sym + (cost/dist*100).toFixed(2) + ' per 100 ' + (metric?'km':'miles');
+    document.getElementById('result').classList.add('show');
+  }
+</script>
+</body></html>

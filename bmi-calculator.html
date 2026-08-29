@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMI Calculator — EasyToolz</title>
+  <meta name="description" content="Free online BMI Calculator. Check your Body Mass Index and health status instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/bmi-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../about.html">About</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">BMI Calculator</span></nav>
+  <div class="tool-page-header">
+    <div class="tool-page-icon calculators">⚖️</div>
+    <div><h1>BMI Calculator</h1><p>Check your Body Mass Index and health category</p></div>
+  </div>
+  <div class="tool-layout">
+    <div class="tool-box">
+      <div class="form-group">
+        <label class="form-label">Unit System</label>
+        <select id="unit" class="form-select" onchange="toggleUnit()">
+          <option value="metric">Metric (kg, cm)</option>
+          <option value="imperial">Imperial (lbs, ft/in)</option>
+        </select>
+      </div>
+      <div id="metricInputs">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Weight (kg)</label><input type="number" id="weightKg" class="form-input" placeholder="e.g. 70" /></div>
+          <div class="form-group"><label class="form-label">Height (cm)</label><input type="number" id="heightCm" class="form-input" placeholder="e.g. 175" /></div>
+        </div>
+      </div>
+      <div id="imperialInputs" style="display:none;">
+        <div class="form-group"><label class="form-label">Weight (lbs)</label><input type="number" id="weightLbs" class="form-input" placeholder="e.g. 154" /></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Height (ft)</label><input type="number" id="heightFt" class="form-input" placeholder="5" /></div>
+          <div class="form-group"><label class="form-label">Height (in)</label><input type="number" id="heightIn" class="form-input" placeholder="9" /></div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="calcBMI()">Calculate BMI</button>
+      <div class="result-box" id="result" style="margin-top:20px;">
+        <div class="result-value" id="bmiVal"></div>
+        <div class="result-label" id="bmiCat"></div>
+        <div style="margin-top:16px;background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+          <div style="font-size:0.8rem;color:var(--text-3);margin-bottom:8px;">BMI Ranges</div>
+          <div id="bmiBar" style="height:8px;border-radius:4px;background:linear-gradient(90deg,#60a5fa,#34d399,#fbbf24,#f87171);margin-bottom:8px;position:relative;">
+            <div id="bmiMarker" style="position:absolute;top:-4px;width:16px;height:16px;border-radius:50%;background:white;transform:translateX(-50%);transition:left 0.4s;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-3);">
+            <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="ad-slot"><p>Advertisement</p></div>
+      <div class="sidebar-info"><h4>BMI Categories</h4><ul>
+        <li>Under 18.5 → Underweight</li><li>18.5–24.9 → Normal</li><li>25.0–29.9 → Overweight</li><li>30.0+ → Obese</li>
+      </ul></div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function toggleUnit() {
+    const u = document.getElementById('unit').value;
+    document.getElementById('metricInputs').style.display   = u==='metric'   ? '' : 'none';
+    document.getElementById('imperialInputs').style.display = u==='imperial' ? '' : 'none';
+  }
+  function calcBMI() {
+    let bmi, height, weight;
+    const u = document.getElementById('unit').value;
+    if (u === 'metric') {
+      weight = parseFloat(document.getElementById('weightKg').value);
+      height = parseFloat(document.getElementById('heightCm').value) / 100;
+    } else {
+      const lbs = parseFloat(document.getElementById('weightLbs').value);
+      const ft  = parseFloat(document.getElementById('heightFt').value)||0;
+      const inn = parseFloat(document.getElementById('heightIn').value)||0;
+      const inchTotal = ft*12+inn;
+      weight = lbs * 0.453592;
+      height = inchTotal * 0.0254;
+    }
+    if (!weight||!height||height<=0) return alert('Please enter valid values.');
+    bmi = weight / (height*height);
+    const b = bmi.toFixed(1);
+    let cat='', pct=50;
+    if (bmi<16)      { cat='Severely Underweight'; pct=5; }
+    else if (bmi<18.5){ cat='Underweight'; pct=20; }
+    else if (bmi<25) { cat='Normal / Healthy'; pct=40; }
+    else if (bmi<30) { cat='Overweight'; pct=65; }
+    else if (bmi<35) { cat='Obese (Class I)'; pct=80; }
+    else             { cat='Obese (Class II+)'; pct=95; }
+    document.getElementById('bmiVal').textContent = b;
+    document.getElementById('bmiCat').textContent = cat;
+    document.getElementById('bmiMarker').style.left = pct+'%';
+    document.getElementById('result').classList.add('show');
+  }
+</script>
+</body></html>

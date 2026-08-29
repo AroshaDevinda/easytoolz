@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Date Calculator — EasyToolz</title>
+  <meta name="description" content="Free Date Calculator — calculate the number of days, weeks and months between two dates." />
+  <link rel="canonical" href="https://easytoolz.click/tools/date-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Date Calculator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon daily">📅</div><div><h1>Date Calculator</h1><p>Calculate the difference between two dates</p></div></div>
+  <div class="tool-layout full-width" style="max-width:600px;">
+    <div class="tool-box">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Start Date</label><input type="date" id="date1" class="form-input" /></div>
+        <div class="form-group"><label class="form-label">End Date</label><input type="date" id="date2" class="form-input" /></div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="calcDate()">Calculate Difference</button>
+      <div class="result-box" id="result" style="margin-top:20px;">
+        <div class="result-value" id="mainDiff"></div>
+        <div class="result-label" id="subDiff"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;">
+          <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;text-align:center;">
+            <div id="weeksDiff" style="font-size:1.1rem;font-weight:700;color:var(--teal);"></div>
+            <div style="font-size:0.72rem;color:var(--text-3);">weeks</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;text-align:center;">
+            <div id="hoursDiff" style="font-size:1.1rem;font-weight:700;color:var(--purple);"></div>
+            <div style="font-size:0.72rem;color:var(--text-3);">hours</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;text-align:center;">
+            <div id="minsDiff" style="font-size:1.1rem;font-weight:700;color:#f87171;"></div>
+            <div style="font-size:0.72rem;color:var(--text-3);">minutes</div>
+          </div>
+        </div>
+      </div>
+      <hr class="divider"/>
+      <h3 style="font-size:1rem;margin-bottom:16px;">Add / Subtract Days from a Date</h3>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date</label><input type="date" id="addDate" class="form-input" /></div>
+        <div class="form-group"><label class="form-label">Days to Add (negative to subtract)</label><input type="number" id="addDays" class="form-input" placeholder="e.g. 30 or -7" /></div>
+      </div>
+      <button class="btn btn-secondary" onclick="addSubDays()">Calculate</button>
+      <div class="result-box" id="addResult" style="margin-top:12px;">
+        <div class="result-value" id="addResultVal"></div>
+        <div class="result-label">Result Date</div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  // Set defaults
+  const now = new Date();
+  document.getElementById('date2').value = now.toISOString().split('T')[0];
+  document.getElementById('addDate').value = now.toISOString().split('T')[0];
+  const pastMonth = new Date(now); pastMonth.setMonth(now.getMonth()-1);
+  document.getElementById('date1').value = pastMonth.toISOString().split('T')[0];
+
+  function calcDate(){
+    const d1=new Date(document.getElementById('date1').value);
+    const d2=new Date(document.getElementById('date2').value);
+    if(!document.getElementById('date1').value||!document.getElementById('date2').value)return alert('Select both dates.');
+    const ms=Math.abs(d2-d1), days=Math.floor(ms/86400000);
+    document.getElementById('mainDiff').textContent = days.toLocaleString() + ' Days';
+    document.getElementById('subDiff').textContent  = (d2>d1?'':'−') + Math.floor(days/365) + ' years, ' + (Math.floor(days/30)%12) + ' months, ' + (days%30) + ' days';
+    document.getElementById('weeksDiff').textContent = Math.floor(days/7).toLocaleString();
+    document.getElementById('hoursDiff').textContent = (days*24).toLocaleString();
+    document.getElementById('minsDiff').textContent  = (days*1440).toLocaleString();
+    document.getElementById('result').classList.add('show');
+  }
+  function addSubDays(){
+    const d=new Date(document.getElementById('addDate').value);
+    const n=parseInt(document.getElementById('addDays').value);
+    if(!document.getElementById('addDate').value||isNaN(n))return alert('Please fill both fields.');
+    d.setDate(d.getDate()+n);
+    document.getElementById('addResultVal').textContent = d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('addResult').classList.add('show');
+  }
+</script>
+</body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Formatter — EasyToolz</title>
+  <meta name="description" content="Free JSON Formatter — format, validate and beautify messy JSON data instantly." />
+  <link rel="canonical" href="https://easytoolz.click/tools/json-formatter.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">JSON Formatter</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon developer">{ }</div><div><h1>JSON Formatter</h1><p>Format, validate and beautify JSON instantly</p></div></div>
+  <div class="tool-layout full-width">
+    <div class="tool-box">
+      <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
+        <button class="btn btn-primary btn-sm" onclick="format()">⟳ Format JSON</button>
+        <button class="btn btn-secondary btn-sm" onclick="minify()">Minify</button>
+        <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('jsonOut').textContent,this)">Copy</button>
+        <button class="btn btn-secondary btn-sm" onclick="clear()">Clear</button>
+        <div id="jsonStatus" style="font-size:0.8rem;padding:4px 10px;border-radius:20px;"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <label class="form-label">Input JSON</label>
+          <textarea id="jsonIn" class="form-textarea" style="min-height:380px;font-family:'Courier New',monospace;font-size:0.82rem;" placeholder='{"key": "value", "arr": [1, 2, 3]}'></textarea>
+        </div>
+        <div>
+          <label class="form-label">Formatted Output</label>
+          <div id="jsonOut" class="output-box" style="min-height:380px;font-size:0.82rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  const statusEl = document.getElementById('jsonStatus');
+  function setStatus(ok,msg){statusEl.textContent=msg;statusEl.style.background=ok?'rgba(52,211,153,0.1)':'rgba(248,113,113,0.1)';statusEl.style.color=ok?'#34d399':'#f87171';}
+  function format(){
+    try{
+      const parsed=JSON.parse(document.getElementById('jsonIn').value);
+      document.getElementById('jsonOut').textContent=JSON.stringify(parsed,null,2);
+      setStatus(true,'✓ Valid JSON');
+    }catch(e){setStatus(false,'✗ '+e.message);}
+  }
+  function minify(){
+    try{
+      const parsed=JSON.parse(document.getElementById('jsonIn').value);
+      document.getElementById('jsonOut').textContent=JSON.stringify(parsed);
+      setStatus(true,'✓ Minified');
+    }catch(e){setStatus(false,'✗ '+e.message);}
+  }
+  function clear(){document.getElementById('jsonIn').value='';document.getElementById('jsonOut').textContent='';statusEl.textContent='';}
+  // Live validation
+  document.getElementById('jsonIn').addEventListener('input',()=>{
+    try{JSON.parse(document.getElementById('jsonIn').value);setStatus(true,'✓ Valid JSON');}
+    catch(e){if(document.getElementById('jsonIn').value.trim())setStatus(false,'✗ Invalid JSON');else statusEl.textContent='';}
+  });
+</script>
+</body></html>

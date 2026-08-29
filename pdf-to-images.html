@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF to Images — EasyToolz</title>
+  <meta name="description" content="Free PDF to Images converter — convert each PDF page to a PNG image in your browser. No upload, 100% private." />
+  <link rel="canonical" href="https://easytoolz.click/tools/pdf-to-images.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">PDF to Images</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon pdf">🖼️</div><div><h1>PDF to Images</h1><p>Convert every PDF page to a PNG image — free, browser-only</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
+    <div class="tool-box">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
+        <div class="drop-icon">📄</div>
+        <div class="drop-text">Click or drag & drop a PDF here</div>
+        <div class="drop-sub">Each page will be converted to a PNG image</div>
+        <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="handleFile(this.files[0])" />
+      </div>
+      <div class="form-row" style="margin-top:16px;align-items:center;gap:16px;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Scale / Quality</label>
+          <select id="scale" class="form-select">
+            <option value="1">1× — Fast (72 DPI)</option>
+            <option value="2" selected>2× — Good (144 DPI)</option>
+            <option value="3">3× — High (216 DPI)</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:18px;">
+          <button class="btn btn-primary" id="dlAllBtn" style="display:none;" onclick="downloadAll()">⬇ Download All</button>
+        </div>
+      </div>
+      <div id="loading" style="display:none;text-align:center;padding:24px;color:var(--text-2);">⏳ Converting pages…</div>
+      <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
+      <div id="pagesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:20px;"></div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+let pageImages = [];
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f=e.dataTransfer.files[0]; if(f) handleFile(f); });
+
+async function handleFile(file) {
+  if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF.'); return; }
+  document.getElementById('pagesGrid').innerHTML = '';
+  document.getElementById('dlAllBtn').style.display = 'none';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+  pageImages = [];
+  const scale = parseFloat(document.getElementById('scale').value);
+  try {
+    const buf = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+    const grid = document.getElementById('pagesGrid');
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const vp = page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = vp.width; canvas.height = vp.height;
+      await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      const dataUrl = canvas.toDataURL('image/png');
+      pageImages.push({ dataUrl, name: `page-${i}.png` });
+      const card = document.createElement('div');
+      card.className = 'page-card';
+      card.innerHTML = `<img src="${dataUrl}" alt="Page ${i}" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+        <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.75rem;color:var(--text-3);">Page ${i}</span>
+          <button class="btn btn-secondary btn-sm" onclick="dlOne(${i-1})">⬇</button>
+        </div>`;
+      grid.appendChild(card);
+    }
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('dlAllBtn').style.display = '';
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    showErr('Could not read PDF. It may be corrupt or password-protected.');
+  }
+}
+function dlOne(idx) {
+  const a = document.createElement('a'); a.href = pageImages[idx].dataUrl; a.download = pageImages[idx].name; a.click();
+}
+function downloadAll() {
+  pageImages.forEach((img, i) => { setTimeout(() => dlOne(i), i * 200); });
+}
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
+</script>
+<style>
+.tool-page-icon.pdf { background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c; }
+.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
+.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
+.drop-icon { font-size:3rem;margin-bottom:12px; }
+.drop-text { font-weight:600;margin-bottom:6px; }
+.drop-sub  { font-size:.8rem;color:var(--text-3); }
+</style>
+</body></html>

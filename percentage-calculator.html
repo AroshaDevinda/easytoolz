@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Calculator — EasyToolz</title>
+  <meta name="description" content="Free online Percentage Calculator — calculate percentage of a number, percentage change, and more." />
+  <link rel="canonical" href="https://easytoolz.click/tools/percentage-calculator.html" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav class="navbar"><div class="container">
+  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
+  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</div></nav>
+<main class="tool-page"><div class="container">
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Percentage Calculator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon calculators">💯</div><div><h1>Percentage Calculator</h1><p>Quick percentage calculations of any kind</p></div></div>
+  <div class="tool-layout full-width">
+    <div class="tool-box">
+      <!-- Section 1 -->
+      <h3 style="margin-bottom:16px;font-size:1rem;">What is X% of Y?</h3>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Percentage (%)</label><input type="number" id="p1" class="form-input" placeholder="e.g. 15" /></div>
+        <div class="form-group"><label class="form-label">Number (Y)</label><input type="number" id="n1" class="form-input" placeholder="e.g. 200" /></div>
+      </div>
+      <button class="btn btn-primary" onclick="calc1()">Calculate</button>
+      <div class="result-box" id="r1" style="margin-top:16px;text-align:left;padding:16px;">
+        <span class="result-label">Result: </span><strong id="r1val" style="color:var(--teal);font-size:1.2rem;"></strong>
+      </div>
+      <hr class="divider" />
+      <!-- Section 2 -->
+      <h3 style="margin-bottom:16px;font-size:1rem;">X is what % of Y?</h3>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Value (X)</label><input type="number" id="p2x" class="form-input" placeholder="e.g. 30" /></div>
+        <div class="form-group"><label class="form-label">Total (Y)</label><input type="number" id="p2y" class="form-input" placeholder="e.g. 200" /></div>
+      </div>
+      <button class="btn btn-primary" onclick="calc2()">Calculate</button>
+      <div class="result-box" id="r2" style="margin-top:16px;text-align:left;padding:16px;">
+        <span class="result-label">Result: </span><strong id="r2val" style="color:var(--teal);font-size:1.2rem;"></strong>
+      </div>
+      <hr class="divider" />
+      <!-- Section 3 -->
+      <h3 style="margin-bottom:16px;font-size:1rem;">Percentage Change (from X to Y)</h3>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">From (X)</label><input type="number" id="p3x" class="form-input" placeholder="e.g. 100" /></div>
+        <div class="form-group"><label class="form-label">To (Y)</label><input type="number" id="p3y" class="form-input" placeholder="e.g. 120" /></div>
+      </div>
+      <button class="btn btn-primary" onclick="calc3()">Calculate</button>
+      <div class="result-box" id="r3" style="margin-top:16px;text-align:left;padding:16px;">
+        <span class="result-label">Change: </span><strong id="r3val" style="color:var(--teal);font-size:1.2rem;"></strong>
+      </div>
+    </div>
+  </div>
+</div></main>
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+<script src="../js/main.js"></script>
+<script>
+  function show(id,val){ document.getElementById(id).classList.add('show'); document.getElementById(id+'val').textContent=val; }
+  function calc1(){ const p=parseFloat(document.getElementById('p1').value),n=parseFloat(document.getElementById('n1').value); if(isNaN(p)||isNaN(n))return; show('r1',(p/100*n).toFixed(4).replace(/\.?0+$/,'')); }
+  function calc2(){ const x=parseFloat(document.getElementById('p2x').value),y=parseFloat(document.getElementById('p2y').value); if(isNaN(x)||isNaN(y)||y===0)return; show('r2',(x/y*100).toFixed(2)+'%'); }
+  function calc3(){ const x=parseFloat(document.getElementById('p3x').value),y=parseFloat(document.getElementById('p3y').value); if(isNaN(x)||isNaN(y)||x===0)return; const ch=((y-x)/Math.abs(x)*100).toFixed(2); show('r3',(ch>0?'+':'')+ch+'%'); }
+</script>
+</body></html>
