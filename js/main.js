@@ -128,6 +128,7 @@ function copyText(text, btn) {
       bmcLink.rel = 'noopener noreferrer';
       bmcLink.className = 'bmc-floating-widget';
       bmcLink.setAttribute('aria-label', 'Support EasyToolz on Buy Me a Coffee');
+      bmcLink.setAttribute('title', 'EasyToolz is 100% free. If these tools helped you, consider supporting my family on Buy Me a Coffee.');
       bmcLink.innerHTML = '<span class="bmc-icon">☕</span><span>Buy Me a Coffee</span>';
       document.body.appendChild(bmcLink);
     }

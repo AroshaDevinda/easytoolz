@@ -770,7 +770,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 .support-card-left {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 }
 @media (max-width: 768px) {
