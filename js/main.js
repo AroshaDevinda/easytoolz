@@ -116,3 +116,35 @@ function copyText(text, btn) {
     toggle.addEventListener('click', () => links.classList.toggle('open'));
   }
 })();
+
+/* ── Shared: Buy Me a Coffee Floating Widget & Nav Link (All Pages) ── */
+(function initBMC() {
+  function inject() {
+    // 1. Floating Widget (bottom right on all pages)
+    if (!document.querySelector('.bmc-floating-widget')) {
+      const bmcLink = document.createElement('a');
+      bmcLink.href = 'https://buymeacoffee.com/easytoolz';
+      bmcLink.target = '_blank';
+      bmcLink.rel = 'noopener noreferrer';
+      bmcLink.className = 'bmc-floating-widget';
+      bmcLink.setAttribute('aria-label', 'Support EasyToolz on Buy Me a Coffee');
+      bmcLink.innerHTML = '<span class="bmc-icon">☕</span><span>Buy Me a Coffee</span>';
+      document.body.appendChild(bmcLink);
+    }
+
+    // 2. Nav Link (in navbar of all pages)
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks && !navLinks.querySelector('.nav-bmc-btn')) {
+      const li = document.createElement('li');
+      li.innerHTML = '<a href="https://buymeacoffee.com/easytoolz" target="_blank" rel="noopener noreferrer" class="nav-bmc-btn"><span>☕</span> Support</a>';
+      navLinks.appendChild(li);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inject);
+  } else {
+    inject();
+  }
+})();
+
