@@ -5,7 +5,7 @@ echo ===================================================
 echo   Pushing All 67 Overhauled Tools to GitHub...
 echo ===================================================
 echo.
-git push --force origin main
+git push origin main
 echo.
 echo ===================================================
 echo   Done! Your website will update in about 1 minute.
