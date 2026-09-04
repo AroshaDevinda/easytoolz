@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyToolz TikTok / Shorts Video Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #090d16;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 40px;
+    }
+    header {
+      text-align: center;
+      max-width: 650px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d4aa 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .generator-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 1000px;
+      width: 100%;
+    }
+    .video-preview-wrapper {
+      background: #000;
+      border-radius: 24px;
+      padding: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(0, 212, 170, 0.15);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      width: 320px;
+      height: 568px; /* 9:16 vertical ratio */
+      border-radius: 16px;
+      background: #080c18;
+      display: block;
+    }
+    .controls-panel {
+      flex: 1;
+      min-width: 300px;
+      max-width: 420px;
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .controls-panel h2 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 12px;
+    }
+    .btn-record {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+    .btn-record:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+    }
+    .btn-preview {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-preview:hover {
+      background: #334155;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #1e293b;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 16px 0;
+      display: none;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00d4aa, #818cf8);
+      transition: width 0.1s linear;
+    }
+    .instructions {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .instructions h3 {
+      font-size: 0.95rem;
+      color: #fbbf24;
+      margin-bottom: 8px;
+    }
+    .instructions ol {
+      padding-left: 20px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .instructions li { margin-bottom: 6px; }
+    .status-badge {
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(0, 212, 170, 0.15);
+      color: #00d4aa;
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>EasyToolz Video Creator</h1>
+    <p class="subtitle">Generate a high-converting 9:16 vertical video (TikTok / Instagram Reels / YouTube Shorts) ready to download in 15 seconds!</p>
+  </header>
+
+  <div class="generator-container">
+    <div class="video-preview-wrapper">
+      <canvas id="videoCanvas" width="720" height="1280"></canvas>
+    </div>
+
+    <div class="controls-panel">
+      <h2>Video Controls</h2>
+      <div id="statusBadge" class="status-badge">Ready to Preview or Record</div>
+
+      <button id="btnRecord" class="btn btn-record">
+        <span>🔴</span> Record &amp; Download Video
+      </button>
+
+      <button id="btnPreview" class="btn btn-preview">
+        <span>▶</span> Play Preview
+      </button>
+
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="instructions">
+        <h3>🚀 How to Use on TikTok / Shorts / Reels:</h3>
+        <ol>
+          <li>Click <strong>"Record &amp; Download Video"</strong> above.</li>
+          <li>Wait 15 seconds while the video generates. It will automatically download to your Downloads folder!</li>
+          <li>Open <strong>TikTok</strong>, <strong>Instagram</strong>, or <strong>YouTube Shorts</strong> on your phone or web.</li>
+          <li>Upload the video and pick any trending audio/song in the app!</li>
+          <li>Put this in the caption: <em>"Stop paying $20/mo for Adobe! Secret website easytoolz.click has 60+ free tools with no signups #freewebsites #productivity #studenthacks"</em></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('videoCanvas');
+    const ctx = canvas.getContext('2d');
+    const btnRecord = document.getElementById('btnRecord');
+    const btnPreview = document.getElementById('btnPreview');
+    const statusBadge = document.getElementById('statusBadge');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+
+    const TOTAL_DURATION = 15; // 15 seconds video
+    const FPS = 30;
+    const TOTAL_FRAMES = TOTAL_DURATION * FPS;
+
+    let isRecording = false;
+    let isPlaying = false;
+    let currentFrame = 0;
+    let animId = null;
+
+    // Render frame based on time t (0 to 15)
+    function renderFrame(t) {
+      const W = canvas.width;
+      const H = canvas.height;
+
+      // Dynamic animated background gradient
+      const angle = (t * 0.4);
+      const bgGrad = ctx.createLinearGradient(0, 0, W * Math.cos(angle), H);
+      bgGrad.addColorStop(0, '#060a14');
+      bgGrad.addColorStop(0.5, '#0d1527');
+      bgGrad.addColorStop(1, '#060810');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Floating ambient particles
+      ctx.save();
+      for (let i = 0; i < 20; i++) {
+        const px = (Math.sin(i * 99 + t * 0.8) * 0.5 + 0.5) * W;
+        const py = ((i * 64 + t * 40) % H);
+        const pSize = 3 + (i % 4);
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(0, 212, 170, 0.25)' : 'rgba(129, 140, 248, 0.25)';
+        ctx.beginPath();
+        ctx.arc(px, py, pSize, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // Top Brand Pill
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.strokeStyle = 'rgba(0, 212, 170, 0.4)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, W / 2 - 140, 60, 280, 56, 28);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#00d4aa';
+      ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚡ EasyToolz.click', W / 2, 98);
+      ctx.restore();
+
+      // ─── SCENE 1: (0s - 4.5s) THE HOOK ───
+      if (t < 4.5) {
+        const p = t / 4.5;
+        // Warning sticker pulse
+        const scale = 1 + Math.sin(t * 8) * 0.04;
+        ctx.save();
+        ctx.translate(W / 2, 280);
+        ctx.scale(scale, scale);
+
+        ctx.fillStyle = '#ef4444';
+        roundRect(ctx, -180, -32, 360, 64, 16);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 30px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🚨 STOP PAYING $20/MO', 0, 10);
+        ctx.restore();
+
+        // Main text
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 52px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Stop Paying Adobe', W / 2, 420);
+        
+        ctx.fillStyle = '#fbbf24';
+        ctx.fillText('Just To Convert PDFs!', W / 2, 485);
+
+        // Subtext box
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,255,255,0.06)';
+        roundRect(ctx, 60, 560, W - 120, 260, 20);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+        ctx.stroke();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 32px sans-serif';
+        ctx.fillText('Here is the secret website', W / 2, 630);
+        ctx.fillStyle = '#00d4aa';
+        ctx.font = 'bold 36px sans-serif';
+        ctx.fillText('that works 100% FREE', W / 2, 690);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = 'bold 32px sans-serif';
+        ctx.fillText('with ZERO file uploads! 🤫', W / 2, 750);
+        ctx.restore();
+      }
+
+      // ─── SCENE 2: (4.5s - 9.5s) THE SOLUTION & FEATURES ───
+      else if (t < 9.5) {
+        const subT = t - 4.5;
+        
+        ctx.fillStyle = '#818cf8';
+        ctx.font = '800 36px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('USE THIS INSTEAD 👇', W / 2, 230);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 58px sans-serif';
+        ctx.fillText('EasyToolz.click', W / 2, 305);
+
+        // Card 1: PDF to Word
+        drawFeatureCard(W / 2, 400, '📄 PDF to Editable Word', 'Convert contracts, resumes & tables in 1 click', '#f97316', t);
+
+        // Card 2: Image Compressor
+        drawFeatureCard(W / 2, 570, '🖼️ Image Compressor', 'Shrink photos by 80% with zero quality loss', '#00d4aa', t);
+
+        // Card 3: 60+ Extra Utilities
+        drawFeatureCard(W / 2, 740, '⚡ 60+ Everyday Utilities', 'Calculators, OCR, QR codes, Word count & more', '#818cf8', t);
+
+        // Privacy Guarantee badge
+        ctx.save();
+        ctx.fillStyle = 'rgba(0, 212, 170, 0.15)';
+        ctx.strokeStyle = '#00d4aa';
+        ctx.lineWidth = 2;
+        roundRect(ctx, 80, 930, W - 160, 90, 18);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#00d4aa';
+        ctx.font = 'bold 28px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🔒 100% Private in Browser', W / 2, 970);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 22px sans-serif';
+        ctx.fillText('Files NEVER leave your device!', W / 2, 1002);
+        ctx.restore();
+      }
+
+      // ─── SCENE 3: (9.5s - 15.0s) CALL TO ACTION ───
+      else {
+        const subT = t - 9.5;
+
+        // Pulsing glow
+        const pulse = Math.sin(subT * 6) * 0.05 + 1;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 52px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Save This Website!', W / 2, 260);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '600 30px sans-serif';
+        ctx.fillText('You will need it soon 😉', W / 2, 315);
+
+        // Huge central action box
+        ctx.save();
+        ctx.translate(W / 2, 540);
+        ctx.scale(pulse, pulse);
+
+        const cardGrad = ctx.createLinearGradient(-260, -140, 260, 140);
+        cardGrad.addColorStop(0, '#0f172a');
+        cardGrad.addColorStop(1, '#1e1b4b');
+        ctx.fillStyle = cardGrad;
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 4;
+        roundRect(ctx, -270, -140, 540, 280, 32);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = '800 32px sans-serif';
+        ctx.fillText('⚡ 100% FREE UTILITIES', 0, -60);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 48px sans-serif';
+        ctx.fillText('easytoolz.click', 0, 5);
+
+        ctx.fillStyle = '#00d4aa';
+        ctx.font = 'bold 26px sans-serif';
+        ctx.fillText('No Sign-Up · No Watermarks', 0, 65);
+        ctx.restore();
+
+        // Bottom Reminder
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 32px sans-serif';
+        ctx.fillText('👉 easytoolz.click 👈', W / 2, 850);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 24px sans-serif';
+        ctx.fillText('Share with friends & students!', W / 2, 900);
+      }
+
+      // Bottom Progress Tracker Line
+      ctx.fillStyle = 'rgba(255,255,255,0.15)';
+      ctx.fillRect(40, H - 40, W - 80, 6);
+      ctx.fillStyle = '#00d4aa';
+      ctx.fillRect(40, H - 40, (W - 80) * (t / TOTAL_DURATION), 6);
+    }
+
+    function drawFeatureCard(x, y, title, desc, color, t) {
+      const W = canvas.width;
+      ctx.save();
+      ctx.translate(x, y);
+
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      roundRect(ctx, -280, -50, 560, 100, 18);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.font = 'bold 30px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(title, -250, -12);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '500 20px sans-serif';
+      ctx.fillText(desc, -250, 24);
+
+      ctx.restore();
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    // Initial first frame render
+    renderFrame(0);
+
+    // Preview Player
+    btnPreview.addEventListener('click', function() {
+      if (isRecording) return;
+      if (isPlaying) {
+        cancelAnimationFrame(animId);
+        isPlaying = false;
+        btnPreview.innerHTML = '<span>▶</span> Play Preview';
+        return;
+      }
+      isPlaying = true;
+      btnPreview.innerHTML = '<span>⏸</span> Pause Preview';
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime) / 1000;
+        const t = elapsed % TOTAL_DURATION;
+        renderFrame(t);
+
+        if (isPlaying) {
+          animId = requestAnimationFrame(step);
+        }
+      }
+      animId = requestAnimationFrame(step);
+    });
+
+    // Record and Download Video
+    btnRecord.addEventListener('click', async function() {
+      if (isRecording) return;
+      if (isPlaying) {
+        cancelAnimationFrame(animId);
+        isPlaying = false;
+        btnPreview.innerHTML = '<span>▶</span> Play Preview';
+      }
+
+      isRecording = true;
+      btnRecord.disabled = true;
+      btnPreview.disabled = true;
+      progressBar.style.display = 'block';
+      statusBadge.textContent = '🎥 Recording video frames... Please wait 15 seconds';
+      statusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+      statusBadge.style.color = '#ef4444';
+
+      // Setup MediaRecorder from canvas stream
+      const stream = canvas.captureStream(FPS);
+      let options = { mimeType: 'video/webm;codecs=vp9' };
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        options = { mimeType: 'video/webm' };
+      }
+      const mediaRecorder = new MediaRecorder(stream, options);
+      const recordedChunks = [];
+
+      mediaRecorder.ondataavailable = e => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'easytoolz_viral_promo.webm';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          statusBadge.textContent = '✅ Video Downloaded! Ready to upload to TikTok / Shorts / Reels';
+          statusBadge.style.background = 'rgba(0, 212, 170, 0.2)';
+          statusBadge.style.color = '#00d4aa';
+          btnRecord.disabled = false;
+          btnPreview.disabled = false;
+          isRecording = false;
+          progressBar.style.display = 'none';
+        }, 300);
+      };
+
+      mediaRecorder.start();
+
+      const totalFrames = TOTAL_DURATION * FPS;
+      let frame = 0;
+      const interval = 1000 / FPS;
+
+      const recordTimer = setInterval(() => {
+        const t = (frame / totalFrames) * TOTAL_DURATION;
+        renderFrame(t);
+        progressFill.style.width = ((frame / totalFrames) * 100) + '%';
+        frame++;
+
+        if (frame >= totalFrames) {
+          clearInterval(recordTimer);
+          mediaRecorder.stop();
+        }
+      }, interval);
+    });
+  </script>
+</body>
+</html>
