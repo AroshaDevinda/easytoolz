@@ -8,7 +8,7 @@
    4. Push to your site — ads will start showing once approved
    ============================================================ */
 
-const ADSENSE_PUB_ID = 'ca-pub-XXXXXXXXXXXXXXXX'; // ← Replace with your real ID
+const ADSENSE_PUB_ID = 'ca-pub-7289505669633482';
 
 // Load the AdSense script (called once)
 (function loadAdSense() {
