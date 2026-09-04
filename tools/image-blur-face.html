@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blur Face / Blur Area — EasyToolz</title>
-  <meta name="description" content="Free Blur Face tool — select any area in an image and apply a blur effect. No upload, 100% private." />
+  <title>Blur Faces & Sensitive Areas Online — Free Photo Censoring | EasyToolz</title>
+  <meta name="description" content="Free Blur Face & Blur Area tool. Select any area on your photos to blur faces, hide license plates, censor sensitive documents or credit card numbers. 100% private in browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-blur-face.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Blur Faces & Sensitive Areas Online — Free Photo Censoring | EasyToolz" />
+  <meta property="og:description" content="Easily blur faces, license plates, and private data in any photo. Free, instant, and 100% confidential in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-blur-face.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Blur Face and Area Tool","url":"https://easytoolz.click/tools/image-blur-face.html","description":"Blur faces, license plates, confidential documents, and private photos directly in your browser without uploading to any server.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is my confidential photo safe when using this blur tool?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely safe! The tool operates 100% in your browser memory using HTML5 Canvas. Your sensitive images, IDs, or family photos are never sent across the internet."}},
+    {"@type":"Question","name":"Can I blur multiple faces or areas on the same image?","acceptedAnswer":{"@type":"Answer","text":"Yes. Just drag a rectangle over the first face, click 'Apply Blur to Selection', and repeat for as many faces, license plates, or names as you need."}},
+    {"@type":"Question","name":"Can someone un-blur or reverse the blurred photo?","acceptedAnswer":{"@type":"Answer","text":"No. The Gaussian blur algorithm permanently recomputes and averages the pixel values inside the selected box. Once downloaded, the original details cannot be reconstructed."}},
+    {"@type":"Question","name":"Can I undo a blur if I make a mistake?","acceptedAnswer":{"@type":"Answer","text":"Yes, click the 'Undo Last' button to step back through each applied blur before downloading."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,40 +29,77 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Blur Face</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🌫️</div><div><h1>Blur Face / Blur Area</h1><p>Select any region to blur — faces, text, license plates — free & private</p></div></div>
+  <div class="tool-page-header"><div class="tool-page-icon images">🌫️</div><div><h1>Blur Face & Sensitive Areas</h1><p>Select any region to blur — faces, text, license plates — free & 100% private</p></div></div>
   <div class="tool-layout full-width" style="max-width:820px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🌫️</div>
         <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP supported</div>
+        <div class="drop-sub">JPG, PNG, WebP supported — 100% private in browser</div>
         <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImg(this.files[0])" />
       </div>
       <div id="editor" style="display:none;margin-top:20px;">
         <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
-          <span style="font-size:.85rem;color:var(--text-2);">Drag on the image to select areas to blur. Click Apply after each selection.</span>
+          <span style="font-size:.85rem;color:var(--text-2);">👉 Drag on the photo to select an area, then click <strong>Apply Blur</strong>.</span>
           <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
-            <label style="font-size:.8rem;color:var(--text-3);">Blur:</label>
-            <input type="range" id="blurAmount" min="4" max="40" value="16" style="width:80px;accent-color:var(--teal);" />
-            <span id="blurVal" style="font-size:.8rem;color:var(--text-3);">16px</span>
+            <label style="font-size:.8rem;color:var(--text-3);">Blur Intensity:</label>
+            <input type="range" id="blurAmount" min="4" max="45" value="18" style="width:90px;accent-color:var(--teal);" />
+            <span id="blurVal" style="font-size:.8rem;color:var(--text-3);">18px</span>
           </div>
         </div>
-        <div style="position:relative;display:inline-block;max-width:100%;user-select:none;" id="canvasWrapper">
-          <canvas id="mainCanvas" style="display:block;max-width:100%;cursor:crosshair;border-radius:var(--radius);"></canvas>
-          <canvas id="overlayCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;cursor:crosshair;" id="overlayCanvas"></canvas>
+        <div style="position:relative;display:inline-block;max-width:100%;user-select:none;overflow:hidden;border-radius:var(--radius);border:1px solid var(--border);" id="canvasWrapper">
+          <canvas id="mainCanvas" style="display:block;max-width:100%;cursor:crosshair;"></canvas>
+          <canvas id="overlayCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;cursor:crosshair;"></canvas>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center;">
           <button class="btn btn-primary" onclick="applyBlur()">✅ Apply Blur to Selection</button>
           <button class="btn btn-secondary" onclick="undoBlur()">↺ Undo Last</button>
           <button class="btn btn-secondary" onclick="clearAll()">✕ Reset</button>
-          <button class="btn btn-primary" onclick="download()" style="margin-left:auto;">⬇ Download</button>
+          <button class="btn btn-secondary" onclick="changeImage()">Change Photo</button>
+          <button class="btn btn-primary" onclick="download()" style="margin-left:auto;">⬇ Download Censored Photo</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Blur Faces and Censor Photos Online Free</h2>
+    <p>Sharing pictures on Reddit, social media, Craigslist, or company portals often requires hiding identities or concealing confidential numbers. EasyToolz lets you censor any photo with precision in seconds.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Add your photo:</strong> Drag and drop your image file into the workspace or click to browse.</li>
+      <li><strong>Select the area to censor:</strong> Click and drag your mouse or finger across the face, license plate, house number, or confidential text snippet.</li>
+      <li><strong>Apply blur:</strong> Click "Apply Blur to Selection". You can adjust the blur intensity slider to make it mild or completely obscure the content. Repeat for additional areas as needed.</li>
+      <li><strong>Save your photo:</strong> Click "Download Censored Photo" to get your privacy-protected image instantly.</li>
+    </ol>
+
+    <h2>Common Scenarios for Image Blurring & Redaction</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Protecting Children's Privacy:</strong> Obscure kids' faces before sharing event or school photos online.</li>
+      <li><strong>Automotive Listings:</strong> Blur license plates and vehicle identification numbers (VINs) when selling cars online.</li>
+      <li><strong>Document Redaction:</strong> Blur credit card CVV codes, social security numbers, medical records, or home addresses before sharing screenshots.</li>
+      <li><strong>Bystander Anonymity:</strong> Respect the privacy of background bystanders in street photography or public protest imagery.</li>
+    </ul>
+
+    <p>Explore more privacy and editing tools: <a href="image-watermark.html">Image Watermark</a>, <a href="image-cropper.html">Image Cropper</a>, <a href="photo-editor.html">Photo Editor</a>, <a href="pdf-redact.html">PDF Redact</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Is my confidential photo safe when using this blur tool?</h3><p>Yes, completely safe! The tool operates 100% in your browser memory using HTML5 Canvas. Your sensitive images, IDs, or family photos are never sent across the internet.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I blur multiple faces or areas on the same image?</h3><p>Yes. Just drag a rectangle over the first face, click "Apply Blur to Selection", and repeat for as many faces, license plates, or names as you need.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can someone un-blur or reverse the blurred photo?</h3><p>No. The Gaussian blur algorithm permanently recomputes and averages the pixel values inside the selected box. Once downloaded, the original details cannot be reconstructed.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I undo a blur if I make a mistake?</h3><p>Yes, click the "Undo Last" button to step back through each applied blur before downloading.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="image-blur-face.html">Blur Face Tool</a></li><li><a href="image-cropper.html">Image Cropper</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 let img=null, origData=null, history=[];
 let dragging=false, startX=0, startY=0, selX=0, selY=0, selW=0, selH=0;
@@ -77,9 +128,14 @@ function loadImg(file){
     };img.src=e.target.result;
   };reader.readAsDataURL(file);
 }
+function changeImage(){
+  document.getElementById('dropZone').style.display='';
+  document.getElementById('editor').style.display='none';
+  img=null;history=[];
+}
 function updateScale(){
   const rect=main.getBoundingClientRect();
-  scaleX=main.width/rect.width;scaleY=main.height/rect.height;
+  scaleX=main.width/(rect.width||1);scaleY=main.height/(rect.height||1);
 }
 function getCanvasPos(e){
   updateScale();const r=ov.getBoundingClientRect();
@@ -94,16 +150,15 @@ ov.addEventListener('touchmove',e=>{e.preventDefault();if(!dragging)return;const
 ov.addEventListener('touchend',()=>dragging=false);
 function drawOverlay(){
   ovCtx.clearRect(0,0,ov.width,ov.height);
-  ovCtx.strokeStyle='rgba(0,212,170,.8)';ovCtx.lineWidth=2;
-  ovCtx.fillStyle='rgba(0,212,170,.1)';
+  ovCtx.strokeStyle='rgba(0,212,170,.9)';ovCtx.lineWidth=3;
+  ovCtx.fillStyle='rgba(0,212,170,.12)';
   ovCtx.fillRect(selX,selY,selW,selH);
   ovCtx.strokeRect(selX,selY,selW,selH);
 }
 function applyBlur(){
   if(selW<4||selH<4)return;
   history.push(mainCtx.getImageData(0,0,main.width,main.height));
-  const amt=parseInt(document.getElementById('blurAmount').value)||16;
-  // Use CSS filter trick via offscreen canvas
+  const amt=parseInt(document.getElementById('blurAmount').value)||18;
   const tmp=document.createElement('canvas');tmp.width=Math.ceil(selW);tmp.height=Math.ceil(selH);
   const tc=tmp.getContext('2d');
   tc.filter=`blur(${amt}px)`;
@@ -113,9 +168,21 @@ function applyBlur(){
   selW=0;selH=0;
 }
 function undoBlur(){if(!history.length)return;mainCtx.putImageData(history.pop(),0,0);}
-function clearAll(){mainCtx.drawImage(img,0,0);history=[];ovCtx.clearRect(0,0,ov.width,ov.height);}
+function clearAll(){if(!img)return;mainCtx.drawImage(img,0,0);history=[];ovCtx.clearRect(0,0,ov.width,ov.height);}
 function download(){
-  const a=document.createElement('a');a.href=main.toDataURL('image/jpeg',.95);a.download='blurred.jpg';a.click();
+  main.toBlob(blob=>{
+    if(!blob){
+      const a=document.createElement('a');a.href=main.toDataURL('image/jpeg',.95);a.download='censored-photo.jpg';document.body.appendChild(a);a.click();document.body.removeChild(a);return;
+    }
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.style.display='none';
+    a.href=url;
+    a.download='censored-photo.jpg';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},150);
+  },'image/jpeg',.95);
 }
 </script>
 <style>

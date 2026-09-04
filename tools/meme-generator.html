@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meme Generator — EasyToolz</title>
-  <meta name="description" content="Free online Meme Generator — add top and bottom text to any image, download your meme instantly. No upload needed." />
+  <title>Meme Generator Online — Create Custom Memes Free | EasyToolz</title>
+  <meta name="description" content="Free online Meme Generator. Add top and bottom text with classic Impact font, custom outlines, adjustable font sizes, and colors. Download instantly with no watermark." />
   <link rel="canonical" href="https://easytoolz.click/tools/meme-generator.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Meme Generator Online — Create Custom Memes Free | EasyToolz" />
+  <meta property="og:description" content="Create hilarious viral memes with your own images. No watermark, free, instant, and runs locally." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/meme-generator.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Meme Generator","url":"https://easytoolz.click/tools/meme-generator.html","description":"Create memes with custom top and bottom text on any image instantly in your browser with no watermarks.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Does EasyToolz add a watermark to my meme?","acceptedAnswer":{"@type":"Answer","text":"Never! All generated memes are 100% clean and free of watermarks or logos, ready to share anywhere."}},
+    {"@type":"Question","name":"Can I upload my own custom template?","acceptedAnswer":{"@type":"Answer","text":"Yes! You can upload any JPEG, PNG, or WebP picture from your device or phone camera."}},
+    {"@type":"Question","name":"Why is the classic meme font Impact with a black outline?","acceptedAnswer":{"@type":"Answer","text":"The white Impact typography with bold black stroke ensures your joke is clearly readable over any dark, bright, or busy background."}},
+    {"@type":"Question","name":"Are my memes uploaded to a public server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything is rendered locally on your device's browser canvas. Your images and text remain completely confidential."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,13 +29,13 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Meme Generator</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">😂</div><div><h1>Meme Generator</h1><p>Create memes with custom text on any image — free & instant</p></div></div>
+  <div class="tool-page-header"><div class="tool-page-icon images">😂</div><div><h1>Online Meme Generator</h1><p>Create classic memes with custom text on any image — free, instant & no watermark</p></div></div>
   <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">😂</div>
         <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP, GIF supported</div>
+        <div class="drop-sub">JPG, PNG, WebP, GIF supported — 100% private</div>
         <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImg(this.files[0])" />
       </div>
       <div id="editor" style="display:none;margin-top:20px;">
@@ -37,30 +51,65 @@
         </div>
         <div class="form-row" style="margin-bottom:16px;">
           <div class="form-group">
-            <label class="form-label">Font Size</label>
-            <input type="range" id="fontSize" min="20" max="120" value="52" style="width:100%;accent-color:var(--teal);" oninput="render()" />
+            <label class="form-label">Font Size (<span id="fsVal">52</span>px)</label>
+            <input type="range" id="fontSize" min="16" max="140" value="52" style="width:100%;accent-color:var(--teal);" oninput="document.getElementById('fsVal').textContent=this.value;render()" />
           </div>
           <div class="form-group">
             <label class="form-label">Text Color</label>
             <select id="textColor" class="form-select" onchange="render()">
-              <option value="white">White (classic)</option>
-              <option value="black">Black</option>
+              <option value="white" selected>White (Classic meme style)</option>
               <option value="#ffff00">Yellow</option>
               <option value="#ff4444">Red</option>
+              <option value="#00e5ff">Cyan</option>
+              <option value="black">Black</option>
             </select>
           </div>
         </div>
-        <canvas id="memeCanvas" style="max-width:100%;display:block;border-radius:var(--radius);margin-bottom:16px;"></canvas>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="download()">⬇ Download Meme</button>
+        <canvas id="memeCanvas" style="max-width:100%;display:block;border-radius:var(--radius);margin-bottom:16px;border:1px solid var(--border);"></canvas>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="download()">⬇ Download Meme (No Watermark)</button>
           <button class="btn btn-secondary" onclick="changeImg()">Change Image</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Make a Custom Meme Online in Seconds</h2>
+    <p>Memes drive internet culture on Reddit, Instagram, X (Twitter), Discord, and TikTok. Whether you're making a joke for your group chat, marketing a product, or reacting to trending news, EasyToolz Meme Generator lets you turn any picture into a high-impact viral meme with zero watermarks.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Upload your image:</strong> Drag and drop your favorite photo, reaction template, or screenshot into the creator above.</li>
+      <li><strong>Add your punchline:</strong> Type top text for the setup and bottom text for the delivery. Adjust the font size slider so the text balances cleanly.</li>
+      <li><strong>Download and share:</strong> Click "Download Meme" to instantly save a clean, high-resolution JPEG file without any branding or subscription fees.</li>
+    </ol>
+
+    <h2>Why Creators Love EasyToolz Meme Generator</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Zero Forced Watermarks:</strong> Other meme generators stamp their logo or paywall clean downloads. EasyToolz is genuinely 100% free and watermark-free.</li>
+      <li><strong>Authentic Meme Typography:</strong> We render bold all-caps Impact font with a thick black stroke and subtle drop shadow, guaranteeing optimal legibility across all screens.</li>
+      <li><strong>Lightning Fast in Browser:</strong> Built purely with HTML5 Canvas, creating memes is instantaneous and works seamlessly on smartphones and computers alike.</li>
+    </ul>
+
+    <p>Discover more creative image tools: <a href="photo-editor.html">Photo Editor</a>, <a href="image-cropper.html">Image Cropper</a>, <a href="image-compressor.html">Image Compressor</a>, <a href="image-watermark.html">Image Watermark</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does EasyToolz add a watermark to my meme?</h3><p>Never! All generated memes are 100% clean and free of watermarks or logos, ready to share anywhere.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I upload my own custom template?</h3><p>Yes! You can upload any JPEG, PNG, or WebP picture from your device or phone camera.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Why is the classic meme font Impact with a black outline?</h3><p>The white Impact typography with bold black stroke ensures your joke is clearly readable over any dark, bright, or busy background.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my memes uploaded to a public server?</h3><p>No. Everything is rendered locally on your device's browser canvas. Your images and text remain completely confidential.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="meme-generator.html">Meme Generator</a></li><li><a href="photo-editor.html">Photo Editor</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 let img=null;
 const dz=document.getElementById('dropZone');
@@ -79,6 +128,7 @@ function loadImg(file){
   reader.readAsDataURL(file);
 }
 function changeImg(){document.getElementById('dropZone').style.display='';document.getElementById('editor').style.display='none';img=null;}
+
 function render(){
   if(!img)return;
   const c=document.getElementById('memeCanvas');
@@ -89,7 +139,8 @@ function render(){
   const color=document.getElementById('textColor').value;
   ctx.font=`900 ${fs}px Impact, Arial Black, sans-serif`;
   ctx.textAlign='center';ctx.textBaseline='top';
-  ctx.fillStyle=color;ctx.strokeStyle='#000';ctx.lineWidth=fs*0.08;
+  ctx.fillStyle=color;ctx.strokeStyle='#000000';ctx.lineWidth=Math.max(3, fs*0.1);
+  ctx.lineJoin='miter';ctx.miterLimit=2;
   const topText=document.getElementById('topText').value.toUpperCase();
   const botText=document.getElementById('botText').value.toUpperCase();
   const pad=fs*0.4;
@@ -100,8 +151,24 @@ function render(){
     ctx.fillText(botText,c.width/2,c.height-pad);
   }
 }
+
 function download(){
-  const a=document.createElement('a');a.href=document.getElementById('memeCanvas').toDataURL('image/jpeg',.92);a.download='meme.jpg';a.click();
+  const c=document.getElementById('memeCanvas');
+  if(!c)return;
+  c.toBlob(blob=>{
+    if(!blob){
+      const a=document.createElement('a');a.href=c.toDataURL('image/jpeg',.92);a.download='meme.jpg';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);return;
+    }
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.style.display='none';
+    a.href=url;
+    a.download='meme.jpg';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},150);
+  },'image/jpeg',.92);
 }
 </script>
 <style>

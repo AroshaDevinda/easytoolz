@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Discount Calculator — EasyToolz</title>
-  <meta name="description" content="Free Discount Calculator — find the final price after any discount percentage instantly." />
+  <title>Discount Calculator Online — Calculate Sale Price &amp; Savings | EasyToolz</title>
+  <meta name="description" content="Free online Discount Calculator. Find the final sale price, total money saved, and percentage off instantly. Includes reverse calculation to find original price before discount." />
   <link rel="canonical" href="https://easytoolz.click/tools/discount-calculator.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Discount Calculator Online — Calculate Sale Price &amp; Savings | EasyToolz" />
+  <meta property="og:description" content="Calculate discount percentages, sale prices, and shopping savings in seconds. Free, instant, and mobile-friendly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/discount-calculator.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Discount Calculator","url":"https://easytoolz.click/tools/discount-calculator.html","description":"Calculate final sale prices, money saved, and reverse original prices from discount percentages.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How do you calculate a percentage discount?","acceptedAnswer":{"@type":"Answer","text":"Multiply the original price by the discount percentage divided by 100 to find the savings: Savings = Original Price × (Discount % / 100). Subtract the savings from the original price to get the final sale price."}},
+    {"@type":"Question","name":"How do I find the original price if I only know the sale price?","acceptedAnswer":{"@type":"Answer","text":"Use our built-in reverse calculator or the formula: Original Price = Sale Price / (1 - Discount % / 100)."}},
+    {"@type":"Question","name":"What is a 20% discount on $80?","acceptedAnswer":{"@type":"Answer","text":"20% of $80 is $16. The final price after the discount is $80 - $16 = $64."}},
+    {"@type":"Question","name":"Can I calculate stacked or double discounts?","acceptedAnswer":{"@type":"Answer","text":"If an item has an additional clearance discount (e.g. 20% off plus an extra 10% off), calculate the first 20% off the original price, and then apply the 10% off the reduced price."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,67 +29,123 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Discount Calculator</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon calculators">🏷️</div><div><h1>Discount Calculator</h1><p>Find the final price after any discount</p></div></div>
-  <div class="tool-layout full-width" style="max-width:600px;">
+  <div class="tool-page-header"><div class="tool-page-icon calculators">🏷️</div><div><h1>Discount Calculator</h1><p>Calculate sale price, total savings, or find the original price — free & instant</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
     <div class="tool-box">
-      <div class="form-group"><label class="form-label">Original Price</label><input type="number" id="origPrice" class="form-input" placeholder="e.g. 1000" oninput="calc()" /></div>
       <div class="form-group">
-        <label class="form-label">Discount: <strong id="discLabel" style="color:var(--teal)">10%</strong></label>
+        <label class="form-label">Original Item Price ($)</label>
+        <input type="number" id="origPrice" class="form-input" placeholder="e.g. 120" oninput="calc()" />
+      </div>
+      <div class="form-group">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <label class="form-label" style="margin-bottom:0;">Discount Percentage: <strong id="discLabel" style="color:var(--teal)">20%</strong></label>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:0.75rem;" onclick="setDisc(10)">10%</button>
+            <button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:0.75rem;" onclick="setDisc(20)">20%</button>
+            <button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:0.75rem;" onclick="setDisc(25)">25%</button>
+            <button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:0.75rem;" onclick="setDisc(30)">30%</button>
+            <button class="btn btn-sm btn-secondary" style="padding:2px 8px;font-size:0.75rem;" onclick="setDisc(50)">50%</button>
+          </div>
+        </div>
         <div class="range-wrap">
           <span>0%</span>
-          <input type="range" id="discPct" min="0" max="90" value="10" oninput="document.getElementById('discLabel').textContent=this.value+'%';calc()" />
+          <input type="range" id="discPct" min="0" max="90" value="20" oninput="document.getElementById('discLabel').textContent=this.value+'%';calc()" style="accent-color:var(--teal);" />
           <span>90%</span>
         </div>
       </div>
-      <div id="discResult" style="display:none;margin-top:8px;">
+      <div id="discResult" style="display:none;margin-top:16px;">
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-          <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:12px;padding:16px;text-align:center;">
-            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Final Price</div>
-            <div id="finalPrice" style="font-size:1.3rem;font-weight:800;color:#34d399;"></div>
+          <div style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);border-radius:12px;padding:16px;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;">Final Sale Price</div>
+            <div id="finalPrice" style="font-size:1.4rem;font-weight:800;color:#34d399;"></div>
           </div>
-          <div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:12px;padding:16px;text-align:center;">
-            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">You Save</div>
-            <div id="savings" style="font-size:1.3rem;font-weight:800;color:#f87171;"></div>
+          <div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.25);border-radius:12px;padding:16px;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;">You Save</div>
+            <div id="savings" style="font-size:1.4rem;font-weight:800;color:#f87171;"></div>
           </div>
-          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:12px;padding:16px;text-align:center;">
-            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Discount</div>
-            <div id="discAmt" style="font-size:1.3rem;font-weight:800;color:var(--teal);"></div>
+          <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.25);border-radius:12px;padding:16px;text-align:center;">
+            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;font-weight:600;text-transform:uppercase;">Discount Applied</div>
+            <div id="discAmt" style="font-size:1.4rem;font-weight:800;color:var(--teal);"></div>
           </div>
         </div>
       </div>
-      <hr class="divider" />
-      <h3 style="font-size:1rem;margin-bottom:16px;">Reverse: Find Original Price</h3>
+      <hr class="divider" style="margin:24px 0;" />
+      <h3 style="font-size:1.05rem;margin-bottom:14px;font-weight:700;">🔄 Reverse: Find Original Price from Sale Price</h3>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Sale Price</label><input type="number" id="salePrice" class="form-input" placeholder="e.g. 800" /></div>
-        <div class="form-group"><label class="form-label">Discount %</label><input type="number" id="discPctRev" class="form-input" placeholder="e.g. 20" /></div>
+        <div class="form-group" style="flex:1;"><label class="form-label">Sale Price ($)</label><input type="number" id="salePrice" class="form-input" placeholder="e.g. 80" /></div>
+        <div class="form-group" style="flex:1;"><label class="form-label">Discount % Given</label><input type="number" id="discPctRev" class="form-input" placeholder="e.g. 20" /></div>
       </div>
-      <button class="btn btn-secondary" onclick="calcRev()">Find Original Price</button>
-      <div class="result-box" id="revResult" style="margin-top:12px;">
-        <div class="result-value" id="revVal"></div>
-        <div class="result-label">Original Price</div>
+      <button class="btn btn-secondary" onclick="calcRev()">Calculate Original Price</button>
+      <div class="result-box" id="revResult" style="margin-top:14px;">
+        <div class="result-value" id="revVal" style="color:var(--teal);"></div>
+        <div class="result-label">Original Price Before Discount</div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Calculate Discounts, Markdowns and Sale Prices</h2>
+    <p>Whether you're shopping during Black Friday, calculating end-of-season clearance bargains, or pricing products for your e-commerce store, EasyToolz Discount Calculator eliminates the guesswork and reveals your true bottom line in seconds.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Enter the regular price:</strong> Type the sticker or list price into the original price field.</li>
+      <li><strong>Select discount percentage:</strong> Use the quick-preset buttons (10%, 20%, 30%, 50%) or drag the slider to match the sale tag.</li>
+      <li><strong>Review your savings:</strong> Instantly view the final checkout cost, the exact dollars saved, and the net markdown percentage.</li>
+    </ol>
+
+    <h2>The Math Behind Discount Calculations</h2>
+    <p>The standard formula for calculating sale prices is straightforward:</p>
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:24px;font-family:monospace;font-size:0.95rem;">
+      Savings = Original Price × (Discount Percentage ÷ 100)<br>
+      Final Price = Original Price - Savings
+    </div>
+    <p>To reverse-calculate the regular price when you only know the discounted sale price and the discount percentage:</p>
+    <div style="background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:24px;font-family:monospace;font-size:0.95rem;">
+      Original Price = Sale Price ÷ (1 - (Discount Percentage ÷ 100))
+    </div>
+
+    <p>Explore more financial and shopping calculators: <a href="percentage-calculator.html">Percentage Calculator</a>, <a href="tip-calculator.html">Tip Calculator</a>, <a href="currency-converter.html">Currency Converter</a>, <a href="emi-calculator.html">EMI Calculator</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do you calculate a percentage discount?</h3><p>Multiply the original price by the discount percentage divided by 100 to find the savings: Savings = Original Price × (Discount % / 100). Subtract the savings from the original price to get the final sale price.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do I find the original price if I only know the sale price?</h3><p>Use our built-in reverse calculator or the formula: Original Price = Sale Price / (1 - Discount % / 100).</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What is a 20% discount on $80?</h3><p>20% of $80 is $16. The final price after the discount is $80 - $16 = $64.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I calculate stacked or double discounts?</h3><p>If an item has an additional clearance discount (e.g. 20% off plus an extra 10% off), calculate the first 20% off the original price, and then apply the 10% off the reduced price.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Calculators</h4><ul><li><a href="discount-calculator.html">Discount Calculator</a></li><li><a href="percentage-calculator.html">Percentage Calculator</a></li><li><a href="tip-calculator.html">Tip Calculator</a></li><li><a href="bmi-calculator.html">BMI Calculator</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  function calc(){
-    const orig=parseFloat(document.getElementById('origPrice').value)||0;
-    const pct=parseFloat(document.getElementById('discPct').value)||0;
-    const saved=orig*pct/100, final=orig-saved;
-    document.getElementById('finalPrice').textContent = '$'+final.toFixed(2);
-    document.getElementById('savings').textContent    = '$'+saved.toFixed(2);
-    document.getElementById('discAmt').textContent    = pct+'%';
-    document.getElementById('discResult').style.display = orig>0?'':'none';
-  }
-  function calcRev(){
-    const sale=parseFloat(document.getElementById('salePrice').value);
-    const pct=parseFloat(document.getElementById('discPctRev').value);
-    if(!sale||!pct||pct>=100)return alert('Please enter valid values.');
-    const orig=sale/(1-pct/100);
-    document.getElementById('revVal').textContent='$'+orig.toFixed(2);
-    document.getElementById('revResult').classList.add('show');
-  }
+function setDisc(v) {
+  document.getElementById('discPct').value = v;
+  document.getElementById('discLabel').textContent = v + '%';
+  calc();
+}
+function calc() {
+  const orig = parseFloat(document.getElementById('origPrice').value) || 0;
+  const pct = parseFloat(document.getElementById('discPct').value) || 0;
+  const saved = orig * pct / 100;
+  const final = orig - saved;
+  document.getElementById('finalPrice').textContent = '$' + final.toFixed(2);
+  document.getElementById('savings').textContent    = '$' + saved.toFixed(2);
+  document.getElementById('discAmt').textContent    = pct + '%';
+  document.getElementById('discResult').style.display = orig > 0 ? '' : 'none';
+}
+function calcRev() {
+  const sale = parseFloat(document.getElementById('salePrice').value);
+  const pct  = parseFloat(document.getElementById('discPctRev').value);
+  if (!sale || !pct || pct >= 100) return alert('Please enter valid sale price and discount percentage.');
+  const orig = sale / (1 - pct / 100);
+  document.getElementById('revVal').textContent = '$' + orig.toFixed(2);
+  document.getElementById('revResult').classList.add('show');
+}
 </script>
 </body></html>

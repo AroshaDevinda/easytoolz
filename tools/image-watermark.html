@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Watermark — EasyToolz</title>
-  <meta name="description" content="Free Image Watermark tool — add custom text watermark to any image in your browser. No upload, 100% private." />
+  <title>Watermark Image Online — Add Custom Watermark to Photos Free | EasyToolz</title>
+  <meta name="description" content="Free online Image Watermark tool. Protect your photos and brand your artwork by adding custom text watermarks with custom fonts, colors, opacity, rotation, and tile effects. 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-watermark.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Watermark Image Online — Add Custom Watermarks Free | EasyToolz" />
+  <meta property="og:description" content="Add text watermarks to your pictures in seconds. Customize font size, rotation, opacity, and positioning. No upload required." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-watermark.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Image Watermark Tool","url":"https://easytoolz.click/tools/image-watermark.html","description":"Add custom text watermarks, copyright notices, and brand stamps to any image directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Are my photos uploaded to a server to add watermarks?","acceptedAnswer":{"@type":"Answer","text":"No. Everything is rendered locally inside your browser using HTML5 Canvas. Your photos never leave your device."}},
+    {"@type":"Question","name":"Can I tile the watermark repeatedly across the entire photo?","acceptedAnswer":{"@type":"Answer","text":"Yes! Simply select 'Tile (Repeat)' in the Position dropdown to protect your entire image from unauthorized cropping."}},
+    {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"You can upload JPG, PNG, WebP, BMP, and GIF images, and download your watermarked result as JPEG, PNG, or WebP."}},
+    {"@type":"Question","name":"Why should I watermark my images before posting online?","acceptedAnswer":{"@type":"Answer","text":"Watermarks protect against image theft, establish copyright ownership, and drive organic brand discovery when your visuals are shared."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,13 +29,13 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Watermark</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🔖</div><div><h1>Image Watermark</h1><p>Add text watermark to your images — free, browser-only</p></div></div>
+  <div class="tool-page-header"><div class="tool-page-icon images">🔖</div><div><h1>Image Watermark Tool</h1><p>Add custom text watermarks to your pictures — free, instant & 100% private</p></div></div>
   <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🔖</div>
         <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP supported</div>
+        <div class="drop-sub">JPG, PNG, WebP supported — runs 100% locally</div>
         <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
       </div>
       <div id="editor" style="display:none;">
@@ -31,7 +45,7 @@
             <input type="text" id="wText" class="form-input" value="© EasyToolz" oninput="render()" />
           </div>
           <div class="form-group" style="flex:1;min-width:100px;">
-            <label class="form-label">Font Size</label>
+            <label class="form-label">Font Size (px)</label>
             <input type="number" id="wSize" class="form-input" value="40" min="8" max="300" oninput="render()" />
           </div>
           <div class="form-group" style="flex:1;min-width:100px;">
@@ -52,7 +66,7 @@
               <option value="tr">Top Right</option>
               <option value="tl">Top Left</option>
               <option value="center">Center</option>
-              <option value="tile">Tile (Repeat)</option>
+              <option value="tile">Tile (Repeat across image)</option>
             </select>
           </div>
           <div class="form-group" style="flex:1;">
@@ -61,7 +75,7 @@
           </div>
         </div>
         <canvas id="canvas" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--border);display:block;"></canvas>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;align-items:center;">
           <select id="fmtSel" class="form-select" style="width:auto;">
             <option value="image/jpeg" selected>JPEG</option>
             <option value="image/png">PNG</option>
@@ -73,9 +87,44 @@
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Watermark Images Online in 3 Steps</h2>
+    <p>Protecting your photography, digital art, product images, and social media content from unauthorized re-use has never been simpler. With EasyToolz Image Watermark, you can stamp copyright notices, company names, or website URLs directly onto your graphics in seconds.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Upload your image:</strong> Drag and drop your JPEG, PNG, or WebP photo into the workspace above or click to select from your device.</li>
+      <li><strong>Customize watermark settings:</strong> Type your custom text, adjust font size, pick any brand color, configure transparency/opacity, and position the stamp in corners, center, or as a repeated tile pattern.</li>
+      <li><strong>Download your watermarked photo:</strong> Choose JPEG, PNG, or WebP format and hit Download to save your secured graphic instantly.</li>
+    </ol>
+
+    <h2>Why Watermarking is Essential for Creators & Businesses</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Prevent Content Theft:</strong> Dissuade scrapers, competitors, and unauthorized accounts from reposting your original photography or designs.</li>
+      <li><strong>Boost Brand Recognition:</strong> When your graphics go viral on Reddit, Instagram, Twitter/X, or Pinterest, your watermark directs viewers right back to your brand.</li>
+      <li><strong>100% Client-Side Privacy:</strong> Most online watermarking services upload your private images to third-party cloud servers. EasyToolz executes entirely in your browser memory — nothing is ever transmitted across the internet.</li>
+      <li><strong>High-Resolution Preservation:</strong> Our engine preserves your image's full native resolution without degrading sharpness or adding unwanted compression artifacts.</li>
+    </ul>
+
+    <p>Explore more photo optimization tools: <a href="image-compressor.html">Image Compressor</a>, <a href="image-resizer.html">Image Resizer</a>, <a href="image-cropper.html">Image Cropper</a>, <a href="image-blur-face.html">Blur Face Tool</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my photos uploaded to a server to add watermarks?</h3><p>No. Everything is rendered locally inside your browser using HTML5 Canvas. Your photos never leave your device.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I tile the watermark repeatedly across the entire photo?</h3><p>Yes! Simply select "Tile (Repeat)" in the Position dropdown to protect your entire image from unauthorized cropping or editing.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What image formats are supported?</h3><p>You can upload JPG, PNG, WebP, BMP, and GIF images, and download your watermarked result as JPEG, PNG, or WebP.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Why should I watermark my images before posting online?</h3><p>Watermarks protect against image theft, establish copyright ownership, and drive organic brand discovery when your visuals are shared across social platforms.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="image-watermark.html">Image Watermark</a></li><li><a href="image-cropper.html">Image Cropper</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 let origImg = null;
 const dropZone = document.getElementById('dropZone');
@@ -111,10 +160,10 @@ function render() {
   ctx.fillStyle = color;
   ctx.globalAlpha = opacity;
   const tw = ctx.measureText(text).width;
-  const pad = 20;
+  const pad = 25;
   if (pos === 'tile') {
-    for (let y = size; y < c.height + size; y += size * 3) {
-      for (let x = -tw; x < c.width + tw; x += tw + 60) {
+    for (let y = size; y < c.height + size; y += size * 3.5) {
+      for (let x = -tw; x < c.width + tw; x += tw + 80) {
         ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.fillText(text, 0, 0); ctx.restore();
       }
     }
@@ -129,10 +178,26 @@ function render() {
   }
   ctx.globalAlpha = 1;
 }
+
 function download() {
+  const c = document.getElementById('canvas');
+  if (!c || !origImg) return;
   const fmt = document.getElementById('fmtSel').value;
   const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
-  const a = document.createElement('a'); a.href = document.getElementById('canvas').toDataURL(fmt,0.92); a.download = `watermarked.${ext}`; a.click();
+  c.toBlob(blob => {
+    if (!blob) {
+      const a = document.createElement('a'); a.href = c.toDataURL(fmt, 0.92); a.download = `watermarked.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `watermarked.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  }, fmt, 0.92);
 }
 </script>
 <style>

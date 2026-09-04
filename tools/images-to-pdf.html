@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Images to PDF — EasyToolz</title>
-  <meta name="description" content="Free Images to PDF converter — combine multiple JPG or PNG images into a single PDF file in your browser. No upload needed." />
+  <title>Images to PDF Online Free — Convert JPG &amp; PNG to PDF | EasyToolz</title>
+  <meta name="description" content="Free online Images to PDF converter. Combine multiple JPG, PNG, and WebP images into a single professional PDF file. Customize page size (A4, Letter) and orientation. 100% private in browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/images-to-pdf.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Images to PDF Online Free — Convert JPG &amp; PNG to PDF | EasyToolz" />
+  <meta property="og:description" content="Merge multiple photos and screenshots into a single clean PDF document in seconds. Free and 100% private." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/images-to-pdf.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Images to PDF Converter","url":"https://easytoolz.click/tools/images-to-pdf.html","description":"Combine multiple photos and image files into a single PDF document directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How many images can I combine into one PDF?","acceptedAnswer":{"@type":"Answer","text":"You can add as many photos as your device's memory supports. Most computers and smartphones easily handle 20-50 photos in one go."}},
+    {"@type":"Question","name":"Can I adjust the page size and orientation?","acceptedAnswer":{"@type":"Answer","text":"Yes! Choose between standard A4, US Letter, or A3 page formats, in either Portrait or Landscape orientation."}},
+    {"@type":"Question","name":"Are my photos uploaded to any third-party server?","acceptedAnswer":{"@type":"Answer","text":"Never. The PDF is constructed purely in client-side JavaScript using jsPDF. Your personal photos never touch any server."}},
+    {"@type":"Question","name":"Can I rearrange or delete photos before generating the PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes! Each photo preview card has a delete button (✕) so you can review and organize before downloading."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,44 +29,78 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Images to PDF</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">📎</div><div><h1>Images to PDF</h1><p>Combine multiple images into one PDF — free & browser-only</p></div></div>
-  <div class="tool-layout full-width" style="max-width:700px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">📎</div><div><h1>Images to PDF Converter</h1><p>Combine multiple JPG, PNG, and WebP images into one PDF — free & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:740px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🖼️</div>
         <div class="drop-text">Click or drag & drop images here</div>
-        <div class="drop-sub">JPG, PNG, WebP supported • Multiple files allowed</div>
+        <div class="drop-sub">JPG, PNG, WebP supported • Select multiple files at once</div>
         <input type="file" id="imgInput" accept="image/*" multiple style="display:none" onchange="addFiles(this.files)" />
       </div>
       <div class="form-row" style="margin-top:16px;">
         <div class="form-group" style="flex:1;">
           <label class="form-label">Page Size</label>
           <select id="pageSize" class="form-select">
-            <option value="a4">A4 (210 × 297 mm)</option>
-            <option value="letter">Letter (216 × 279 mm)</option>
-            <option value="a3">A3 (297 × 420 mm)</option>
+            <option value="a4" selected>A4 (210 × 297 mm — International)</option>
+            <option value="letter">Letter (8.5 × 11 in — US / Canada)</option>
+            <option value="a3">A3 (297 × 420 mm — Poster / Ledger)</option>
           </select>
         </div>
         <div class="form-group" style="flex:1;">
           <label class="form-label">Orientation</label>
           <select id="orient" class="form-select">
-            <option value="portrait">Portrait</option>
-            <option value="landscape">Landscape</option>
+            <option value="portrait" selected>Portrait (Vertical)</option>
+            <option value="landscape">Landscape (Horizontal)</option>
           </select>
         </div>
       </div>
-      <div id="preview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:16px;"></div>
-      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+      <div id="preview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:16px;"></div>
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
         <button class="btn btn-secondary" onclick="clearAll()" id="clearBtn" style="display:none;">✕ Clear All</button>
-        <button class="btn btn-primary" onclick="generatePDF()" id="genBtn" style="display:none;">📄 Generate PDF</button>
+        <button class="btn btn-primary" onclick="generatePDF()" id="genBtn" style="display:none;">📄 Generate &amp; Download PDF</button>
       </div>
-      <div id="loading" style="display:none;text-align:center;padding:20px;color:var(--text-2);">⏳ Creating PDF…</div>
+      <div id="loading" style="display:none;text-align:center;padding:20px;color:var(--text-2);">⏳ Compiling images into PDF…</div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Convert Pictures to a Single PDF Document Online</h2>
+    <p>Submitting scanned ID cards, expense receipts, assignment worksheets, or a photo portfolio often requires submitting a single clean PDF rather than a dozen scattered image attachments. EasyToolz Images to PDF combines all your pictures into an orderly, formatted PDF in seconds.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Select your photos:</strong> Select all the JPG, PNG, or WebP images you want to combine. You can drag and drop multiple files at once.</li>
+      <li><strong>Choose layout:</strong> Choose standard A4 or US Letter page size, and pick Portrait or Landscape orientation. Each image is automatically scaled to fit neatly within the margins without distortion.</li>
+      <li><strong>Generate PDF:</strong> Click "Generate & Download PDF" to instantly save your combined document to your computer or smartphone.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz Images to PDF?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>100% Confidential:</strong> Receipts, passports, driver's licenses, and private certificates stay strictly on your local machine. Nothing is ever sent to external cloud servers.</li>
+      <li><strong>Auto-Fit Proportional Scaling:</strong> Images are centered with correct aspect ratios so your photos are never squashed or stretched.</li>
+      <li><strong>No Account Required:</strong> Completely free with no registration, no file quotas, and no watermark stamps.</li>
+    </ul>
+
+    <p>Explore more document tools: <a href="pdf-to-images.html">PDF to Images</a>, <a href="pdf-merger.html">PDF Merger</a>, <a href="image-compressor.html">Image Compressor</a>, <a href="pdf-compress.html">Compress PDF</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How many images can I combine into one PDF?</h3><p>You can add as many photos as your device's memory supports. Most computers and smartphones easily handle 20-50 photos in one go.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I adjust the page size and orientation?</h3><p>Yes! Choose between standard A4, US Letter, or A3 page formats, in either Portrait or Landscape orientation.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my photos uploaded to any third-party server?</h3><p>Never. The PDF is constructed purely in client-side JavaScript using jsPDF. Your personal photos never touch any server.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I rearrange or delete photos before generating the PDF?</h3><p>Yes! Each photo preview card has a delete button (✕) so you can review and organize before downloading.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="images-to-pdf.html">Images to PDF</a></li><li><a href="pdf-to-images.html">PDF to Images</a></li><li><a href="pdf-merger.html">PDF Merger</a></li><li><a href="pdf-compress.html">Compress PDF</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 const { jsPDF } = window.jspdf;
 let images = [];
@@ -79,17 +127,17 @@ function renderPreview() {
   p.innerHTML = '';
   images.forEach((img, i) => {
     const div = document.createElement('div');
-    div.style.cssText = 'position:relative;';
-    div.innerHTML = `<img src="${img.src}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;border:1px solid var(--border);">
-      <div style="margin-top:4px;font-size:0.7rem;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${img.name}</div>
-      <button onclick="removeImg(${i})" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);border:none;border-radius:50%;width:22px;height:22px;color:#fff;cursor:pointer;font-size:0.75rem;">✕</button>`;
+    div.style.cssText = 'position:relative;background:var(--glass);padding:6px;border-radius:8px;border:1px solid var(--border);';
+    div.innerHTML = `<img src="${img.src}" style="width:100%;height:110px;object-fit:cover;border-radius:6px;">
+      <div style="margin-top:4px;font-size:0.75rem;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${img.name}</div>
+      <button onclick="removeImg(${i})" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);border:none;border-radius:50%;width:22px;height:22px;color:#fff;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;">✕</button>`;
     p.appendChild(div);
   });
   const show = images.length > 0;
   document.getElementById('clearBtn').style.display = show ? '' : 'none';
   document.getElementById('genBtn').style.display  = show ? '' : 'none';
 }
-function removeImg(i) { images.splice(i,1); renderPreview(); }
+function removeImg(i) { images.splice(i, 1); renderPreview(); }
 function clearAll()    { images = []; renderPreview(); }
 
 async function generatePDF() {
@@ -101,16 +149,23 @@ async function generatePDF() {
   const pdf    = new jsPDF({ orientation: orient, unit: 'mm', format: size });
   const pw = pdf.internal.pageSize.getWidth();
   const ph = pdf.internal.pageSize.getHeight();
-  images.forEach((img, i) => {
+  const margin = 10;
+  const maxW = pw - (margin * 2);
+  const maxH = ph - (margin * 2);
+
+  for (let i = 0; i < images.length; i++) {
     if (i > 0) pdf.addPage();
-    const image = new Image();
-    image.src = img.src;
-    const ratio = Math.min(pw / image.width, ph / image.height);
-    const w = image.width * ratio, h = image.height * ratio;
-    const x = (pw - w) / 2, y = (ph - h) / 2;
-    pdf.addImage(img.src, 'JPEG', x, y, w, h);
-  });
-  pdf.save('images-to-pdf.pdf');
+    const imgData = images[i];
+    const imgEl = new Image();
+    await new Promise(res => { imgEl.onload = res; imgEl.src = imgData.src; });
+    const ratio = Math.min(maxW / imgEl.naturalWidth, maxH / imgEl.naturalHeight);
+    const w = imgEl.naturalWidth * ratio;
+    const h = imgEl.naturalHeight * ratio;
+    const x = margin + (maxW - w) / 2;
+    const y = margin + (maxH - h) / 2;
+    pdf.addImage(imgData.src, 'JPEG', x, y, w, h);
+  }
+  pdf.save('combined-images.pdf');
   document.getElementById('loading').style.display = 'none';
 }
 </script>

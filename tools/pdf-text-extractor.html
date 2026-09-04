@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF Text Extractor — EasyToolz</title>
-  <meta name="description" content="Free PDF Text Extractor — extract all text from any PDF file in your browser. No upload, 100% private." />
+  <title>PDF Text Extractor Online Free — Extract Text from PDF | EasyToolz</title>
+  <meta name="description" content="Free online PDF Text Extractor. Extract all readable text, words, and characters from any PDF file in your browser. Copy to clipboard or download as a .txt file. 100% private, no upload." />
   <link rel="canonical" href="https://easytoolz.click/tools/pdf-text-extractor.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="PDF Text Extractor Online Free — Extract Text from PDF | EasyToolz" />
+  <meta property="og:description" content="Extract all text content from PDF documents instantly in your browser. Copy or save as text file." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/pdf-text-extractor.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"PDF Text Extractor","url":"https://easytoolz.click/tools/pdf-text-extractor.html","description":"Extract plain text, word counts, and page data from any PDF document directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How do I extract text from a PDF document?","acceptedAnswer":{"@type":"Answer","text":"Drop your PDF into the upload zone above. The tool automatically scans all pages, extracts every text layer, provides word and character statistics, and lets you copy or download as .txt."}},
+    {"@type":"Question","name":"What if my PDF is a scanned photo or paper document?","acceptedAnswer":{"@type":"Answer","text":"If your PDF consists of scanned camera photos without a digital text layer, use our free OCR PDF tool to recognize the characters optically."}},
+    {"@type":"Question","name":"Are my PDF documents uploaded to a remote server?","acceptedAnswer":{"@type":"Answer","text":"Never. The extraction operates 100% locally via Mozilla's PDF.js library. Your confidential documents never leave your computer or mobile device."}},
+    {"@type":"Question","name":"Can I download the extracted text as a plain text file?","acceptedAnswer":{"@type":"Answer","text":"Yes! Click the 'Download .txt' button to save the entire extracted text document with page demarcations."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,44 +29,80 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">PDF Text Extractor</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">📋</div><div><h1>PDF Text Extractor</h1><p>Extract all readable text from any PDF — free & private</p></div></div>
-  <div class="tool-layout full-width" style="max-width:720px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">📋</div><div><h1>PDF Text Extractor</h1><p>Extract all readable text, word counts & page content — free & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-icon">📄</div>
         <div class="drop-text">Click or drag & drop a PDF here</div>
-        <div class="drop-sub">Text will be extracted from all pages instantly</div>
+        <div class="drop-sub">Text will be extracted from all pages instantly in your browser</div>
         <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="handleFile(this.files[0])" />
       </div>
-      <div id="loading" style="display:none;text-align:center;padding:20px;color:var(--text-2);">⏳ Extracting text…</div>
+      <div id="loading" style="display:none;text-align:center;padding:24px;color:var(--text-2);">⏳ Extracting text layers…</div>
       <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
       <div id="output" style="display:none;margin-top:20px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <span id="wordInfo" style="font-size:0.85rem;color:var(--text-3);"></span>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
+          <span id="wordInfo" style="font-size:0.85rem;color:var(--text-2);font-weight:600;"></span>
           <div style="display:flex;gap:8px;">
-            <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('textOut').value, this)">📋 Copy</button>
+            <button class="btn btn-secondary btn-sm" id="copyBtn" onclick="copyContent(this)">📋 Copy to Clipboard</button>
             <button class="btn btn-primary btn-sm" onclick="downloadTxt()">⬇ Download .txt</button>
+            <button class="btn btn-secondary btn-sm" onclick="resetTool()">Change PDF</button>
           </div>
         </div>
-        <textarea id="textOut" class="form-textarea" style="min-height:360px;font-family:monospace;font-size:0.85rem;" readonly></textarea>
+        <textarea id="textOut" class="form-textarea" style="min-height:380px;font-family:monospace;font-size:0.85rem;line-height:1.6;" readonly></textarea>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Extract Text from PDF Files Online for Free</h2>
+    <p>Copying text manually from locked, formatted, or multi-page PDF documents can be tedious. EasyToolz PDF Text Extractor automatically extracts all text streams across every page, formats them with page dividers, and generates instant word and character counts.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Add your PDF:</strong> Drag and drop your document into the box above or browse files from your device.</li>
+      <li><strong>Automatic text extraction:</strong> In milliseconds, the tool parses the document structure and displays the raw text in a clean editor.</li>
+      <li><strong>Copy or save:</strong> Copy the text to your clipboard with one click or download a clean <code>.txt</code> file for your notes, AI prompts, or word processor.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz PDF Text Extractor?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Instant AI Prompt Preparation:</strong> Need to feed a PDF report or research paper into ChatGPT or Claude? Extracting the raw text here is the fastest, cleanest way.</li>
+      <li><strong>100% Confidential:</strong> Financial records, resumes, customer agreements, and personal notes stay strictly in your browser. Nothing is ever uploaded to a server.</li>
+      <li><strong>Page-by-Page Organization:</strong> Clear page markers (<code>--- Page 1 ---</code>) make it simple to locate specific quotes and citations.</li>
+    </ul>
+
+    <p>Need to extract text from scanned images? Try <a href="ocr-pdf.html">OCR PDF</a>. Other tools: <a href="word-counter.html">Word Counter</a>, <a href="pdf-to-images.html">PDF to Images</a>, <a href="pdf-merger.html">PDF Merger</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do I extract text from a PDF document?</h3><p>Drop your PDF into the upload zone above. The tool automatically scans all pages, extracts every text layer, provides word and character statistics, and lets you copy or download as .txt.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What if my PDF is a scanned photo or paper document?</h3><p>If your PDF consists of scanned camera photos without a digital text layer, use our free OCR PDF tool to recognize the characters optically.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my PDF documents uploaded to a remote server?</h3><p>Never. The extraction operates 100% locally via Mozilla's PDF.js library. Your confidential documents never leave your computer or mobile device.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I download the extracted text as a plain text file?</h3><p>Yes! Click the "Download .txt" button to save the entire extracted text document with page demarcations.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="pdf-text-extractor.html">PDF Text Extractor</a></li><li><a href="ocr-pdf.html">OCR PDF</a></li><li><a href="word-counter.html">Word Counter</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-let extractedText = '';
+let extractedText = '', baseFileName = '';
 
 const dropZone = document.getElementById('dropZone');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f=e.dataTransfer.files[0]; if(f) handleFile(f); });
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if(f) handleFile(f); });
 
 async function handleFile(file) {
   if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF file.'); return; }
+  baseFileName = file.name.replace(/\.pdf$/i, '');
   document.getElementById('output').style.display = 'none';
   document.getElementById('errMsg').style.display = 'none';
   document.getElementById('loading').style.display = 'block';
@@ -68,21 +118,46 @@ async function handleFile(file) {
     }
     extractedText = allText.trim();
     const words = extractedText.split(/\s+/).filter(Boolean).length;
-    const chars  = extractedText.length;
+    const chars = extractedText.length;
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('textOut').value = extractedText || '(No readable text found — the PDF may be scanned/image-based)';
-    document.getElementById('wordInfo').textContent = `${pdf.numPages} pages · ${words.toLocaleString()} words · ${chars.toLocaleString()} characters`;
+    document.getElementById('textOut').value = extractedText || '(No readable text layer found — if this is a scanned photo or paper document, please use our OCR PDF tool)';
+    document.getElementById('wordInfo').textContent = `📄 ${pdf.numPages} pages · 📝 ${words.toLocaleString()} words · 🔤 ${chars.toLocaleString()} characters`;
+    document.getElementById('dropZone').style.display = 'none';
     document.getElementById('output').style.display = 'block';
   } catch(e) {
     document.getElementById('loading').style.display = 'none';
-    showErr('Could not read PDF. It may be corrupt or password-protected.');
+    showErr('Could not read PDF. File may be encrypted or corrupted.');
   }
 }
-function downloadTxt() {
-  const blob = new Blob([extractedText], { type: 'text/plain' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'extracted-text.txt'; a.click();
+
+function resetTool() {
+  extractedText = '';
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('output').style.display = 'none';
+  document.getElementById('pdfInput').value = '';
 }
-function showErr(m) { document.getElementById('errMsg').textContent=m; document.getElementById('errMsg').style.display='block'; }
+
+function copyContent(btn) {
+  navigator.clipboard.writeText(extractedText).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
+
+function downloadTxt() {
+  const blob = new Blob([extractedText], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = `${baseFileName}-text.txt`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
+
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
 </script>
 <style>
 .tool-page-icon.pdf { background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c; }

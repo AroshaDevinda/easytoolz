@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF Sign — EasyToolz</title>
-  <meta name="description" content="Free PDF Sign tool — draw your signature and embed it in a PDF in your browser. No upload needed." />
+  <title>Sign PDF Online Free — Draw & Embed Signature | EasyToolz</title>
+  <meta name="description" content="Free online PDF Sign tool. Draw your signature or create an e-signature and embed it on any PDF page. No printing, no scanning, and no server upload. 100% confidential in browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/pdf-sign.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Sign PDF Online Free — Draw & Embed Signature | EasyToolz" />
+  <meta property="og:description" content="Sign PDF documents easily on your computer, tablet, or mobile phone. Free, instant, and 100% confidential." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/pdf-sign.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Sign PDF Tool","url":"https://easytoolz.click/tools/pdf-sign.html","description":"Draw and embed electronic signatures into any PDF document directly in your browser without uploading to external servers.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is signing a PDF with EasyToolz legally binding?","acceptedAnswer":{"@type":"Answer","text":"In many jurisdictions (including under the US ESIGN Act and European eIDAS), electronic signatures are legally valid for general agreements, employment forms, and service contracts."}},
+    {"@type":"Question","name":"Does EasyToolz upload my contract or signature to any server?","acceptedAnswer":{"@type":"Answer","text":"Never. All signature drawing and PDF embedding is rendered purely within your browser memory. Your confidential contracts and signature strokes never touch any server."}},
+    {"@type":"Question","name":"Can I sign PDFs using my finger or stylus on my phone or tablet?","acceptedAnswer":{"@type":"Answer","text":"Yes! The signature pad is fully optimized for touchscreens on iPhones, iPads, Android smartphones, and Microsoft Surface styluses."}},
+    {"@type":"Question","name":"Can I choose which page to place my signature on?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can specify the exact page number and position (bottom-right, bottom-left, center, etc.) and scale the signature size."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,30 +29,30 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Sign PDF</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">✍️</div><div><h1>Sign PDF</h1><p>Draw your signature and embed it into any PDF — free & browser-only</p></div></div>
-  <div class="tool-layout full-width" style="max-width:720px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">✍️</div><div><h1>Sign PDF Online</h1><p>Draw your signature & embed it into any PDF — free, instant & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:740px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-icon">📄</div>
         <div class="drop-text">Click or drag & drop a PDF here</div>
-        <div class="drop-sub">File never leaves your device</div>
+        <div class="drop-sub">File stays on your device — 100% confidential</div>
         <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="loadPDF(this.files[0])" />
       </div>
       <div id="controls" style="display:none;margin-top:20px;">
         <div id="fileInfo" style="font-size:.85rem;color:var(--text-3);margin-bottom:16px;"></div>
         <div style="margin-bottom:16px;">
-          <label class="form-label">Step 1 — Draw your signature below</label>
-          <div style="position:relative;background:#fff;border-radius:var(--radius);border:2px dashed rgba(0,0,0,.2);overflow:hidden;">
-            <canvas id="sigCanvas" width="640" height="180" style="display:block;width:100%;cursor:crosshair;touch-action:none;"></canvas>
-            <div id="sigHint" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#94a3b8;font-size:.9rem;pointer-events:none;">Sign here</div>
+          <label class="form-label">Step 1 — Draw your signature below (Mouse, Stylus, or Touch)</label>
+          <div style="position:relative;background:#ffffff;border-radius:var(--radius);border:2px dashed rgba(0,0,0,.2);overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,0.05);">
+            <canvas id="sigCanvas" width="680" height="180" style="display:block;width:100%;cursor:crosshair;touch-action:none;"></canvas>
+            <div id="sigHint" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#94a3b8;font-size:1rem;pointer-events:none;user-select:none;">✍️ Draw your signature here</div>
           </div>
-          <div style="display:flex;gap:10px;margin-top:8px;">
-            <button class="btn btn-secondary btn-sm" onclick="clearSig()">✕ Clear</button>
+          <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
+            <button class="btn btn-secondary btn-sm" onclick="clearSig()">✕ Clear Signature</button>
             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
-              <label style="font-size:.8rem;color:var(--text-3);">Color:</label>
-              <input type="color" id="inkColor" value="#000000" style="width:32px;height:28px;border:none;border-radius:4px;cursor:pointer;" />
-              <label style="font-size:.8rem;color:var(--text-3);">Size:</label>
-              <input type="range" id="inkSize" min="1" max="8" value="2" style="width:80px;accent-color:var(--teal);" />
+              <label style="font-size:.8rem;color:var(--text-3);">Ink Color:</label>
+              <input type="color" id="inkColor" value="#0f172a" style="width:32px;height:28px;border:none;border-radius:4px;cursor:pointer;" />
+              <label style="font-size:.8rem;color:var(--text-3);margin-left:6px;">Stroke Width:</label>
+              <input type="range" id="inkSize" min="1" max="6" value="2" style="width:70px;accent-color:var(--teal);" />
             </div>
           </div>
         </div>
@@ -48,9 +62,9 @@
             <input type="number" id="pageNum" class="form-input" value="1" min="1" />
           </div>
           <div class="form-group">
-            <label class="form-label">Position</label>
+            <label class="form-label">Position on Page</label>
             <select id="sigPos" class="form-select">
-              <option value="bottom-right">Bottom Right</option>
+              <option value="bottom-right" selected>Bottom Right (Standard signature line)</option>
               <option value="bottom-left">Bottom Left</option>
               <option value="bottom-center">Bottom Center</option>
               <option value="center">Center</option>
@@ -58,102 +72,169 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Signature size (% of page width)</label>
+          <label class="form-label">Signature Scale: <span id="sigSizeVal">30%</span> of page width</label>
           <input type="range" id="sigSize" min="10" max="60" value="30" style="width:100%;accent-color:var(--teal);" oninput="document.getElementById('sigSizeVal').textContent=this.value+'%'" />
-          <span id="sigSizeVal" style="font-size:.8rem;color:var(--text-3);">30%</span>
         </div>
-        <button class="btn btn-primary btn-block" onclick="doSign()">✍️ Embed Signature & Download</button>
-        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Embedding signature…</div>
+        <button class="btn btn-primary btn-block" onclick="doSign()">✍️ Embed Signature &amp; Download PDF</button>
+        <button class="btn btn-secondary btn-block" onclick="resetTool()" style="margin-top:8px;">Choose Different PDF</button>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Embedding signature into PDF…</div>
         <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Sign PDF Documents Online Free Without Printing</h2>
+    <p>Printing contracts just to sign them with a pen and scan them back in wastes paper, ink, and valuable time. EasyToolz Sign PDF lets you draw a clean electronic signature on your desktop, tablet, or phone, and seamlessly stamp it onto any page.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Add your document:</strong> Upload your PDF file using the drop zone above or select it from your device.</li>
+      <li><strong>Draw your signature:</strong> Use your mouse, finger, or stylus to draw your natural signature on the virtual signature pad. Choose your preferred ink color and pen stroke width.</li>
+      <li><strong>Configure placement:</strong> Select which page number to sign (e.g. page 1 or the final signature page) and adjust alignment.</li>
+      <li><strong>Download signed contract:</strong> Click "Embed Signature & Download PDF" to retrieve your finalized, legally presentable PDF immediately.</li>
+    </ol>
+
+    <h2>Why Sign PDFs with EasyToolz?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Absolute Privacy & Confidentiality:</strong> Proprietary NDAs, lease agreements, tax forms, and employment offers should never be entrusted to insecure cloud processing. EasyToolz executes 100% inside your browser memory.</li>
+      <li><strong>Transparent PNG Signature Embedding:</strong> Signatures are embedded with clean alpha transparency so background lines or contract text show naturally behind the ink strokes.</li>
+      <li><strong>No Subscriptions or Hidden Fees:</strong> Unlike DocuSign or Adobe Sign that limit you to 3 documents before demanding paid plans, EasyToolz is completely free forever.</li>
+    </ul>
+
+    <p>Check out our other essential document tools: <a href="pdf-merger.html">PDF Merger</a>, <a href="pdf-compress.html">Compress PDF</a>, <a href="pdf-split.html">PDF Splitter</a>, <a href="pdf-rotate.html">Rotate PDF</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Is signing a PDF with EasyToolz legally binding?</h3><p>In many jurisdictions (including under the US ESIGN Act and European eIDAS), electronic signatures are legally valid for general agreements, employment forms, and service contracts.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does EasyToolz upload my contract or signature to any server?</h3><p>Never. All signature drawing and PDF embedding is rendered purely within your browser memory. Your confidential contracts and signature strokes never touch any server.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I sign PDFs using my finger or stylus on my phone or tablet?</h3><p>Yes! The signature pad is fully optimized for touchscreens on iPhones, iPads, Android smartphones, and Microsoft Surface styluses.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I choose which page to place my signature on?</h3><p>Yes. You can specify the exact page number and position (bottom-right, bottom-left, center, etc.) and scale the signature size.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="pdf-sign.html">Sign PDF</a></li><li><a href="pdf-merger.html">PDF Merger</a></li><li><a href="pdf-compress.html">Compress PDF</a></li><li><a href="pdf-split.html">PDF Split</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 const { PDFDocument } = PDFLib;
-let rawBuf=null, totalPages=0, fileName='';
-let drawing=false, lastX=0, lastY=0, hasSig=false;
-const canvas=document.getElementById('sigCanvas');
-const ctx=canvas.getContext('2d');
-ctx.lineCap='round'; ctx.lineJoin='round';
+let rawBuf = null, totalPages = 0, fileName = '';
+let drawing = false, lastX = 0, lastY = 0, hasSig = false;
+const canvas = document.getElementById('sigCanvas');
+const ctx = canvas.getContext('2d');
+ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 
-function getPos(e){
-  const r=canvas.getBoundingClientRect();
-  const scaleX=canvas.width/r.width, scaleY=canvas.height/r.height;
-  const src=e.touches?e.touches[0]:e;
-  return{x:(src.clientX-r.left)*scaleX,y:(src.clientY-r.top)*scaleY};
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / r.width, scaleY = canvas.height / r.height;
+  const src = e.touches ? e.touches[0] : e;
+  return { x: (src.clientX - r.left) * scaleX, y: (src.clientY - r.top) * scaleY };
 }
-canvas.addEventListener('mousedown',e=>{drawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;document.getElementById('sigHint').style.display='none';hasSig=true;});
-canvas.addEventListener('mousemove',e=>{if(!drawing)return;draw(getPos(e));});
-canvas.addEventListener('mouseup',()=>drawing=false);
-canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;document.getElementById('sigHint').style.display='none';hasSig=true;},{passive:false});
-canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;draw(getPos(e));},{passive:false});
-canvas.addEventListener('touchend',()=>drawing=false);
-function draw(p){
+canvas.addEventListener('mousedown', e => {
+  drawing = true; const p = getPos(e); lastX = p.x; lastY = p.y;
+  document.getElementById('sigHint').style.display = 'none'; hasSig = true;
+});
+canvas.addEventListener('mousemove', e => { if (!drawing) return; draw(getPos(e)); });
+canvas.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault(); drawing = true; const p = getPos(e); lastX = p.x; lastY = p.y;
+  document.getElementById('sigHint').style.display = 'none'; hasSig = true;
+}, { passive: false });
+canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; draw(getPos(e)); }, { passive: false });
+canvas.addEventListener('touchend', () => drawing = false);
+
+function draw(p) {
   ctx.beginPath();
-  ctx.strokeStyle=document.getElementById('inkColor').value;
-  ctx.lineWidth=parseInt(document.getElementById('inkSize').value);
-  ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();
-  lastX=p.x;lastY=p.y;
+  ctx.strokeStyle = document.getElementById('inkColor').value;
+  ctx.lineWidth = parseInt(document.getElementById('inkSize').value);
+  ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+  lastX = p.x; lastY = p.y;
 }
-function clearSig(){ctx.clearRect(0,0,canvas.width,canvas.height);hasSig=false;document.getElementById('sigHint').style.display='';}
+function clearSig() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasSig = false;
+  document.getElementById('sigHint').style.display = '';
+}
 
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadPDF(e.dataTransfer.files[0]);});
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); loadPDF(e.dataTransfer.files[0]); });
 
-async function loadPDF(file){
-  if(!file||file.type!=='application/pdf'){showErr('Please select a valid PDF.');return;}
-  fileName=file.name.replace(/\.pdf$/i,'');
-  rawBuf=await file.arrayBuffer();
-  try{
-    const d=await PDFDocument.load(rawBuf);
-    totalPages=d.getPageCount();
-    document.getElementById('fileInfo').textContent=`📄 ${file.name} · ${totalPages} pages`;
-    document.getElementById('pageNum').max=totalPages;
-    document.getElementById('controls').style.display='';
-  }catch(e){showErr('Could not read PDF.');}
+async function loadPDF(file) {
+  if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF file.'); return; }
+  fileName = file.name.replace(/\.pdf$/i, '');
+  rawBuf = await file.arrayBuffer();
+  try {
+    const d = await PDFDocument.load(rawBuf);
+    totalPages = d.getPageCount();
+    document.getElementById('fileInfo').textContent = `📄 ${file.name} · ${totalPages} pages detected`;
+    document.getElementById('pageNum').max = totalPages;
+    document.getElementById('pageNum').value = totalPages; // Default to last page for signature!
+    document.getElementById('dropZone').style.display = 'none';
+    document.getElementById('controls').style.display = '';
+    document.getElementById('errMsg').style.display = 'none';
+  } catch(e) { showErr('Could not read PDF. File may be encrypted or corrupted.'); }
 }
-async function doSign(){
-  if(!rawBuf){showErr('Please upload a PDF first.');return;}
-  if(!hasSig){showErr('Please draw your signature first.');return;}
-  document.getElementById('loading').style.display='block';
-  document.getElementById('errMsg').style.display='none';
-  try{
-    const pdfDoc=await PDFDocument.load(rawBuf);
-    const pages=pdfDoc.getPages();
-    const pageIdx=Math.min(parseInt(document.getElementById('pageNum').value)||1,totalPages)-1;
-    const page=pages[pageIdx];
-    const{width,height}=page.getSize();
-    // Get signature as PNG from canvas (trimmed)
-    const sigPng=canvas.toDataURL('image/png');
-    const imgBytes=await fetch(sigPng).then(r=>r.arrayBuffer());
-    const pngImg=await pdfDoc.embedPng(imgBytes);
-    const sigW=width*(parseInt(document.getElementById('sigSize').value)/100);
-    const sigH=(pngImg.height/pngImg.width)*sigW;
-    const pos=document.getElementById('sigPos').value;
-    const pad=20;
-    let x,y;
-    if(pos==='bottom-right'){x=width-sigW-pad;y=pad;}
-    else if(pos==='bottom-left'){x=pad;y=pad;}
-    else if(pos==='bottom-center'){x=(width-sigW)/2;y=pad;}
-    else{x=(width-sigW)/2;y=(height-sigH)/2;}
-    page.drawImage(pngImg,{x,y,width:sigW,height:sigH,opacity:.9});
-    const bytes=await pdfDoc.save();
-    const blob=new Blob([bytes],{type:'application/pdf'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${fileName}-signed.pdf`;a.click();
-  }catch(e){showErr('Failed: '+e.message);}
-  document.getElementById('loading').style.display='none';
+
+function resetTool() {
+  rawBuf = null; totalPages = 0; fileName = '';
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('pdfInput').value = '';
 }
-function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+
+async function doSign() {
+  if (!rawBuf) { showErr('Please upload a PDF first.'); return; }
+  if (!hasSig) { showErr('Please draw your signature above first.'); return; }
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('errMsg').style.display = 'none';
+  try {
+    const pdfDoc = await PDFDocument.load(rawBuf);
+    const pages = pdfDoc.getPages();
+    const pageIdx = Math.max(0, Math.min(parseInt(document.getElementById('pageNum').value) || 1, totalPages) - 1);
+    const page = pages[pageIdx];
+    const { width, height } = page.getSize();
+
+    const sigPng = canvas.toDataURL('image/png');
+    const imgBytes = await fetch(sigPng).then(r => r.arrayBuffer());
+    const pngImg = await pdfDoc.embedPng(imgBytes);
+    const sigW = width * (parseInt(document.getElementById('sigSize').value) / 100);
+    const sigH = (pngImg.height / pngImg.width) * sigW;
+    const pos = document.getElementById('sigPos').value;
+    const pad = 24;
+    let x, y;
+    if (pos === 'bottom-right') { x = width - sigW - pad; y = pad; }
+    else if (pos === 'bottom-left') { x = pad; y = pad; }
+    else if (pos === 'bottom-center') { x = (width - sigW) / 2; y = pad; }
+    else { x = (width - sigW) / 2; y = (height - sigH) / 2; }
+
+    page.drawImage(pngImg, { x, y, width: sigW, height: sigH, opacity: 0.95 });
+    const bytes = await pdfDoc.save();
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `${fileName}-signed.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch(e) { showErr('Failed to embed signature: ' + e.message); }
+  document.getElementById('loading').style.display = 'none';
+}
+
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
 </script>
 <style>
 .drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
 .drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.pdf{background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c}
 </style>
 </body></html>

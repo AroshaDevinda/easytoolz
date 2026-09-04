@@ -1,11 +1,67 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Remove Background — EasyToolz</title>
-  <meta name="description" content="Learn about Remove Background tool alternatives on EasyToolz — free browser-based tools." />
+  <title>Remove Background from Image Online — Make Transparent PNG Free | EasyToolz</title>
+  <meta name="description" content="Free online Image Background Remover. Remove white, solid, or custom color backgrounds to create transparent PNGs instantly in your browser. Features color picker, tolerance slider, and 100% privacy." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-remove-bg.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Remove Background from Image Online — Free Transparent PNG Creator | EasyToolz" />
+  <meta property="og:description" content="Make image backgrounds transparent instantly with tolerance slider and color picker. 100% private." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-remove-bg.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Background Remover",
+    "url": "https://easytoolz.click/tools/image-remove-bg.html",
+    "description": "Remove background colors from product photos, logos, signatures, and illustrations to create transparent PNG images.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I make a white or solid background transparent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your image, click on the background area you wish to remove to select the color, and adjust the Tolerance slider until the background cleanly vanishes into a checkerboard transparency."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What image formats support transparent backgrounds?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PNG and WebP formats support alpha channel transparency. JPEG format does NOT support transparency and will always render transparent areas as solid white or black."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my images uploaded to any external server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No! Pixel color sampling and transparency keying run 100% locally on your computer or smartphone using HTML5 Canvas. Your photos never leave your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I remove backgrounds from signatures and product photos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! This tool is specifically optimized for cutting out clean transparent signatures, company logos, product listings, and green-screen graphics."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,36 +69,289 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Remove Background</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">✂️</div><div><h1>Remove Background</h1><p>Learn why this requires a server and what free alternatives exist</p></div></div>
-  <div class="tool-layout full-width" style="max-width:640px;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon images">✂️</div>
+    <div>
+      <h1>Image Background Remover</h1>
+      <p>Remove white or solid color backgrounds & create transparent PNGs — free & 100% private</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:820px;">
     <div class="tool-box">
-      <div style="text-align:center;padding:16px 0 24px;">
-        <div style="font-size:3.5rem;margin-bottom:16px;">🖥️</div>
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:12px;">Server-Side Processing Required</h2>
-        <p style="color:var(--text-2);font-size:.92rem;line-height:1.6;margin-bottom:24px;">AI-powered background removal requires large neural network models (100MB+). Tip: Use remove.bg (free tier) or Canva for browser-based AI background removal.</p>
-        <div style="background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.2);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
-          <div style="font-size:.85rem;color:var(--text-3);margin-bottom:12px;">✅ FREE ONLINE TOOLS THAT WORK:</div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <a href="https://www.ilovepdf.com" target="_blank" rel="noopener" class="ext-link">🔗 iLovePDF.com — free, no signup for basic use</a>
-            <a href="https://smallpdf.com" target="_blank" rel="noopener" class="ext-link">🔗 SmallPDF.com — 2 free tasks per day</a>
-            <a href="https://pdf2go.com" target="_blank" rel="noopener" class="ext-link">🔗 PDF2Go.com — free conversions</a>
-            <a href="https://www.adobe.com/acrobat/online.html" target="_blank" rel="noopener" class="ext-link">🔗 Adobe Acrobat Online — free tier available</a>
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+        <div class="drop-icon">✂️</div>
+        <div class="drop-text">Click or drag &amp; drop an image here</div>
+        <div class="drop-sub">JPG, PNG, WebP — Perfect for logos, signatures &amp; product photos</div>
+        <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
+      </div>
+
+      <div id="editor" style="display:none;">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin:16px 0;">
+          <div class="form-row" style="gap:16px;flex-wrap:wrap;align-items:center;">
+            <div class="form-group" style="flex:1;min-width:140px;">
+              <label class="form-label">Target Background Color</label>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <input type="color" id="targetColor" value="#ffffff" oninput="applyKeying()" style="width:48px;height:40px;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;" />
+                <span id="hexLabel" style="font-size:0.85rem;color:var(--text-2);font-family:monospace;">#FFFFFF</span>
+              </div>
+            </div>
+
+            <div class="form-group" style="flex:2;min-width:180px;">
+              <label class="form-label">Color Tolerance: <span id="tolVal" style="color:var(--teal);font-weight:700;">25</span>%</label>
+              <input type="range" id="tolerance" min="1" max="80" value="25" oninput="document.getElementById('tolVal').textContent=this.value;applyKeying()" style="width:100%;accent-color:var(--teal);" />
+            </div>
+
+            <div class="form-group" style="flex:1;min-width:140px;">
+              <label class="form-label">Quick Presets</label>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-secondary" onclick="setColor('#ffffff')">White</button>
+                <button class="btn btn-sm btn-secondary" onclick="setColor('#000000')">Black</button>
+                <button class="btn btn-sm btn-secondary" onclick="setColor('#00ff00')">Green</button>
+              </div>
+            </div>
           </div>
+          <div style="font-size:0.8rem;color:var(--text-3);margin-top:8px;">💡 Tip: Click anywhere directly on the preview image to pick and remove that exact color!</div>
         </div>
-        <div style="font-size:.85rem;color:var(--text-2);margin-bottom:16px;">Or try our closest browser-based alternative:</div>
-        <a href="image-cropper.html" class="btn btn-primary">🔗 Try Image Cropper →</a>
-        <div style="margin-top:16px;"><a href="../index.html" style="font-size:.85rem;color:var(--teal);">← Browse all 50+ free tools</a></div>
+
+        <div style="text-align:center;margin:16px 0;background:repeating-conic-gradient(#334155 0% 25%, #1e293b 0% 50%) 50% / 20px 20px;border-radius:var(--radius);padding:16px;overflow:auto;max-height:480px;">
+          <canvas id="canvas" style="max-width:100%;cursor:crosshair;box-shadow:0 10px 15px -3px rgba(0,0,0,0.5);border-radius:4px;" title="Click anywhere to sample background color"></canvas>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px;">
+          <button class="btn btn-primary" onclick="downloadPNG()">⬇ Download Transparent PNG</button>
+          <button class="btn btn-secondary" onclick="changeImage()">Upload Another Photo</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:820px;"></div>
+
+  <article class="tool-content" style="max-width:820px;margin:40px auto;line-height:1.7;">
+    <h2>Make Image Backgrounds Transparent Online in Seconds</h2>
+    <p>Creating clean cutout graphics, product listing photos, and transparent signatures usually requires expensive photo editing software. Our free <strong>Image Background Remover</strong> runs in your browser, enabling you to isolate subjects, remove solid white or green-screen backgrounds, and export pure alpha-transparent PNGs with zero subscription fees.</p>
+
+    <h3>How to Achieve the Cleanest Background Removal</h3>
+    <ol>
+      <li><strong>Click to Sample Color:</strong> Use your mouse or finger to click anywhere in the unwanted background area. The tool samples that exact RGB color value automatically.</li>
+      <li><strong>Fine-Tune the Tolerance Slider:</strong> Move the tolerance slider higher if faint edges of the background remain, or lower if parts of your main subject start fading out.</li>
+      <li><strong>Export as Transparent PNG:</strong> Click "Download Transparent PNG". The file preserves crisp transparency ready to place over any website, document, or colored backdrop.</li>
+    </ol>
+
+    <h3>Ideal Applications for Transparent PNGs</h3>
+    <ul>
+      <li><strong>Digital Signatures:</strong> Extract inked signatures from white paper scans to paste seamlessly onto PDF contracts.</li>
+      <li><strong>E-commerce Product Catalogs:</strong> Remove grey or inconsistent studio backdrops from product shots for Amazon, eBay, or Shopify.</li>
+      <li><strong>Company Logos & Brand Icons:</strong> Eliminate unsightly white rectangular backgrounds behind logos so they blend smoothly onto dark website headers.</li>
+      <li><strong>Meme & Collage Creation:</strong> Isolate stickers, emojis, and characters for social media content.</li>
+    </ul>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>How do I make a white background transparent?</h3>
+        <p>Simply upload your image. The tool defaults to targeting white (#FFFFFF). Adjust the tolerance slider until the white backdrop completely turns into the transparency checkerboard.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does JPEG not support transparent backgrounds?</h3>
+        <p>The JPEG image standard does not include an alpha transparency channel. To keep transparency, our tool always exports as a lossless PNG file.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Are my private photos uploaded to a cloud server?</h3>
+        <p>No. EasyToolz processes all image pixels directly in your browser using HTML5 Canvas. Your photos never leave your device.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I remove green screen (chroma key) backgrounds?</h3>
+        <p>Yes. Click the 'Green' quick preset or click directly on the green screen backdrop in the preview to remove it cleanly.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Image Tools</h4>
+        <ul class="footer-links">
+          <li><a href="image-remove-bg.html">Remove Background</a></li>
+          <li><a href="image-cropper.html">Image Cropper</a></li>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="image-converter.html">Image Converter</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>PDF & Utilities</h4>
+        <ul class="footer-links">
+          <li><a href="pdf-merger.html">PDF Merger</a></li>
+          <li><a href="pdf-sign.html">PDF Sign</a></li>
+          <li><a href="pdf-compress.html">PDF Compressor</a></li>
+          <li><a href="qr-code-generator.html">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
-<style>
-.tool-page-icon.pdf{background:rgba(251,146,60,.15);color:#fb923c}
-.ext-link{display:block;padding:10px 14px;background:var(--glass);border:1px solid var(--border);border-radius:8px;color:var(--teal);font-size:.85rem;transition:all .2s;text-align:left;}
-.ext-link:hover{background:var(--glass-hover);border-color:var(--border-hover);}
-</style>
-</body></html>
+<script src="../js/ads.js"></script>
+<script>
+let origImg = null;
+let origData = null;
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  loadFile(e.dataTransfer.files[0]);
+});
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      origImg = img;
+      initCanvas();
+      document.getElementById('dropZone').style.display = 'none';
+      document.getElementById('editor').style.display = '';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function initCanvas() {
+  const canvas = document.getElementById('canvas');
+  canvas.width = origImg.naturalWidth;
+  canvas.height = origImg.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(origImg, 0, 0);
+  origData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  applyKeying();
+
+  // Click to pick color
+  canvas.onclick = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = Math.floor((e.clientX - rect.left) * scaleX);
+    const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+    const pixel = ctx.getImageData(x, y, 1, 1).data;
+    const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
+    setColor(hex);
+  };
+}
+
+function setColor(hex) {
+  document.getElementById('targetColor').value = hex;
+  document.getElementById('hexLabel').textContent = hex.toUpperCase();
+  applyKeying();
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function hexToRgb(hex) {
+  const bigint = parseInt(hex.replace('#', ''), 16);
+  return {
+    r: (bigint >> 16) & 255,
+    g: (bigint >> 8) & 255,
+    b: bigint & 255
+  };
+}
+
+function applyKeying() {
+  if (!origImg || !origData) return;
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const targetHex = document.getElementById('targetColor').value;
+  document.getElementById('hexLabel').textContent = targetHex.toUpperCase();
+  const targetRgb = hexToRgb(targetHex);
+
+  const tolPct = parseInt(document.getElementById('tolerance').value) || 25;
+  const tolDist = (tolPct / 100) * 441.67; // max distance between RGB (sqrt(255^2*3))
+
+  const imgData = new ImageData(
+    new Uint8ClampedArray(origData.data),
+    origData.width,
+    origData.height
+  );
+  const data = imgData.data;
+  const len = data.length;
+
+  for (let i = 0; i < len; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+
+    const dr = r - targetRgb.r;
+    const dg = g - targetRgb.g;
+    const db = b - targetRgb.b;
+    const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+
+    if (dist <= tolDist) {
+      // Linear falloff for smooth antialiased edges
+      if (dist > tolDist * 0.75) {
+        const factor = (dist - tolDist * 0.75) / (tolDist * 0.25);
+        data[i + 3] = Math.round(data[i + 3] * factor);
+      } else {
+        data[i + 3] = 0;
+      }
+    }
+  }
+
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function changeImage() {
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('editor').style.display = 'none';
+  origImg = null;
+  origData = null;
+}
+
+function downloadPNG() {
+  const canvas = document.getElementById('canvas');
+  canvas.toBlob(function(blob) {
+    if (!blob) return alert('Export failed.');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `transparent-cutout-${Date.now()}.png`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  }, 'image/png');
+}
+</script>
+</body>
+</html>

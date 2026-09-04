@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Photo Editor — EasyToolz</title>
-  <meta name="description" content="Free online Photo Editor — adjust brightness, contrast, saturation, and apply filters to any image in your browser." />
+  <title>Free Photo Editor Online — Edit Images in Browser | EasyToolz</title>
+  <meta name="description" content="Free online Photo Editor. Fine-tune brightness, contrast, saturation, hue, and blur, or apply cinematic filters like Vintage, Cool, Warm, and Dramatic. Download in JPEG, PNG, or WebP." />
   <link rel="canonical" href="https://easytoolz.click/tools/photo-editor.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Free Photo Editor Online — Edit Images in Browser | EasyToolz" />
+  <meta property="og:description" content="Enhance your pictures online with pro sliders and preset filters. 100% private, free, and no account needed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/photo-editor.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Photo Editor","url":"https://easytoolz.click/tools/photo-editor.html","description":"Online photo editor with real-time sliders for brightness, contrast, saturation, hue rotation, and aesthetic photo filters.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is this photo editor completely free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, 100% free with no subscriptions, trials, or hidden fees. Edit and download as many photos as you want."}},
+    {"@type":"Question","name":"Will using this tool lower the quality of my photo?","acceptedAnswer":{"@type":"Answer","text":"No. You can export in lossless PNG or maximum quality JPEG/WebP to retain every detail of your original photo."}},
+    {"@type":"Question","name":"Can I edit photos on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes! EasyToolz Photo Editor is fully responsive and touchscreen-compatible on both iOS and Android smartphones."}},
+    {"@type":"Question","name":"Do my photos get uploaded to your servers?","acceptedAnswer":{"@type":"Answer","text":"No. All image adjustments and filter applications happen locally on your device using hardware-accelerated HTML5 Canvas."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,52 +29,93 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Photo Editor</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🖌️</div><div><h1>Photo Editor</h1><p>Adjust brightness, contrast, saturation & apply filters — free</p></div></div>
-  <div class="tool-layout full-width" style="max-width:800px;">
+  <div class="tool-page-header"><div class="tool-page-icon images">🖌️</div><div><h1>Online Photo Editor</h1><p>Adjust brightness, contrast, saturation, hue & apply creative filters — free & private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:840px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🖌️</div>
         <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP, GIF supported</div>
+        <div class="drop-sub">JPG, PNG, WebP supported — 100% private in your browser</div>
         <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadImg(this.files[0])" />
       </div>
       <div id="editor" style="display:none;">
-        <div style="display:grid;grid-template-columns:1fr 240px;gap:20px;margin-top:20px;">
+        <div style="display:grid;grid-template-columns:1fr 260px;gap:20px;margin-top:20px;">
           <div>
-            <canvas id="previewCanvas" style="max-width:100%;display:block;border-radius:var(--radius);"></canvas>
+            <canvas id="previewCanvas" style="max-width:100%;display:block;border-radius:var(--radius);border:1px solid var(--border);"></canvas>
           </div>
           <div>
             <div style="margin-bottom:16px;">
-              <div style="font-size:.8rem;color:var(--text-3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Adjustments</div>
+              <div style="font-size:.8rem;color:var(--text-3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Color Adjustments</div>
               <div id="sliders"></div>
             </div>
             <div style="margin-bottom:16px;">
-              <div style="font-size:.8rem;color:var(--text-3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Filters</div>
+              <div style="font-size:.8rem;color:var(--text-3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Aesthetic Filters</div>
               <div style="display:flex;flex-wrap:wrap;gap:6px;" id="filterBtns"></div>
             </div>
-            <button class="btn btn-secondary btn-block" onclick="resetAll()" style="margin-bottom:8px;">↺ Reset</button>
-            <div class="form-group">
-              <label class="form-label">Save as</label>
-              <select id="fmt" class="form-select"><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select>
+            <button class="btn btn-secondary btn-block" onclick="resetAll()" style="margin-bottom:12px;">↺ Reset Adjustments</button>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Save As</label>
+              <select id="fmt" class="form-select">
+                <option value="image/jpeg" selected>JPEG (Photos)</option>
+                <option value="image/png">PNG (Lossless)</option>
+                <option value="image/webp">WebP (Modern)</option>
+              </select>
             </div>
-            <button class="btn btn-primary btn-block" onclick="download()">⬇ Download</button>
+            <button class="btn btn-primary btn-block" onclick="download()">⬇ Download Photo</button>
+            <button class="btn btn-secondary btn-block" onclick="changeImage()" style="margin-top:8px;">Change Image</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Edit Photos Online Without Installing Software</h2>
+    <p>Professional photo editing software like Photoshop or Lightroom can be overwhelming and expensive. EasyToolz Photo Editor offers essential color grading tools and stylized filters in an intuitive, browser-based interface that works instantly on any device.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Upload your image:</strong> Drag and drop any photo into the editor above or tap to upload from your camera roll.</li>
+      <li><strong>Adjust lighting & tones:</strong> Move the sliders to brighten dim shots, increase contrast for punchy shadows, boost saturation for vivid colors, or shift hue for creative color harmony.</li>
+      <li><strong>Apply artistic filters:</strong> Tap on Vintage, Cool, Warm, Dramatic, Fade, or Grayscale presets to give your picture a distinctive mood with a single click.</li>
+      <li><strong>Download your masterpiece:</strong> Select JPEG, PNG, or WebP format and hit Download to save your edited photo instantly.</li>
+    </ol>
+
+    <h2>Key Photo Editing Features</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Real-Time Live Canvas Preview:</strong> Every slider tweak and filter click updates your image instantly with zero lag.</li>
+      <li><strong>Non-Destructive Editing:</strong> Easily reset adjustments anytime with the "Reset" button to experiment fearlessly.</li>
+      <li><strong>Hardware Accelerated:</strong> Powered by modern WebGL and CSS Canvas filters for fast performance even on high-megapixel camera files.</li>
+      <li><strong>100% Confidential:</strong> Your photos never leave your device, ensuring total privacy for personal, family, and business photography.</li>
+    </ul>
+
+    <p>Check out our full suite of image tools: <a href="image-cropper.html">Image Cropper</a>, <a href="image-compressor.html">Image Compressor</a>, <a href="image-resizer.html">Image Resizer</a>, <a href="image-watermark.html">Image Watermark</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Is this photo editor completely free to use?</h3><p>Yes, 100% free with no subscriptions, trials, or hidden fees. Edit and download as many photos as you want.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Will using this tool lower the quality of my photo?</h3><p>No. You can export in lossless PNG or maximum quality JPEG/WebP to retain every detail of your original photo.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I edit photos on my phone?</h3><p>Yes! EasyToolz Photo Editor is fully responsive and touchscreen-compatible on both iOS and Android smartphones.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Do my photos get uploaded to your servers?</h3><p>No. All image adjustments and filter applications happen locally on your device using hardware-accelerated HTML5 Canvas.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="photo-editor.html">Photo Editor</a></li><li><a href="image-resizer.html">Image Resizer</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 let img=null;
-const adjustments={brightness:100,contrast:100,saturation:100,hue:0,blur:0,sharpen:0};
+const adjustments={brightness:100,contrast:100,saturation:100,hue:0,blur:0};
 const sliderDefs=[
   {key:'brightness',label:'Brightness',min:0,max:200,default:100},
   {key:'contrast',label:'Contrast',min:0,max:200,default:100},
   {key:'saturation',label:'Saturation',min:0,max:300,default:100},
   {key:'hue',label:'Hue Rotate',min:0,max:360,default:0,unit:'deg'},
-  {key:'blur',label:'Blur',min:0,max:10,default:0,unit:'px',step:.5},
+  {key:'blur',label:'Soft Blur',min:0,max:10,default:0,unit:'px',step:.5},
 ];
 const filters=['None','Grayscale','Sepia','Invert','Vintage','Cool','Warm','Dramatic','Fade'];
 let activeFilter='None';
@@ -80,16 +135,18 @@ function loadImg(file){
   };
   reader.readAsDataURL(file);
 }
+function changeImage(){document.getElementById('dropZone').style.display='';document.getElementById('editor').style.display='none';img=null;}
 
 function buildUI(){
   const sc=document.getElementById('sliders');sc.innerHTML='';
   sliderDefs.forEach(d=>{
-    sc.innerHTML+=`<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-3);margin-bottom:3px;"><span>${d.label}</span><span id="lbl_${d.key}">${d.default}${d.unit||'%'}</span></div><input type="range" min="${d.min}" max="${d.max}" value="${d.default}" step="${d.step||1}" style="width:100%;accent-color:var(--teal);" oninput="upd('${d.key}',this.value,'${d.unit||'%'}')" /></div>`;
+    sc.innerHTML+=`<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-3);margin-bottom:3px;"><span>${d.label}</span><span id="lbl_${d.key}">${adjustments[d.key]}${d.unit||'%'}</span></div><input type="range" min="${d.min}" max="${d.max}" value="${adjustments[d.key]}" step="${d.step||1}" style="width:100%;accent-color:var(--teal);" oninput="upd('${d.key}',this.value,'${d.unit||'%'}')" /></div>`;
   });
   const fb=document.getElementById('filterBtns');fb.innerHTML='';
   filters.forEach(f=>{
     const btn=document.createElement('button');
     btn.textContent=f;btn.className='btn btn-secondary btn-sm';
+    if(f===activeFilter) btn.style.borderColor='var(--teal)';
     btn.onclick=()=>{activeFilter=f;document.querySelectorAll('#filterBtns button').forEach(b=>b.style.borderColor='');btn.style.borderColor='var(--teal)';render();};
     fb.appendChild(btn);
   });
@@ -104,8 +161,8 @@ function getFilterStr(){
   if(activeFilter==='Grayscale')f+=' grayscale(100%)';
   else if(activeFilter==='Sepia')f+=' sepia(100%)';
   else if(activeFilter==='Invert')f+=' invert(100%)';
-  else if(activeFilter==='Vintage')f+=' sepia(60%) contrast(110%) brightness(90%)';
-  else if(activeFilter==='Cool')f+=' hue-rotate(200deg) saturate(120%)';
+  else if(activeFilter==='Vintage')f+=' sepia(50%) contrast(110%) brightness(90%)';
+  else if(activeFilter==='Cool')f+=' hue-rotate(180deg) saturate(120%)';
   else if(activeFilter==='Warm')f+=' hue-rotate(340deg) saturate(130%) brightness(105%)';
   else if(activeFilter==='Dramatic')f+=' contrast(140%) brightness(90%) saturate(110%)';
   else if(activeFilter==='Fade')f+=' brightness(115%) contrast(80%) saturate(70%)';
@@ -121,15 +178,29 @@ function render(){
   ctx.filter='none';
 }
 function resetAll(){
-  sliderDefs.forEach(d=>{adjustments[d.key]=d.default;document.getElementById(`lbl_${d.key}`).textContent=d.default+(d.unit||'%');});
+  sliderDefs.forEach(d=>{adjustments[d.key]=d.default;});
   activeFilter='None';
-  document.querySelectorAll('#filterBtns button').forEach(b=>b.style.borderColor='');
   buildUI();render();
 }
 function download(){
+  const c=document.getElementById('previewCanvas');
+  if(!c)return;
   const fmt=document.getElementById('fmt').value;
   const ext=fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
-  const a=document.createElement('a');a.href=document.getElementById('previewCanvas').toDataURL(fmt,.92);a.download=`edited.${ext}`;a.click();
+  c.toBlob(blob=>{
+    if(!blob){
+      const a=document.createElement('a');a.href=c.toDataURL(fmt,.92);a.download=`edited.${ext}`;
+      document.body.appendChild(a);a.click();document.body.removeChild(a);return;
+    }
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.style.display='none';
+    a.href=url;
+    a.download=`edited.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},150);
+  },fmt,.92);
 }
 </script>
 <style>

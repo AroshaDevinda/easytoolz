@@ -167,6 +167,7 @@
 </footer>
 
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
   let origFile=null, compDataUrl=null, canvas=document.createElement('canvas'), ctx=canvas.getContext('2d');
   function fmt(b){return b>1048576?(b/1048576).toFixed(2)+' MB':b>1024?(b/1024).toFixed(1)+' KB':b+' B';}
@@ -207,10 +208,17 @@
   }
   function download(){
     if(!compDataUrl)return;
-    const a=document.createElement('a');
-    a.href=compDataUrl;
-    a.download='compressed_'+origFile.name;
-    a.click();
+    // Convert dataURL to blob for reliable mobile download
+    fetch(compDataUrl).then(r=>r.blob()).then(blob=>{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='compressed_'+origFile.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
   }
 </script>
 </body>

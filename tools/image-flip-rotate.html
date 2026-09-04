@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Flip & Rotate — EasyToolz</title>
-  <meta name="description" content="Free Image Flip and Rotate tool — flip horizontally or vertically, rotate 90°/180°/270° in your browser. No upload needed." />
+  <title>Image Flip & Rotate Online — Flip Horizontally/Vertically & Rotate 90°/180° Free | EasyToolz</title>
+  <meta name="description" content="Free online Image Flip and Rotate tool. Rotate photos 90°, 180°, 270°, or mirror images horizontally and vertically in seconds. Supports JPG, PNG, and WebP with zero quality loss and 100% privacy." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-flip-rotate.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Image Flip & Rotate Online — Free Photo Orientation Tool | EasyToolz" />
+  <meta property="og:description" content="Flip photos horizontally, mirror vertically, and rotate orientations instantly in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-flip-rotate.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Flip and Rotate Tool",
+    "url": "https://easytoolz.click/tools/image-flip-rotate.html",
+    "description": "Rotate images by 90, 180, or 270 degrees and flip photos horizontally or vertically in your browser.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between flipping and rotating an image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rotating turns an image around its central axis by a specific angle (e.g., 90° clockwise), while flipping mirrors the image across a horizontal or vertical axis."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does rotating an image decrease its visual quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. When using our tool with PNG or maximum quality JPEG/WebP export, the pixel structure is preserved without compression artifacts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my private pictures uploaded to a cloud server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All transformations run locally in your browser using HTML5 Canvas. Your photos never leave your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I mirror selfies taken on my smartphone?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Front-facing smartphone cameras often save unmirrored selfies. Use 'Flip Horizontal' to restore the natural mirror perspective."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,22 +69,32 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Flip & Rotate</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🔃</div><div><h1>Image Flip & Rotate</h1><p>Flip or rotate any image instantly — free, no upload needed</p></div></div>
-  <div class="tool-layout full-width" style="max-width:700px;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon images">🔃</div>
+    <div>
+      <h1>Image Flip & Rotate</h1>
+      <p>Mirror pictures horizontally, flip vertically, or rotate orientations — free & 100% private</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
-      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()" id="dz">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🔃</div>
         <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP, GIF supported</div>
+        <div class="drop-sub">JPG, PNG, WebP supported — runs 100% locally</div>
         <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
       </div>
+
       <div id="editor" style="display:none;">
-        <div style="text-align:center;margin:16px 0;">
-          <canvas id="canvas" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--border);"></canvas>
+        <div style="text-align:center;margin:16px 0;background:repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%) 50% / 20px 20px;border-radius:var(--radius);padding:16px;">
+          <canvas id="canvas" style="max-width:100%;max-height:450px;border-radius:var(--radius-sm);border:1px solid var(--border);box-shadow:0 10px 15px -3px rgba(0,0,0,0.4);"></canvas>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;">
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px;">
           <button class="btn btn-secondary" onclick="applyTransform('rotL')">↺ Rotate 90° Left</button>
           <button class="btn btn-secondary" onclick="applyTransform('rotR')">↻ Rotate 90° Right</button>
           <button class="btn btn-secondary" onclick="applyTransform('rot180')">🔁 Rotate 180°</button>
@@ -36,21 +102,104 @@
           <button class="btn btn-secondary" onclick="applyTransform('flipV')">↕ Flip Vertical</button>
           <button class="btn btn-secondary" onclick="resetTransform()">↺ Reset</button>
         </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;">
           <select id="fmtSel" class="form-select" style="width:auto;">
-            <option value="image/jpeg" selected>JPEG</option>
-            <option value="image/png">PNG</option>
-            <option value="image/webp">WebP</option>
+            <option value="image/jpeg" selected>JPEG (High Quality)</option>
+            <option value="image/png">PNG (Lossless)</option>
+            <option value="image/webp">WebP (Modern)</option>
           </select>
-          <button class="btn btn-primary" onclick="download()">⬇ Download</button>
-          <button class="btn btn-secondary" onclick="changeImage()">Change Image</button>
+          <button class="btn btn-primary" onclick="download()">⬇ Download Transformed Image</button>
+          <button class="btn btn-secondary" onclick="changeImage()">Change Photo</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:760px;"></div>
+
+  <article class="tool-content" style="max-width:800px;margin:40px auto;line-height:1.7;">
+    <h2>Correct Photo Orientation & Mirror Images Instantly</h2>
+    <p>Mobile cameras and digital photo scanners often record incorrect EXIF orientation metadata, resulting in sideways or upside-down images when shared on social media or loaded onto web pages. Our free <strong>Image Flip & Rotate</strong> utility allows you to permanently fix photo orientation and mirror graphics with zero cloud uploads.</p>
+
+    <h3>Flipping vs. Rotating: When to Use Which</h3>
+    <ul>
+      <li><strong>Rotate 90° Left or Right:</strong> Used when a portrait smartphone photo opens in landscape orientation, or vice versa.</li>
+      <li><strong>Rotate 180°:</strong> Fixes completely inverted or upside-down document scans in a single click.</li>
+      <li><strong>Flip Horizontal (Mirror):</strong> Restores front-facing selfie shots to how you naturally look in a mirror, or flips graphic icons to point in the opposite direction.</li>
+      <li><strong>Flip Vertical:</strong> Creates water-reflection effects or corrects inverted overhead camera captures.</li>
+    </ul>
+
+    <h3>Full Privacy with In-Browser Canvas Processing</h3>
+    <p>Unlike online services that require uploading your personal family pictures or documents to remote servers, EasyToolz applies all matrix transformations using your device's native graphics acceleration via HTML5 Canvas. Your photos never leave your device.</p>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Does rotating an image decrease its sharpness?</h3>
+        <p>No. 90-degree and 180-degree rotations simply map pixel coordinates to their new orthogonal positions, ensuring full fidelity and sharpness.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What image formats are supported?</h3>
+        <p>You can upload JPG, PNG, WebP, BMP, and GIF images, and download your transformed result in your preferred format (JPEG, PNG, or WebP).</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why do my smartphone photos sometimes appear sideways?</h3>
+        <p>Some devices store orientation as EXIF tags rather than physically rotating the pixels. Our tool bakes the rotation permanently into the image pixels so it displays correctly everywhere.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I use this tool on my iPhone or Android device?</h3>
+        <p>Yes. EasyToolz is fully responsive and supports touch interactions and direct camera library imports on all modern smartphones.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Image Tools</h4>
+        <ul class="footer-links">
+          <li><a href="image-flip-rotate.html">Image Flip & Rotate</a></li>
+          <li><a href="image-cropper.html">Image Cropper</a></li>
+          <li><a href="image-resizer.html">Image Resizer</a></li>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>PDF & Utilities</h4>
+        <ul class="footer-links">
+          <li><a href="pdf-merger.html">PDF Merger</a></li>
+          <li><a href="pdf-compress.html">PDF Compressor</a></li>
+          <li><a href="images-to-pdf.html">Images to PDF</a></li>
+          <li><a href="qr-code-generator.html">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 let origImg = null;
 let rotation = 0, flipH = false, flipV = false;
@@ -58,53 +207,83 @@ let rotation = 0, flipH = false, flipV = false;
 const dropZone = document.getElementById('dropZone');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  loadFile(e.dataTransfer.files[0]);
+});
 
 function loadFile(file) {
   if (!file || !file.type.startsWith('image/')) return;
   const reader = new FileReader();
   reader.onload = e => {
     const img = new Image();
-    img.onload = () => { origImg = img; rotation = 0; flipH = false; flipV = false; render(); document.getElementById('dropZone').style.display = 'none'; document.getElementById('editor').style.display = ''; };
+    img.onload = () => {
+      origImg = img;
+      rotation = 0;
+      flipH = false;
+      flipV = false;
+      render();
+      document.getElementById('dropZone').style.display = 'none';
+      document.getElementById('editor').style.display = '';
+    };
     img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
-function changeImage() { document.getElementById('dropZone').style.display = ''; document.getElementById('editor').style.display = 'none'; origImg=null; }
+
+function changeImage() {
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('editor').style.display = 'none';
+  origImg = null;
+}
+
 function applyTransform(t) {
-  if (t==='rotL')   { rotation = (rotation - 90 + 360) % 360; }
-  if (t==='rotR')   { rotation = (rotation + 90) % 360; }
-  if (t==='rot180') { rotation = (rotation + 180) % 360; }
-  if (t==='flipH')  { flipH = !flipH; }
-  if (t==='flipV')  { flipV = !flipV; }
+  if (t === 'rotL') rotation = (rotation - 90 + 360) % 360;
+  if (t === 'rotR') rotation = (rotation + 90) % 360;
+  if (t === 'rot180') rotation = (rotation + 180) % 360;
+  if (t === 'flipH') flipH = !flipH;
+  if (t === 'flipV') flipV = !flipV;
   render();
 }
-function resetTransform() { rotation = 0; flipH = false; flipV = false; render(); }
+
+function resetTransform() {
+  rotation = 0;
+  flipH = false;
+  flipV = false;
+  render();
+}
+
 function render() {
+  if (!origImg) return;
   const c = document.getElementById('canvas');
   const rotated = rotation === 90 || rotation === 270;
-  c.width  = rotated ? origImg.naturalHeight : origImg.naturalWidth;
-  c.height = rotated ? origImg.naturalWidth  : origImg.naturalHeight;
+  c.width = rotated ? origImg.naturalHeight : origImg.naturalWidth;
+  c.height = rotated ? origImg.naturalWidth : origImg.naturalHeight;
   const ctx = c.getContext('2d');
   ctx.save();
-  ctx.translate(c.width/2, c.height/2);
+  ctx.translate(c.width / 2, c.height / 2);
   ctx.rotate(rotation * Math.PI / 180);
   ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
-  ctx.drawImage(origImg, -origImg.naturalWidth/2, -origImg.naturalHeight/2);
+  ctx.drawImage(origImg, -origImg.naturalWidth / 2, -origImg.naturalHeight / 2);
   ctx.restore();
 }
+
 function download() {
   const fmt = document.getElementById('fmtSel').value;
-  const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
-  const a = document.createElement('a'); a.href = document.getElementById('canvas').toDataURL(fmt,0.92); a.download = `transformed.${ext}`; a.click();
+  const ext = fmt === 'image/png' ? 'png' : (fmt === 'image/webp' ? 'webp' : 'jpg');
+  document.getElementById('canvas').toBlob(function(blob) {
+    if (!blob) return alert('Failed to export image.');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `transformed-photo-${Date.now()}.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  }, fmt, 0.95);
 }
 </script>
-<style>
-.tool-page-icon.images { background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6; }
-.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
-.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
-.drop-icon { font-size:3rem;margin-bottom:12px; }
-.drop-text { font-weight:600;margin-bottom:6px; }
-.drop-sub  { font-size:.8rem;color:var(--text-3); }
-</style>
-</body></html>
+</body>
+</html>

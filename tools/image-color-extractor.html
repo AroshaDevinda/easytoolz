@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Color Extractor — EasyToolz</title>
-  <meta name="description" content="Free Image Color Extractor — extract dominant colors and palette from any image in your browser. No upload needed." />
+  <title>Image Color Extractor Online — Extract Color Palettes Free | EasyToolz</title>
+  <meta name="description" content="Free online Image Color Extractor. Upload any photo or graphic to instantly extract dominant colors, create harmonic color palettes, and copy HEX codes with one click. 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-color-extractor.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Image Color Extractor Online — Extract Color Palettes Free | EasyToolz" />
+  <meta property="og:description" content="Discover dominant colors and generate beautiful palettes from your photos. Copy HEX codes instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-color-extractor.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Image Color Extractor","url":"https://easytoolz.click/tools/image-color-extractor.html","description":"Extract dominant colors and HEX color codes from any picture directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How does the Image Color Extractor identify dominant colors?","acceptedAnswer":{"@type":"Answer","text":"The tool uses color quantization algorithms on the HTML5 Canvas to scan every pixel, group similar shades into buckets, and rank the most prevalent tones."}},
+    {"@type":"Question","name":"Can I copy the HEX code to my clipboard?","acceptedAnswer":{"@type":"Answer","text":"Yes! Click any color swatch or palette pill to instantly copy its exact #HEX code to your clipboard."}},
+    {"@type":"Question","name":"Are my photos uploaded to a third-party server?","acceptedAnswer":{"@type":"Answer","text":"Never. The entire pixel sampling and palette analysis runs completely in your device's browser memory."}},
+    {"@type":"Question","name":"How can web designers and artists use extracted palettes?","acceptedAnswer":{"@type":"Answer","text":"Extracted palettes provide cohesive color harmony for website UI themes, illustrations, digital branding, and interior design mood boards."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,33 +29,67 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Color Extractor</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🎨</div><div><h1>Image Color Extractor</h1><p>Extract dominant colors & palette from any image — free & private</p></div></div>
-  <div class="tool-layout full-width" style="max-width:720px;">
+  <div class="tool-page-header"><div class="tool-page-icon images">🎨</div><div><h1>Image Color Extractor</h1><p>Extract dominant colors and generate color palettes from any photo — free & private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🎨</div>
         <div class="drop-text">Click or drag & drop an image here</div>
-        <div class="drop-sub">JPG, PNG, WebP supported</div>
+        <div class="drop-sub">JPG, PNG, WebP supported — 100% private in browser</div>
         <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="loadFile(this.files[0])" />
       </div>
       <div id="result" style="display:none;margin-top:20px;">
-        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:20px;">
-          <img id="prevImg" style="max-width:200px;max-height:200px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border);" />
-          <div style="flex:1;">
-            <div style="font-size:0.85rem;color:var(--text-3);margin-bottom:12px;">Dominant Colors (click to copy HEX)</div>
-            <div id="swatches" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;margin-bottom:24px;">
+          <img id="prevImg" style="max-width:220px;max-height:220px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border);" />
+          <div style="flex:1;min-width:220px;">
+            <div style="font-size:0.85rem;color:var(--text-3);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Dominant Colors (Click swatch to copy HEX)</div>
+            <div id="swatches" style="display:flex;flex-wrap:wrap;gap:12px;"></div>
           </div>
         </div>
-        <div style="font-size:0.85rem;color:var(--text-3);margin-bottom:10px;">Full Palette</div>
-        <div id="palette" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-        <button class="btn btn-secondary" style="margin-top:16px;" onclick="changeImage()">Change Image</button>
+        <div style="font-size:0.85rem;color:var(--text-3);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Full Extracted Palette</div>
+        <div id="palette" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        <button class="btn btn-secondary" style="margin-top:20px;" onclick="changeImage()">Change Photo</button>
       </div>
-      <div id="loading" style="display:none;text-align:center;padding:20px;color:var(--text-2);">⏳ Analyzing colors…</div>
+      <div id="loading" style="display:none;text-align:center;padding:20px;color:var(--text-2);">⏳ Analyzing image pixel data…</div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Extract Color Palettes from Photos Online</h2>
+    <p>Finding the perfect color combination for a website, illustration, brand logo, or presentation often starts with visual inspiration from nature, architecture, or art. EasyToolz Image Color Extractor analyzes any picture and pinpoints its primary colors in milliseconds.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Upload your photo:</strong> Drag and drop any image file into the workspace above or browse from your phone or PC.</li>
+      <li><strong>Instant color breakdown:</strong> Our algorithm quantizes the image pixels, grouping color frequencies into dominant hero shades and a full harmonious palette.</li>
+      <li><strong>Copy HEX codes:</strong> Click on any color swatch to copy its exact 6-character hexadecimal code (e.g., #00D4AA) directly to your clipboard.</li>
+    </ol>
+
+    <h2>Why Color Extraction Matters for Designers</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Effortless Brand Consistency:</strong> Build matching social media graphics, banners, and typography that naturally complement your featured photography.</li>
+      <li><strong>Mood Board Creation:</strong> Pull cohesive color schemes from inspirational scenery or editorial fashion photography.</li>
+      <li><strong>Zero Privacy Risk:</strong> Because the canvas quantization runs locally, proprietary client photography and confidential design drafts never leave your device.</li>
+    </ul>
+
+    <p>Explore related visual tools: <a href="color-picker.html">Color Picker</a>, <a href="photo-editor.html">Photo Editor</a>, <a href="image-to-base64.html">Image to Base64</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How does the Image Color Extractor identify dominant colors?</h3><p>The tool uses color quantization algorithms on the HTML5 Canvas to scan every pixel, group similar shades into buckets, and rank the most prevalent tones.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I copy the HEX code to my clipboard?</h3><p>Yes! Click any color swatch or palette pill to instantly copy its exact #HEX code to your clipboard.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my photos uploaded to a third-party server?</h3><p>Never. The entire pixel sampling and palette analysis runs completely in your device's browser memory.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How can web designers and artists use extracted palettes?</h3><p>Extracted palettes provide cohesive color harmony for website UI themes, illustrations, digital branding, and interior design mood boards.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-color-extractor.html">Color Extractor</a></li><li><a href="color-picker.html">Color Picker</a></li><li><a href="photo-editor.html">Photo Editor</a></li><li><a href="image-compressor.html">Image Compressor</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 const dropZone = document.getElementById('dropZone');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -57,7 +105,7 @@ function loadFile(file) {
       document.getElementById('prevImg').src = e.target.result;
       document.getElementById('dropZone').style.display = 'none';
       document.getElementById('loading').style.display = 'block';
-      setTimeout(() => extractColors(img), 50);
+      setTimeout(() => extractColors(img), 40);
     };
     img.src = e.target.result;
   };
@@ -67,14 +115,13 @@ function changeImage() { document.getElementById('dropZone').style.display=''; d
 
 function extractColors(img) {
   const canvas = document.createElement('canvas');
-  const MAX = 150;
+  const MAX = 160;
   const scale = Math.min(MAX/img.naturalWidth, MAX/img.naturalHeight, 1);
-  canvas.width  = Math.round(img.naturalWidth  * scale);
-  canvas.height = Math.round(img.naturalHeight * scale);
+  canvas.width  = Math.max(1, Math.round(img.naturalWidth  * scale));
+  canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
   const ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-  // Quantize to buckets of 32
   const counts = {};
   for (let i = 0; i < data.length; i += 4) {
     if (data[i+3] < 128) continue;
@@ -82,35 +129,44 @@ function extractColors(img) {
     const key = `${r},${g},${b}`;
     counts[key] = (counts[key] || 0) + 1;
   }
-  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 20);
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 24);
   const toHex = ([r,g,b]) => '#' + [r,g,b].map(v => ((v<<5)+16).toString(16).padStart(2,'0')).join('');
   const colors = sorted.map(([k]) => toHex(k.split(',').map(Number)));
 
-  // Swatches (top 6)
   const sw = document.getElementById('swatches');
   sw.innerHTML = '';
   colors.slice(0,6).forEach(hex => {
     const div = document.createElement('div');
-    div.title = 'Click to copy';
-    div.style.cssText = `width:56px;height:56px;border-radius:10px;background:${hex};cursor:pointer;border:2px solid rgba(255,255,255,0.15);position:relative;`;
-    div.onclick = () => { navigator.clipboard.writeText(hex); div.title='Copied!'; };
+    div.title = 'Click to copy HEX';
+    div.style.cssText = `width:56px;height:56px;border-radius:12px;background:${hex};cursor:pointer;border:2px solid rgba(255,255,255,0.2);position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:transform .2s;`;
+    div.onmouseenter = () => div.style.transform = 'scale(1.08)';
+    div.onmouseleave = () => div.style.transform = 'scale(1)';
+    div.onclick = () => {
+      navigator.clipboard.writeText(hex);
+      label.textContent = 'Copied!';
+      setTimeout(() => label.textContent = hex, 1500);
+    };
     const label = document.createElement('div');
-    label.style.cssText = 'position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:0.65rem;color:var(--text-3);white-space:nowrap;';
+    label.style.cssText = 'position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:0.7rem;color:var(--text-2);white-space:nowrap;font-family:monospace;';
     label.textContent = hex;
-    div.appendChild(label);
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'position:relative;margin-bottom:24px;';
+    wrapper.style.cssText = 'position:relative;margin-bottom:26px;';
     wrapper.appendChild(div);
+    wrapper.appendChild(label);
     sw.appendChild(wrapper);
   });
-  // Full palette
+
   const pal = document.getElementById('palette');
   pal.innerHTML = '';
   colors.forEach(hex => {
     const div = document.createElement('div');
-    div.style.cssText = `display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;`;
-    div.innerHTML = `<div style="width:20px;height:20px;border-radius:4px;background:${hex};flex-shrink:0;"></div><span style="font-size:0.8rem;font-family:monospace;">${hex}</span>`;
-    div.onclick = () => { navigator.clipboard.writeText(hex); div.style.borderColor='var(--teal)'; setTimeout(()=>div.style.borderColor='',1500); };
+    div.style.cssText = `display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;transition:border-color .2s;`;
+    div.innerHTML = `<div style="width:20px;height:20px;border-radius:4px;background:${hex};flex-shrink:0;"></div><span style="font-size:0.85rem;font-family:monospace;">${hex}</span>`;
+    div.onclick = () => {
+      navigator.clipboard.writeText(hex);
+      div.style.borderColor = 'var(--teal)';
+      setTimeout(() => div.style.borderColor = '', 1500);
+    };
     pal.appendChild(div);
   });
   document.getElementById('loading').style.display = 'none';
@@ -118,11 +174,9 @@ function extractColors(img) {
 }
 </script>
 <style>
-.tool-page-icon.images { background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6; }
-.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
-.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
-.drop-icon { font-size:3rem;margin-bottom:12px; }
-.drop-text { font-weight:600;margin-bottom:6px; }
-.drop-sub  { font-size:.8rem;color:var(--text-3); }
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.images{background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6}
 </style>
 </body></html>

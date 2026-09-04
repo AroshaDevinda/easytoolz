@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF Organize — EasyToolz</title>
-  <meta name="description" content="Free PDF Organizer — reorder and rearrange PDF pages in your browser. No upload needed." />
+  <title>Organize PDF Online Free — Rearrange & Reorder Pages | EasyToolz</title>
+  <meta name="description" content="Free online PDF Organizer. Reorder, rearrange, and reverse PDF pages in any custom sequence (e.g. 3, 1, 2, 4). Fast, browser-based, no upload, 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/pdf-organize.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Organize PDF Online Free — Rearrange & Reorder Pages | EasyToolz" />
+  <meta property="og:description" content="Rearrange pages in your PDF documents to any custom order in seconds. Free, instant, and 100% private." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/pdf-organize.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Organize PDF","url":"https://easytoolz.click/tools/pdf-organize.html","description":"Reorder, rearrange, and sort pages of any PDF document directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How do I rearrange the pages in my PDF?","acceptedAnswer":{"@type":"Answer","text":"Enter the new page sequence into the order field separated by commas (for example, '3, 1, 2, 4, 5'). The tool creates a new document with your exact desired order."}},
+    {"@type":"Question","name":"Can I quickly reverse the entire order of a PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes! Click the 'Reverse Order' button to flip the entire document backwards with one click."}},
+    {"@type":"Question","name":"Are my files uploaded to a remote server?","acceptedAnswer":{"@type":"Answer","text":"Never. All reorganization logic is executed client-side using PDF-lib WebAssembly in your browser memory. Nothing is ever sent to a server."}},
+    {"@type":"Question","name":"Will reordering pages degrade the PDF quality or text searchability?","acceptedAnswer":{"@type":"Answer","text":"Not at all. Text layers, font vector paths, and high-resolution images are preserved byte-for-byte."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,101 +29,157 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Organize PDF</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">📋</div><div><h1>Organize PDF</h1><p>Reorder PDF pages by entering the new page order — free & private</p></div></div>
-  <div class="tool-layout full-width" style="max-width:680px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">📋</div><div><h1>Organize &amp; Reorder PDF</h1><p>Rearrange, sort, or reverse PDF pages — free, instant & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-icon">📄</div>
         <div class="drop-text">Click or drag & drop a PDF here</div>
-        <div class="drop-sub">File never leaves your device</div>
+        <div class="drop-sub">File stays on your device — 100% confidential</div>
         <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="loadPDF(this.files[0])" />
       </div>
       <div id="controls" style="display:none;margin-top:20px;">
         <div id="fileInfo" style="font-size:.85rem;color:var(--text-3);margin-bottom:16px;"></div>
         <div class="form-group">
-          <label class="form-label">New Page Order <span style="color:var(--text-3);font-weight:400;">(Enter page numbers in desired order, comma-separated)</span></label>
+          <label class="form-label">New Page Sequence <span style="color:var(--text-3);font-weight:400;">(Comma-separated page order)</span></label>
           <input type="text" id="orderInput" class="form-input" placeholder="e.g. 3, 1, 2, 4, 5" />
-          <div style="font-size:.75rem;color:var(--text-3);margin-top:6px;">Enter all page numbers. Example: "3,1,2" moves page 3 first, then 1, then 2.</div>
+          <div style="font-size:.78rem;color:var(--text-3);margin-top:6px;">Example: "3, 1, 2" places page 3 first, followed by page 1 and page 2.</div>
         </div>
         <div id="pageList" style="margin-bottom:16px;"></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn btn-secondary" onclick="reverseOrder()">↕ Reverse Order</button>
-          <button class="btn btn-primary" onclick="doOrganize()">📋 Reorder & Download</button>
+          <button class="btn btn-primary" onclick="doOrganize()">📋 Reorder &amp; Download PDF</button>
+          <button class="btn btn-secondary" onclick="resetTool()">Change PDF</button>
         </div>
-        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Reordering…</div>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Reordering pages…</div>
         <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Reorder and Rearrange PDF Pages Free Online</h2>
+    <p>Scanned documents, business presentations, and submitted thesis drafts occasionally end up out of order. EasyToolz Organize PDF makes reorganizing pages as simple as typing numbers or clicking a reverse button.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Select your PDF:</strong> Drag and drop your document into the upload zone or choose it from your phone or PC.</li>
+      <li><strong>Set your preferred order:</strong> Edit the sequence in the order box (e.g. swap pages 1 and 2, or move an appendix page to the front), or click "Reverse Order" to flip all pages.</li>
+      <li><strong>Download your organized PDF:</strong> Click "Reorder & Download PDF" to instantly save your properly sorted file.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz to Organize PDFs?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Completely Free with Zero Limits:</strong> No page count limits, no subscriptions, and no watermarks on your downloaded documents.</li>
+      <li><strong>Client-Side Document Security:</strong> Your files are never sent over the web to an external server. All sorting occurs in your local browser environment.</li>
+      <li><strong>Original Quality Maintained:</strong> Hyperlinks, vector paths, selectable text, and high-DPI graphics are transferred losslessly.</li>
+    </ul>
+
+    <p>Explore related PDF tools: <a href="pdf-merger.html">PDF Merger</a>, <a href="pdf-split.html">PDF Splitter</a>, <a href="pdf-remove-pages.html">Remove PDF Pages</a>, <a href="pdf-compress.html">Compress PDF</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do I rearrange the pages in my PDF?</h3><p>Enter the new page sequence into the order field separated by commas (for example, "3, 1, 2, 4, 5"). The tool creates a new document with your exact desired order.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I quickly reverse the entire order of a PDF?</h3><p>Yes! Click the "Reverse Order" button to flip the entire document backwards with one click.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my files uploaded to a remote server?</h3><p>Never. All reorganization logic is executed client-side using PDF-lib WebAssembly in your browser memory. Nothing is ever sent to a server.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Will reordering pages degrade the PDF quality or text searchability?</h3><p>Not at all. Text layers, font vector paths, and high-resolution images are preserved byte-for-byte.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="pdf-organize.html">Organize PDF</a></li><li><a href="pdf-merger.html">PDF Merger</a></li><li><a href="pdf-split.html">PDF Split</a></li><li><a href="pdf-compress.html">Compress PDF</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 const { PDFDocument } = PDFLib;
-let pdfDoc=null, totalPages=0, fileName='';
+let pdfDoc = null, totalPages = 0, fileName = '';
 
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadPDF(e.dataTransfer.files[0]);});
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); loadPDF(e.dataTransfer.files[0]); });
 
-async function loadPDF(file){
-  if(!file||file.type!=='application/pdf'){showErr('Please select a valid PDF.');return;}
-  fileName=file.name.replace(/\.pdf$/i,'');
-  const buf=await file.arrayBuffer();
-  try{
-    pdfDoc=await PDFDocument.load(buf);
-    totalPages=pdfDoc.getPageCount();
-    document.getElementById('fileInfo').textContent=`📄 ${file.name} · ${totalPages} pages`;
-    document.getElementById('orderInput').value=[...Array(totalPages).keys()].map(i=>i+1).join(', ');
+async function loadPDF(file) {
+  if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF file.'); return; }
+  fileName = file.name.replace(/\.pdf$/i, '');
+  const buf = await file.arrayBuffer();
+  try {
+    pdfDoc = await PDFDocument.load(buf);
+    totalPages = pdfDoc.getPageCount();
+    document.getElementById('fileInfo').textContent = `📄 ${file.name} · ${totalPages} pages detected`;
+    document.getElementById('orderInput').value = [...Array(totalPages).keys()].map(i => i + 1).join(', ');
     renderPageList();
-    document.getElementById('controls').style.display='';
-  }catch(e){showErr('Could not read PDF.');}
+    document.getElementById('dropZone').style.display = 'none';
+    document.getElementById('controls').style.display = '';
+    document.getElementById('errMsg').style.display = 'none';
+  } catch(e) { showErr('Could not read PDF. File may be encrypted or corrupted.'); }
 }
-function renderPageList(){
-  const list=document.getElementById('pageList');
-  list.innerHTML='<div style="font-size:.78rem;color:var(--text-3);margin-bottom:6px;">Current pages (drag reordering via text field above):</div>';
-  const row=document.createElement('div');
-  row.style.cssText='display:flex;flex-wrap:wrap;gap:6px;';
-  for(let i=1;i<=totalPages;i++){
-    const chip=document.createElement('div');
-    chip.style.cssText='background:var(--glass);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.8rem;color:var(--text-2);';
-    chip.textContent=`Page ${i}`;
+
+function resetTool() {
+  pdfDoc = null; totalPages = 0; fileName = '';
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('pdfInput').value = '';
+}
+
+function renderPageList() {
+  const list = document.getElementById('pageList');
+  list.innerHTML = '<div style="font-size:.8rem;color:var(--text-3);margin-bottom:6px;font-weight:600;">Original page order:</div>';
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;';
+  for (let i = 1; i <= totalPages; i++) {
+    const chip = document.createElement('div');
+    chip.style.cssText = 'background:var(--glass);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:.8rem;color:var(--text);font-weight:500;';
+    chip.textContent = `Page ${i}`;
     row.appendChild(chip);
   }
   list.appendChild(row);
 }
-function reverseOrder(){
-  const cur=document.getElementById('orderInput').value.split(',').map(s=>s.trim()).filter(Boolean);
-  document.getElementById('orderInput').value=cur.reverse().join(', ');
+
+function reverseOrder() {
+  const cur = document.getElementById('orderInput').value.split(',').map(s => s.trim()).filter(Boolean);
+  document.getElementById('orderInput').value = cur.reverse().join(', ');
 }
-function parseOrder(str){
-  return str.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)&&n>=1&&n<=totalPages);
+
+function parseOrder(str) {
+  return str.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n >= 1 && n <= totalPages);
 }
-async function doOrganize(){
-  if(!pdfDoc)return;
-  const order=parseOrder(document.getElementById('orderInput').value);
-  if(!order.length){showErr('Please enter a valid page order.');return;}
-  document.getElementById('loading').style.display='block';
-  document.getElementById('errMsg').style.display='none';
-  try{
-    const indices=order.map(n=>n-1);
-    const newDoc=await PDFDocument.create();
-    const copied=await newDoc.copyPages(pdfDoc,indices);
-    copied.forEach(p=>newDoc.addPage(p));
-    const bytes=await newDoc.save();
-    const blob=new Blob([bytes],{type:'application/pdf'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${fileName}-organized.pdf`;a.click();
-  }catch(e){showErr('Failed: '+e.message);}
-  document.getElementById('loading').style.display='none';
+
+async function doOrganize() {
+  if (!pdfDoc) return;
+  const order = parseOrder(document.getElementById('orderInput').value);
+  if (!order.length) { showErr('Please enter a valid page order.'); return; }
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('errMsg').style.display = 'none';
+  try {
+    const indices = order.map(n => n - 1);
+    const newDoc = await PDFDocument.create();
+    const copied = await newDoc.copyPages(pdfDoc, indices);
+    copied.forEach(p => newDoc.addPage(p));
+    const bytes = await newDoc.save();
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `${fileName}-organized.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch(e) { showErr('Reorganization failed: ' + e.message); }
+  document.getElementById('loading').style.display = 'none';
 }
-function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
 </script>
 <style>
 .drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
 .drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
-.tool-page-icon.pdf{background:rgba(251,146,60,.15);color:#fb923c}
+.tool-page-icon.pdf{background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c}
 </style>
 </body></html>

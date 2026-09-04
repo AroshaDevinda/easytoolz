@@ -164,6 +164,7 @@
 </footer>
 
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 let imgEl = null;
 
@@ -199,7 +200,12 @@ function convert() {
   const canvas = document.createElement('canvas');
   canvas.width = imgEl.naturalWidth; canvas.height = imgEl.naturalHeight;
   canvas.getContext('2d').drawImage(imgEl, 0, 0);
-  const a = document.createElement('a'); a.href = canvas.toDataURL(fmt, q); a.download = `converted.${ext}`; a.click();
+  canvas.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `converted.${ext}`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, fmt, q);
 }
 </script>
 <style>

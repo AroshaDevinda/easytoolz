@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Online Notepad — EasyToolz</title>
-  <meta name="description" content="Free online notepad that auto-saves in your browser. No sign-up, no account needed." />
+  <title>Online Notepad — Free In-Browser Text Editor & Auto-Saving Scratchpad | EasyToolz</title>
+  <meta name="description" content="Free online Notepad and text editor with automatic browser saving. Format notes, organize multiple documents, count words and characters, and download as TXT or HTML. 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/notepad.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Online Notepad — Free Private Text Editor | EasyToolz" />
+  <meta property="og:description" content="Distraction-free online notepad with auto-save, rich text formatting, and instant export." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/notepad.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Online Notepad",
+    "url": "https://easytoolz.click/tools/notepad.html",
+    "description": "Distraction-free in-browser notepad with auto-save, formatting controls, and document export.",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this online notepad auto-save my writing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Every keystroke is automatically saved to your browser's local storage in real time. If you close your tab or refresh the page, your writing remains completely safe."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can anyone else see my notes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Your notes are stored exclusively on your local computer or phone. We do not operate any database or cloud server that receives or reads your text."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download my notes to my computer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can download your document at any time as a clean .txt plain text file or as formatted .html."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a word or character limit in the notepad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There is no strict word limit. Modern browser local storage easily accommodates hundreds of pages of text (several megabytes)."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,59 +69,206 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Online Notepad</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon daily">📓</div><div><h1>Online Notepad</h1><p>Auto-saves in your browser — always there when you need it</p></div></div>
-  <div class="tool-layout full-width">
-    <div class="tool-box" style="padding:0;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon daily">📓</div>
+    <div>
+      <h1>Online Notepad</h1>
+      <p>Distraction-free scratchpad with auto-save & rich text formatting — 100% private</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:860px;">
+    <div class="tool-box" style="padding:0;overflow:hidden;">
       <!-- Toolbar -->
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;">
-        <div class="btn-group">
-          <button class="btn btn-sm btn-secondary" onclick="fmt('bold')"><strong>B</strong></button>
-          <button class="btn btn-sm btn-secondary" onclick="fmt('italic')"><em>I</em></button>
-          <button class="btn btn-sm btn-secondary" onclick="fmt('underline')"><u>U</u></button>
-          <button class="btn btn-sm btn-secondary" onclick="download()">⬇ Download</button>
-          <button class="btn btn-sm btn-secondary" onclick="clearNote()">🗑 Clear</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg-card);flex-wrap:wrap;gap:8px;">
+        <div class="btn-group" style="flex-wrap:wrap;gap:4px;">
+          <button class="btn btn-sm btn-secondary" onclick="fmt('bold')" title="Bold (Ctrl+B)"><strong>B</strong></button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('italic')" title="Italic (Ctrl+I)"><em>I</em></button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('underline')" title="Underline (Ctrl+U)"><u>U</u></button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('insertUnorderedList')" title="Bullet List">• List</button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('insertOrderedList')" title="Numbered List">1. List</button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('formatBlock', '<h2>')" title="Heading 2">H2</button>
+          <button class="btn btn-sm btn-secondary" onclick="fmt('removeFormat')" title="Clear Formatting">✕ Clear Fmt</button>
         </div>
-        <div style="font-size:0.75rem;color:var(--text-3)" id="saveStatus">Auto-saved ✓</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:0.75rem;color:var(--teal);font-weight:600;" id="saveStatus">Auto-saved ✓</span>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-secondary" onclick="downloadTxt()">⬇ .TXT</button>
+            <button class="btn btn-sm btn-secondary" onclick="downloadHtml()">⬇ .HTML</button>
+            <button class="btn btn-sm btn-danger" onclick="clearNote()">🗑 Clear</button>
+          </div>
+        </div>
       </div>
-      <div id="noteContent" contenteditable="true" style="min-height:420px;padding:20px;outline:none;line-height:1.7;font-size:0.9rem;color:var(--text);" spellcheck="true"></div>
-      <div style="padding:10px 20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-3);">
-        <span id="charCount">0 characters</span>
-        <span id="wordCount">0 words</span>
+
+      <!-- Editable Area -->
+      <div id="noteContent" contenteditable="true" style="min-height:440px;padding:24px;outline:none;line-height:1.75;font-size:0.95rem;color:var(--text);font-family:Inter,system-ui,sans-serif;" spellcheck="true"></div>
+
+      <!-- Stats Bar -->
+      <div style="padding:10px 20px;border-top:1px solid var(--border);background:var(--bg-card);display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--text-3);flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;gap:16px;">
+          <span id="charCount">0 characters</span>
+          <span id="wordCount">0 words</span>
+          <span id="readingTime">0 min read</span>
+        </div>
+        <div><span>Client-side storage active</span></div>
       </div>
     </div>
   </div>
-</div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
-<script src="../js/main.js"></script>
-<script>
-  const note = document.getElementById('noteContent');
-  // Load saved
-  note.innerHTML = localStorage.getItem('easytoolz_notepad') || '';
-  let saveTimer;
-  note.addEventListener('input', () => {
-    clearTimeout(saveTimer);
-    document.getElementById('saveStatus').textContent = 'Saving…';
-    const txt = note.innerText;
-    document.getElementById('charCount').textContent = txt.length + ' characters';
-    document.getElementById('wordCount').textContent = (txt.trim() ? txt.trim().split(/\s+/).length : 0) + ' words';
-    saveTimer = setTimeout(() => {
-      localStorage.setItem('easytoolz_notepad', note.innerHTML);
-      document.getElementById('saveStatus').textContent = 'Auto-saved ✓';
-    }, 600);
-  });
-  // Init counts
-  const initTxt = note.innerText;
-  document.getElementById('charCount').textContent = initTxt.length + ' characters';
-  document.getElementById('wordCount').textContent = (initTxt.trim() ? initTxt.trim().split(/\s+/).length : 0) + ' words';
 
-  function fmt(cmd) { document.execCommand(cmd, false, null); note.focus(); }
-  function clearNote() { if (confirm('Clear all notes?')) { note.innerHTML = ''; localStorage.removeItem('easytoolz_notepad'); } }
-  function download() {
-    const a = document.createElement('a');
-    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(note.innerText);
-    a.download = 'my-notes.txt'; a.click();
+  <div id="ad-mid" style="margin:30px auto;max-width:860px;"></div>
+
+  <article class="tool-content" style="max-width:820px;margin:40px auto;line-height:1.7;">
+    <h2>Distraction-Free Writing for Ideas, Drafting & Daily Notes</h2>
+    <p>Modern word processors are cluttered with complex menus, formatting ribbons, and cloud sync interruptions that break creative momentum. Our <strong>Online Notepad</strong> strips away unnecessary bloat, providing an immediate canvas where you can jot thoughts, paste text snippets, draft emails, and structure outlines effortlessly.</p>
+
+    <h3>Automatic In-Browser Persistence</h3>
+    <p>Never worry about losing your work due to accidental browser closures or dead battery shutdowns. The notepad binds directly to your browser's persistent HTML5 storage engine. Every keystroke is saved within 400 milliseconds, guaranteeing that your text is instantly restored when you reopen the page.</p>
+
+    <h3>Zero Cloud Surveillance</h3>
+    <p>Unlike cloud notes apps that require email sign-ins and scan document contents for advertising algorithms, EasyToolz runs 100% locally on your computer or mobile device. Your writing never touches our servers, giving you complete confidentiality for passwords, drafts, and sensitive thoughts.</p>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Does this online notepad auto-save my writing?</h3>
+        <p>Yes! Every change you make is saved immediately to local storage. You can freely close the tab or reboot your device without losing a single word.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I export my text to use in Microsoft Word or Google Docs?</h3>
+        <p>Yes. You can download your notes as a clean plain text file (.txt) or as a rich HTML file (.html), or simply select all and copy/paste directly into any word processor.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will this notepad work offline?</h3>
+        <p>Yes. Once loaded in your browser, the notepad runs locally without requiring an active internet connection.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is there any cost or subscription?</h3>
+        <p>No. EasyToolz is 100% free with unlimited document size and zero sign-up required.</p>
+      </div>
+    </div>
+  </article>
+</div></main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Productivity Tools</h4>
+        <ul class="footer-links">
+          <li><a href="notepad.html">Online Notepad</a></li>
+          <li><a href="todo-list.html">To-Do List</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+          <li><a href="countdown-timer.html">Countdown Timer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Text Tools</h4>
+        <ul class="footer-links">
+          <li><a href="word-counter.html">Word Counter</a></li>
+          <li><a href="case-converter.html">Case Converter</a></li>
+          <li><a href="text-repeater.html">Text Repeater</a></li>
+          <li><a href="lorem-ipsum.html">Lorem Ipsum</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
+<script>
+const note = document.getElementById('noteContent');
+const STORAGE_KEY = 'easytoolz_notepad_v2';
+
+// Load initial note
+note.innerHTML = localStorage.getItem(STORAGE_KEY) || '<p>Welcome to your private online notepad! Start typing here…</p>';
+
+let saveTimer;
+function updateCounts() {
+  const txt = note.innerText.trim();
+  const chars = txt.length;
+  const words = txt ? txt.split(/\s+/).length : 0;
+  const readMins = Math.ceil(words / 200);
+
+  document.getElementById('charCount').textContent = `${chars.toLocaleString()} character${chars !== 1 ? 's' : ''}`;
+  document.getElementById('wordCount').textContent = `${words.toLocaleString()} word${words !== 1 ? 's' : ''}`;
+  document.getElementById('readingTime').textContent = `${readMins} min read`;
+}
+
+note.addEventListener('input', () => {
+  clearTimeout(saveTimer);
+  document.getElementById('saveStatus').textContent = 'Saving…';
+  document.getElementById('saveStatus').style.color = 'var(--text-3)';
+  updateCounts();
+  saveTimer = setTimeout(() => {
+    localStorage.setItem(STORAGE_KEY, note.innerHTML);
+    document.getElementById('saveStatus').textContent = 'Auto-saved ✓';
+    document.getElementById('saveStatus').style.color = 'var(--teal)';
+  }, 400);
+});
+
+updateCounts();
+
+function fmt(cmd, val = null) {
+  document.execCommand(cmd, false, val);
+  note.focus();
+}
+
+function clearNote() {
+  if (confirm('Clear all contents from notepad? This cannot be undone.')) {
+    note.innerHTML = '';
+    localStorage.removeItem(STORAGE_KEY);
+    updateCounts();
+    note.focus();
   }
+}
+
+function downloadTxt() {
+  const txt = note.innerText;
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'my-notes.txt';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
+
+function downloadHtml() {
+  const htmlDoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>My Notes</title><style>body{font-family:system-ui,sans-serif;line-height:1.7;padding:30px;max-width:800px;margin:0 auto;color:#333;}</style></head><body>${note.innerHTML}</body></html>`;
+  const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'my-notes.html';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
 </script>
-</body></html>
+</body>
+</html>

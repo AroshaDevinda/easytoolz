@@ -1,59 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Age Calculator — EasyToolz</title>
-  <meta name="description" content="Calculate your exact age in years, months and days with our free online Age Calculator." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator Online — Find Your Exact Age in Seconds | EasyToolz</title>
+  <meta name="description" content="Free online Age Calculator. Calculate your exact age in years, months, days, hours, and minutes. Find your next birthday countdown instantly." />
   <link rel="canonical" href="https://easytoolz.click/tools/age-calculator.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Age Calculator Online — Find Your Exact Age | EasyToolz" />
+  <meta property="og:description" content="Calculate your exact age in years, months, and days with our free online Age Calculator. No sign-up required." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/age-calculator.html" />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Age Calculator",
+    "url": "https://easytoolz.click/tools/age-calculator.html",
+    "description": "Free online Age Calculator. Calculate your exact age in years, months, days, hours, and minutes.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the Age Calculator work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our Age Calculator computes the difference between your date of birth and a target date, breaking it down into exact years, months, and days. It also calculates total days lived and your next birthday countdown."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I calculate age between any two dates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. By default, the tool uses today's date, but you can change the 'Calculate Age On' field to any date you like — past or future — to find the exact duration between any two dates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this Age Calculator accurate for leap years?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The calculator uses JavaScript's native Date object which correctly handles leap years, so your result is always precise down to the day."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html">Home</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li>
-  </ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
 
-<main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><a href="../index.html">Tools</a><span class="sep">›</span><span class="current">Age Calculator</span></nav>
-
-  <div class="tool-page-header">
-    <div class="tool-page-icon calculators">🎂</div>
-    <div><h1>Age Calculator</h1><p>Calculate your exact age in years, months and days</p></div>
+<nav class="navbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="brand">EasyToolz</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../calculators/index.html">Calculators</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
   </div>
+</nav>
 
-  <div class="tool-layout">
-    <div class="tool-box">
-      <div class="form-group">
-        <label class="form-label">Your Date of Birth</label>
-        <input type="date" id="dob" class="form-input" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Calculate Age On</label>
-        <input type="date" id="today" class="form-input" />
-      </div>
-      <button class="btn btn-primary btn-block" onclick="calcAge()">Calculate Age</button>
+<main class="tool-page">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">›</span>
+      <a href="../calculators/index.html">Calculators</a><span class="sep">›</span>
+      <span class="current">Age Calculator</span>
+    </nav>
 
-      <div class="result-box" id="result" style="margin-top:20px;">
-        <div class="result-value" id="mainAge"></div>
-        <div class="result-label" id="subAge"></div>
-        <div class="result-sub" id="nextBday"></div>
+    <div class="tool-page-header">
+      <div class="tool-page-icon calculators">🎂</div>
+      <div>
+        <h1>Age Calculator</h1>
+        <p>Calculate your exact age in years, months and days — instantly</p>
       </div>
     </div>
-    <div class="sidebar">
-      <div class="ad-slot"><p>Advertisement</p></div>
-      <div class="sidebar-info"><h4>About This Tool</h4><ul>
-        <li>Calculates exact age</li><li>Works for any date range</li><li>Shows next birthday</li><li>No data stored</li>
-      </ul></div>
+
+    <!-- Ad Slot: Top Banner -->
+    <div class="ad-container" id="ad-top" data-ad-format="horizontal" style="margin-bottom: 24px;"></div>
+
+    <div class="tool-layout full-width">
+      <!-- ACTUAL TOOL -->
+      <div class="tool-box" style="margin-bottom: 40px; max-width: 640px; margin-left: auto; margin-right: auto;">
+        <div class="form-group">
+          <label class="form-label">Your Date of Birth</label>
+          <input type="date" id="dob" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Calculate Age On</label>
+          <input type="date" id="today" class="form-input" />
+        </div>
+        <button class="btn btn-primary btn-block" onclick="calcAge()">Calculate Age</button>
+
+        <div class="result-box" id="result" style="margin-top:20px;">
+          <div class="result-value" id="mainAge"></div>
+          <div class="result-label" id="subAge"></div>
+          <div class="result-sub" id="nextBday"></div>
+        </div>
+      </div>
+
+      <!-- Ad Slot: Between Tool and Content -->
+      <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin-bottom: 30px;"></div>
+
+      <!-- SEO & HOW-TO CONTENT -->
+      <article class="tool-content">
+        <h2>How to Calculate Your Age Online</h2>
+        <p>Whether you need your exact age for a government form, a job application, or you're simply curious about how many days you've been alive, our free Age Calculator gives you an instant, precise answer — no sign-up or app download required.</p>
+
+        <ol style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Enter your date of birth:</strong> Select the day, month, and year you were born using the date picker above.</li>
+          <li><strong>Choose the target date (optional):</strong> By default, the calculator uses today's date. You can change this to any date — for example, to find out how old you were on a specific historical event.</li>
+          <li><strong>Click "Calculate Age":</strong> Instantly see your exact age broken down into years, months, and days, plus total days lived and a countdown to your next birthday.</li>
+        </ol>
+
+        <h2>Why Use Our Free Online Age Calculator?</h2>
+        <p>Calculating age sounds simple, but getting the exact number of months and days right — especially across leap years and varying month lengths — is surprisingly tricky. Our tool handles all of that automatically.</p>
+        <ul style="margin-bottom: 30px; padding-left: 20px; line-height: 1.7;">
+          <li><strong>Exact Results:</strong> Unlike rough "subtract the year" calculations, our tool gives you precise years, months, and days accounting for leap years and different month lengths.</li>
+          <li><strong>Total Days Lived:</strong> See the grand total of days you've experienced — a fun fact that's also useful for medical and legal calculations.</li>
+          <li><strong>Next Birthday Countdown:</strong> Find out exactly how many days until your next birthday celebration.</li>
+          <li><strong>100% Private:</strong> Your date of birth is never sent to any server. Everything is calculated locally in your browser.</li>
+          <li><strong>Works on Any Device:</strong> Use it on your phone, tablet, or desktop — no app installation needed.</li>
+        </ul>
+
+        <p>Need to do other calculations? Try our <a href="bmi-calculator.html">BMI Calculator</a>, <a href="percentage-calculator.html">Percentage Calculator</a>, or <a href="emi-calculator.html">EMI Calculator</a>.</p>
+
+        <!-- Ad Slot: In-Content -->
+        <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin: 30px 0;"></div>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">How does the Age Calculator work?</h3>
+            <p>Our Age Calculator computes the difference between your date of birth and a target date, breaking it down into exact years, months, and days. It also calculates total days lived and your next birthday countdown.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Can I calculate age between any two dates?</h3>
+            <p>Yes! By default, the tool uses today's date, but you can change the "Calculate Age On" field to any date you like — past or future — to find the exact duration between any two dates.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Is this Age Calculator accurate for leap years?</h3>
+            <p>Yes. The calculator uses JavaScript's native Date object which correctly handles leap years, so your result is always precise down to the day.</p>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">Do you store my date of birth?</h3>
+            <p>No. Your date of birth never leaves your device. The calculation happens entirely in your web browser — we don't have servers that process or store any personal data.</p>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
-</div></main>
+</main>
 
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <div class="logo-icon">⚡</div>
+          <span class="brand">EasyToolz</span>
+        </a>
+        <p>Free browser-based tools for everyday tasks. No sign-up, no download, just tools.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="qr-code-generator.html">QR Generator</a></li>
+          <li><a href="password-generator.html">Password Generator</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Use</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All rights reserved</span>
+      <div class="footer-links">
+        <a href="../privacy-policy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
   // Set today's date as default
   const todayInput = document.getElementById('today');

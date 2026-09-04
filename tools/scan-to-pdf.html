@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scan to PDF — EasyToolz</title>
-  <meta name="description" content="Free Scan to PDF — use your camera to capture pages and convert them to a PDF in your browser." />
+  <title>Scan to PDF Online — Camera Document Scanner Free | EasyToolz</title>
+  <meta name="description" content="Free online Camera Document Scanner. Scan physical receipts, notes, and pages directly from your phone or webcam into a clean PDF. Instant, browser-based, and 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/scan-to-pdf.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Scan to PDF Online — Free Mobile & Webcam Scanner | EasyToolz" />
+  <meta property="og:description" content="Capture pages using your phone camera or webcam and export to PDF instantly with no uploads." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/scan-to-pdf.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Scan to PDF",
+    "url": "https://easytoolz.click/tools/scan-to-pdf.html",
+    "description": "Capture documents and receipts with your device camera and convert them into multi-page PDF files locally.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I scan multiple pages into one PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! You can capture or upload as many pages as you want. They will be sequenced and combined into a single, multi-page PDF document."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work on smartphones without an app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. It works seamlessly inside Chrome, Safari, Firefox, or Edge on iOS and Android using your mobile camera directly in the browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my scanned documents uploaded to the internet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All camera frames and PDF generation are executed entirely within your device memory. Your confidential contracts, IDs, or receipts never leave your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What page formats are supported for the PDF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can generate standard A4 or US Letter format PDFs with automatic proportional margin centering."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,117 +69,273 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Scan to PDF</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">📸</div><div><h1>Scan to PDF</h1><p>Capture pages with your camera and save as PDF — free, browser-only</p></div></div>
-  <div class="tool-layout full-width" style="max-width:680px;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon pdf">📸</div>
+    <div>
+      <h1>Scan to PDF</h1>
+      <p>Scan documents and receipts with your camera into clean, multi-page PDFs — 100% private</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
       <div id="cameraArea">
-        <div style="background:#000;border-radius:var(--radius);overflow:hidden;position:relative;margin-bottom:16px;">
-          <video id="video" autoplay playsinline style="width:100%;display:block;max-height:400px;object-fit:cover;"></video>
-          <div id="noCam" style="display:none;padding:40px;text-align:center;color:#94a3b8;font-size:.9rem;">📷 Camera not started</div>
+        <div style="background:#000;border-radius:var(--radius);overflow:hidden;position:relative;margin-bottom:16px;min-height:260px;display:flex;align-items:center;justify-content:center;">
+          <video id="video" autoplay playsinline style="width:100%;max-height:420px;object-fit:cover;display:none;"></video>
+          <div id="noCam" style="padding:40px;text-align:center;color:#94a3b8;font-size:0.95rem;">
+            <div style="font-size:3rem;margin-bottom:10px;">📷</div>
+            <p>Click "Start Camera" below to capture pages directly from your webcam or phone camera</p>
+          </div>
         </div>
+
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
           <button class="btn btn-primary" id="startBtn" onclick="startCamera()">📷 Start Camera</button>
-          <button class="btn btn-secondary" id="capBtn" onclick="capture()" disabled>📸 Capture Page</button>
-          <button class="btn btn-secondary" onclick="stopCamera()" id="stopBtn" style="display:none;">■ Stop Camera</button>
+          <button class="btn btn-secondary" id="capBtn" onclick="capture()" disabled>📸 Snap Page</button>
+          <button class="btn btn-secondary" id="stopBtn" onclick="stopCamera()" style="display:none;">■ Stop Camera</button>
         </div>
-        <div style="font-size:.8rem;color:var(--text-3);margin-bottom:8px;">Or upload image files directly:</div>
-        <input type="file" id="fileInput" accept="image/*" multiple onchange="addFiles(this.files)" style="display:block;font-size:.85rem;color:var(--text-2);margin-bottom:16px;" />
+
+        <div style="font-size:0.85rem;color:var(--text-3);margin:16px 0 8px;">Or upload document photos directly from your device:</div>
+        <input type="file" id="fileInput" accept="image/*" multiple onchange="addFiles(this.files)" style="font-size:0.85rem;color:var(--text-2);margin-bottom:16px;width:100%;" />
       </div>
-      <div id="pages" style="margin:16px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;"></div>
-      <div id="pagesActions" style="display:none;margin-top:8px;">
-        <div style="font-size:.82rem;color:var(--text-3);margin-bottom:10px;" id="pageCount"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <select id="pgSize" class="form-select" style="width:auto;"><option value="a4">A4</option><option value="letter">Letter</option></select>
-          <button class="btn btn-primary" onclick="makePDF()">📄 Create PDF</button>
+
+      <!-- Scanned Pages Preview Grid -->
+      <div id="pages" style="margin:16px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;"></div>
+
+      <div id="pagesActions" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+        <div style="font-size:0.85rem;color:var(--text-3);margin-bottom:12px;" id="pageCount">0 pages captured</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <select id="pgSize" class="form-select" style="width:auto;">
+            <option value="a4" selected>A4 Document</option>
+            <option value="letter">US Letter</option>
+          </select>
+          <button class="btn btn-primary" onclick="makePDF()">📄 Download PDF Document</button>
           <button class="btn btn-secondary" onclick="clearPages()">✕ Clear All</button>
         </div>
       </div>
-      <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Creating PDF…</div>
-      <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
+
+      <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Generating your high-resolution PDF…</div>
+      <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;padding:10px;background:rgba(248,113,113,0.1);border-radius:var(--radius-sm);"></div>
     </div>
   </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:760px;"></div>
+
+  <article class="tool-content" style="max-width:800px;margin:40px auto;line-height:1.7;">
+    <h2>Turn Any Device Camera into a Fast Document Scanner</h2>
+    <p>Bulky flatbed scanners are no longer necessary for turning contracts, school assignments, invoices, and physical receipts into clean digital files. Our free <strong>Scan to PDF</strong> utility lets you snap pictures of pages in sequence and combines them into an organized, publication-ready PDF document right in your web browser.</p>
+
+    <h3>Tips for Clean, High-Quality Document Scans</h3>
+    <ol>
+      <li><strong>Use Bright, Uniform Lighting:</strong> Position yourself near natural window light or under bright overhead lamps to eliminate shadows caused by your hand or mobile phone.</li>
+      <li><strong>Contrasting Background:</strong> Place dark papers on light desk surfaces, and light sheets against darker surfaces to make edge alignment clean.</li>
+      <li><strong>Hold the Camera Parallel:</strong> Keep your lens flat above the document rather than tilting at an angle to prevent geometric distortion.</li>
+      <li><strong>Flatten Creases:</strong> Smooth down paper wrinkles or folded receipts before capturing to keep typography crisp and readable.</li>
+    </ol>
+
+    <h3>Total Client-Side Privacy Protection</h3>
+    <p>Traditional scanning apps frequently upload captured images to cloud servers for remote rendering, posing severe data leak risks for confidential IDs, banking statements, and legal agreements. EasyToolz processes every photo strictly in client memory using WebAssembly and HTML5 Canvas. Your files never leave your device.</p>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Can I scan multiple pages into one PDF?</h3>
+        <p>Yes. Capture or upload as many pages as needed. EasyToolz compiles them into a single, multi-page PDF document in exact sequential order.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does this tool require downloading an app from an app store?</h3>
+        <p>No. EasyToolz works natively inside any modern browser on Android, iPhone, iPad, Mac, and Windows with zero installations.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What formats can I upload if my camera is unavailable?</h3>
+        <p>You can upload any existing JPG, PNG, or WebP photo files directly to compile them into your PDF.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my scanned data stored on your servers?</h3>
+        <p>No. EasyToolz operates 100% client-side. No images, scans, or generated PDFs are transmitted or saved on remote servers.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>PDF Tools</h4>
+        <ul class="footer-links">
+          <li><a href="scan-to-pdf.html">Scan to PDF</a></li>
+          <li><a href="pdf-merger.html">PDF Merger</a></li>
+          <li><a href="pdf-compress.html">PDF Compressor</a></li>
+          <li><a href="pdf-split.html">PDF Splitter</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Image Tools</h4>
+        <ul class="footer-links">
+          <li><a href="images-to-pdf.html">Images to PDF</a></li>
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="image-resizer.html">Image Resizer</a></li>
+          <li><a href="image-cropper.html">Image Cropper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 const { jsPDF } = window.jspdf;
-let stream=null, capturedImages=[];
-const video=document.getElementById('video');
+let stream = null;
+let capturedImages = [];
+const video = document.getElementById('video');
 
-async function startCamera(){
-  try{
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
-    video.srcObject=stream;
-    document.getElementById('noCam').style.display='none';
-    document.getElementById('capBtn').disabled=false;
-    document.getElementById('stopBtn').style.display='';
-    document.getElementById('startBtn').style.display='none';
-  }catch(e){showErr('Camera access denied: '+e.message);}
+async function startCamera() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } },
+      audio: false
+    });
+    video.srcObject = stream;
+    video.style.display = 'block';
+    document.getElementById('noCam').style.display = 'none';
+    document.getElementById('capBtn').disabled = false;
+    document.getElementById('stopBtn').style.display = '';
+    document.getElementById('startBtn').style.display = 'none';
+    document.getElementById('errMsg').style.display = 'none';
+  } catch(e) {
+    showErr('Camera permission denied or camera unavailable: ' + e.message);
+  }
 }
-function stopCamera(){
-  if(stream)stream.getTracks().forEach(t=>t.stop());
-  stream=null;video.srcObject=null;
-  document.getElementById('startBtn').style.display='';
-  document.getElementById('stopBtn').style.display='none';
-  document.getElementById('capBtn').disabled=true;
+
+function stopCamera() {
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  stream = null;
+  video.srcObject = null;
+  video.style.display = 'none';
+  document.getElementById('noCam').style.display = 'block';
+  document.getElementById('startBtn').style.display = '';
+  document.getElementById('stopBtn').style.display = 'none';
+  document.getElementById('capBtn').disabled = true;
 }
-function capture(){
-  if(!stream)return;
-  const c=document.createElement('canvas');c.width=video.videoWidth;c.height=video.videoHeight;
-  c.getContext('2d').drawImage(video,0,0);
-  addImageData(c.toDataURL('image/jpeg',.9));
+
+function capture() {
+  if (!stream) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth || 1280;
+  canvas.height = video.videoHeight || 720;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  addImageData(canvas.toDataURL('image/jpeg', 0.92));
 }
-function addFiles(files){
-  Array.from(files).forEach(f=>{
-    if(!f.type.startsWith('image/'))return;
-    const reader=new FileReader();
-    reader.onload=e=>addImageData(e.target.result);
+
+function addFiles(files) {
+  Array.from(files).forEach(f => {
+    if (!f.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => addImageData(e.target.result);
     reader.readAsDataURL(f);
   });
 }
-function addImageData(dataUrl){
+
+function addImageData(dataUrl) {
   capturedImages.push(dataUrl);
   renderPages();
 }
-function renderPages(){
-  const grid=document.getElementById('pages');
-  grid.innerHTML='';
-  capturedImages.forEach((src,i)=>{
-    const div=document.createElement('div');div.style.cssText='position:relative;';
-    div.innerHTML=`<img src="${src}" style="width:100%;height:80px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">
-      <div style="font-size:.65rem;color:var(--text-3);text-align:center;margin-top:2px;">Page ${i+1}</div>
-      <button onclick="removePage(${i})" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);border:none;border-radius:50%;width:18px;height:18px;color:#fff;cursor:pointer;font-size:.6rem;">✕</button>`;
+
+function renderPages() {
+  const grid = document.getElementById('pages');
+  grid.innerHTML = '';
+  capturedImages.forEach((src, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--border);';
+    div.innerHTML = `
+      <img src="${src}" style="width:100%;height:85px;object-fit:cover;display:block;">
+      <div style="font-size:0.7rem;color:var(--text-3);text-align:center;padding:3px;background:var(--bg-card);">Page ${i + 1}</div>
+      <button onclick="removePage(${i})" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.7);border:none;border-radius:50%;width:20px;height:20px;color:#fff;cursor:pointer;font-size:0.65rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    `;
     grid.appendChild(div);
   });
-  const show=capturedImages.length>0;
-  document.getElementById('pagesActions').style.display=show?'':'none';
-  document.getElementById('pageCount').textContent=`${capturedImages.length} page${capturedImages.length!==1?'s':''} captured`;
+  const hasPages = capturedImages.length > 0;
+  document.getElementById('pagesActions').style.display = hasPages ? '' : 'none';
+  document.getElementById('pageCount').textContent = `${capturedImages.length} page${capturedImages.length !== 1 ? 's' : ''} captured`;
 }
-function removePage(i){capturedImages.splice(i,1);renderPages();}
-function clearPages(){capturedImages=[];renderPages();}
-async function makePDF(){
-  if(!capturedImages.length)return;
-  document.getElementById('loading').style.display='block';
-  await new Promise(r=>setTimeout(r,30));
-  const size=document.getElementById('pgSize').value;
-  const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:size});
-  const pw=pdf.internal.pageSize.getWidth(),ph=pdf.internal.pageSize.getHeight();
-  capturedImages.forEach((src,i)=>{
-    if(i>0)pdf.addPage();
-    const img=new Image();img.src=src;
-    const ratio=Math.min(pw/img.width,ph/img.height);
-    const w=img.width*ratio,h=img.height*ratio;
-    pdf.addImage(src,'JPEG',(pw-w)/2,(ph-h)/2,w,h);
-  });
-  pdf.save('scan.pdf');
-  document.getElementById('loading').style.display='none';
+
+function removePage(i) {
+  capturedImages.splice(i, 1);
+  renderPages();
 }
-function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+
+function clearPages() {
+  capturedImages = [];
+  renderPages();
+}
+
+async function makePDF() {
+  if (!capturedImages.length) return alert('No pages scanned yet.');
+  document.getElementById('loading').style.display = 'block';
+  await new Promise(r => setTimeout(r, 40));
+
+  try {
+    const size = document.getElementById('pgSize').value;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: size });
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+
+    for (let i = 0; i < capturedImages.length; i++) {
+      if (i > 0) pdf.addPage();
+      const img = new Image();
+      await new Promise(res => { img.onload = res; img.src = capturedImages[i]; });
+      
+      const ratio = Math.min((pw - 16) / img.width, (ph - 16) / img.height);
+      const w = img.width * ratio;
+      const h = img.height * ratio;
+      pdf.addImage(capturedImages[i], 'JPEG', (pw - w) / 2, (ph - h) / 2, w, h);
+    }
+
+    const pdfBlob = pdf.output('blob');
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `scanned-document-${Date.now()}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch(e) {
+    showErr('PDF creation failed: ' + e.message);
+  } finally {
+    document.getElementById('loading').style.display = 'none';
+  }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('errMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
 </script>
-<style>
-.tool-page-icon.pdf{background:rgba(251,146,60,.15);color:#fb923c}
-</style>
-</body></html>
+</body>
+</html>

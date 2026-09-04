@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Case Converter — EasyToolz</title>
-  <meta name="description" content="Free online Case Converter — convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case and more." />
+  <title>Case Converter Online Free — UPPERCASE, lowercase, Title Case | EasyToolz</title>
+  <meta name="description" content="Free online Case Converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, and kebab-case instantly. Copy to clipboard with 1 click." />
   <link rel="canonical" href="https://easytoolz.click/tools/case-converter.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Case Converter Online Free — UPPERCASE, lowercase, Title Case | EasyToolz" />
+  <meta property="og:description" content="Convert your text to any letter case format in one click. Free, private, and instant in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/case-converter.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Case Converter","url":"https://easytoolz.click/tools/case-converter.html","description":"Convert text between uppercase, lowercase, title case, sentence case, and programming naming conventions.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is the difference between Title Case and Sentence case?","acceptedAnswer":{"@type":"Answer","text":"Title Case capitalizes the first letter of each significant word (ideal for article headlines and book titles). Sentence case capitalizes only the first letter of each sentence and proper nouns."}},
+    {"@type":"Question","name":"What are camelCase and snake_case used for?","acceptedAnswer":{"@type":"Answer","text":"These are naming conventions used in software development. camelCase (firstWordLowerCase) is common in JavaScript and Java, while snake_case (words_joined_by_underscores) is standard in Python and database columns."}},
+    {"@type":"Question","name":"Is there a character or word limit?","acceptedAnswer":{"@type":"Answer","text":"No! You can paste entire essays, code files, or manuscripts with zero limits."}},
+    {"@type":"Question","name":"Does EasyToolz store or upload my text?","acceptedAnswer":{"@type":"Answer","text":"No. All text manipulations run 100% locally in your browser memory via JavaScript. Your text is never sent to any server."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,51 +29,132 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Case Converter</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon text">🔤</div><div><h1>Case Converter</h1><p>Convert text to any case instantly</p></div></div>
-  <div class="tool-layout full-width">
+  <div class="tool-page-header"><div class="tool-page-icon text">🔤</div><div><h1>Case Converter</h1><p>Convert text to UPPERCASE, lowercase, Title Case, camelCase &amp; more — free &amp; instant</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
-      <div class="form-group"><label class="form-label">Input Text</label><textarea id="inp" class="form-textarea" placeholder="Type or paste your text here…"></textarea></div>
+      <div class="form-group">
+        <label class="form-label">Type or Paste Your Text Below</label>
+        <textarea id="inp" class="form-textarea" placeholder="Type or paste your text here to convert…" style="min-height:160px;"></textarea>
+      </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
         <button class="btn btn-sm btn-secondary" onclick="conv('upper')">UPPERCASE</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('lower')">lowercase</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('title')">Title Case</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('sentence')">Sentence case</button>
+        <button class="btn btn-sm btn-secondary" onclick="conv('capitalized')">Capitalize Each Word</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('camel')">camelCase</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('pascal')">PascalCase</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('snake')">snake_case</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('kebab')">kebab-case</button>
         <button class="btn btn-sm btn-secondary" onclick="conv('alt')">aLtErNaTiNg</button>
       </div>
-      <div class="form-group"><label class="form-label">Output</label>
-        <div id="out" class="output-box" style="min-height:100px;">—</div>
+      <div class="form-group">
+        <label class="form-label">Converted Output</label>
+        <div id="out" class="output-box" style="min-height:120px;white-space:pre-wrap;font-family:inherit;font-size:0.95rem;line-height:1.6;">—</div>
       </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('out').textContent,this)">Copy Output</button>
-        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('inp').value='';document.getElementById('out').textContent='—'">Clear</button>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-primary btn-sm" id="copyBtn" onclick="copyContent(this)">📋 Copy Output</button>
+        <button class="btn btn-secondary btn-sm" onclick="clearText()">✕ Clear</button>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Convert Letter Case Online for Free</h2>
+    <p>Accidentally left CAPS LOCK on while typing an email? Need to format blog post titles into clean Title Case? Or convert database column strings into camelCase for JavaScript? EasyToolz Case Converter handles all formatting styles in one click.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Paste your text:</strong> Enter any text into the top box.</li>
+      <li><strong>Click your target style:</strong> Choose UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, or kebab-case.</li>
+      <li><strong>Copy result:</strong> Click "Copy Output" to paste the formatted text directly into your document, email, or code editor.</li>
+    </ol>
+
+    <h2>Popular Text Case Formats Explained</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Title Case:</strong> Capitalizes major words (e.g. <em>The Quick Brown Fox</em>). Essential for article headings, book titles, and YouTube video captions.</li>
+      <li><strong>Sentence Case:</strong> Capitalizes the initial letter of sentences and leaves the rest lowercase (e.g. <em>The quick brown fox jumps.</em>). Perfect for standard paragraphs and prose.</li>
+      <li><strong>camelCase &amp; PascalCase:</strong> Joins words together without spaces, capitalizing internal words (e.g. <code>myVariableName</code> or <code>ClassName</code>). Standard in programming languages.</li>
+      <li><strong>snake_case &amp; kebab-case:</strong> Separates words using underscores (<code>user_profile_id</code>) or hyphens (<code>user-profile-id</code>) for URL slugs and CSS classnames.</li>
+    </ul>
+
+    <p>Explore more text utilities: <a href="word-counter.html">Word Counter</a>, <a href="lorem-ipsum.html">Lorem Ipsum Generator</a>, <a href="text-repeater.html">Text Repeater</a>, <a href="json-formatter.html">JSON Formatter</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What is the difference between Title Case and Sentence case?</h3><p>Title Case capitalizes the first letter of each significant word (ideal for article headlines and book titles). Sentence case capitalizes only the first letter of each sentence and proper nouns.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What are camelCase and snake_case used for?</h3><p>These are naming conventions used in software development. camelCase (firstWordLowerCase) is common in JavaScript and Java, while snake_case (words_joined_by_underscores) is standard in Python and database columns.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Is there a character or word limit?</h3><p>No! You can paste entire essays, code files, or manuscripts with zero limits.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does EasyToolz store or upload my text?</h3><p>No. All text manipulations run 100% locally in your browser memory via JavaScript. Your text is never sent to any server.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Text Tools</h4><ul><li><a href="case-converter.html">Case Converter</a></li><li><a href="word-counter.html">Word Counter</a></li><li><a href="lorem-ipsum.html">Lorem Ipsum</a></li><li><a href="json-formatter.html">JSON Formatter</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  function conv(type){
-    const inp=document.getElementById('inp').value;
-    if(!inp.trim())return;
-    let out='';
-    const words=inp.trim().split(/\s+/);
-    switch(type){
-      case 'upper':    out=inp.toUpperCase(); break;
-      case 'lower':    out=inp.toLowerCase(); break;
-      case 'title':    out=words.map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(' '); break;
-      case 'sentence': out=inp.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g,c=>c.toUpperCase()); break;
-      case 'camel':    out=words.map((w,i)=>i===0?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(''); break;
-      case 'pascal':   out=words.map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(''); break;
-      case 'snake':    out=words.map(w=>w.toLowerCase()).join('_'); break;
-      case 'kebab':    out=words.map(w=>w.toLowerCase()).join('-'); break;
-      case 'alt':      out=[...inp].map((c,i)=>i%2===0?c.toLowerCase():c.toUpperCase()).join(''); break;
-    }
-    document.getElementById('out').textContent=out;
+function conv(type) {
+  const inp = document.getElementById('inp').value;
+  if (!inp.trim()) return;
+  let out = '';
+  const words = inp.trim().split(/\s+/);
+  switch (type) {
+    case 'upper':
+      out = inp.toUpperCase();
+      break;
+    case 'lower':
+      out = inp.toLowerCase();
+      break;
+    case 'title':
+      const minor = new Set(['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'from', 'by', 'with', 'in', 'of']);
+      out = words.map((w, i) => {
+        const lw = w.toLowerCase();
+        if (i > 0 && minor.has(lw)) return lw;
+        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+      }).join(' ');
+      break;
+    case 'sentence':
+      out = inp.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+      break;
+    case 'capitalized':
+      out = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+      break;
+    case 'camel':
+      out = words.map((w, i) => i === 0 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+      break;
+    case 'pascal':
+      out = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+      break;
+    case 'snake':
+      out = words.map(w => w.toLowerCase().replace(/[^a-z0-9]/g, '')).filter(Boolean).join('_');
+      break;
+    case 'kebab':
+      out = words.map(w => w.toLowerCase().replace(/[^a-z0-9]/g, '')).filter(Boolean).join('-');
+      break;
+    case 'alt':
+      out = [...inp].map((c, i) => i % 2 === 0 ? c.toLowerCase() : c.toUpperCase()).join('');
+      break;
   }
+  document.getElementById('out').textContent = out;
+}
+
+function copyContent(btn) {
+  const txt = document.getElementById('out').textContent;
+  if (txt === '—') return;
+  navigator.clipboard.writeText(txt).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
+
+function clearText() {
+  document.getElementById('inp').value = '';
+  document.getElementById('out').textContent = '—';
+}
 </script>
 </body></html>

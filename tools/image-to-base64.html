@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image to Base64 — EasyToolz</title>
-  <meta name="description" content="Free Image to Base64 converter — convert any image to a Base64 encoded string instantly." />
+  <title>Image to Base64 Converter Online — Free Data URI Generator | EasyToolz</title>
+  <meta name="description" content="Free online Image to Base64 converter. Convert JPG, PNG, WebP, SVG, and GIF files to Base64 strings and Data URIs instantly. Ready for HTML img tags and CSS backgrounds. 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-to-base64.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Image to Base64 Converter Online — Free Data URI Generator | EasyToolz" />
+  <meta property="og:description" content="Convert any image to a Base64 encoded string or Data URI instantly in your browser. Free, secure, and developer-friendly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-to-base64.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Image to Base64 Converter","url":"https://easytoolz.click/tools/image-to-base64.html","description":"Convert images into Base64 encoded strings and Data URI format directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is a Base64 image?","acceptedAnswer":{"@type":"Answer","text":"Base64 is binary-to-text encoding that represents image file bytes as an ASCII text string. This allows images to be embedded directly inside HTML or CSS without separate HTTP requests."}},
+    {"@type":"Question","name":"How do I embed Base64 images into HTML?","acceptedAnswer":{"@type":"Answer","text":"Paste the Data URI into an image tag: <img src='data:image/png;base64,...' alt='description' />."}},
+    {"@type":"Question","name":"Does Base64 increase image file size?","acceptedAnswer":{"@type":"Answer","text":"Yes, Base64 encoding increases file size by approximately 33%. It is best suited for small icons, logos, or single-file HTML deliverables."}},
+    {"@type":"Question","name":"Are my images uploaded to any server?","acceptedAnswer":{"@type":"Answer","text":"No. The conversion is performed 100% locally via the browser's FileReader API. Your images never leave your computer or phone."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,45 +29,114 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image to Base64</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🔢</div><div><h1>Image to Base64</h1><p>Convert any image to a Base64 encoded string</p></div></div>
-  <div class="tool-layout full-width" style="max-width:700px;">
+  <div class="tool-page-header"><div class="tool-page-icon images">🔢</div><div><h1>Image to Base64 Converter</h1><p>Convert any image into a Base64 string or Data URI — free & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
-      <div style="border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:20px;" onclick="document.getElementById('b64Input').click()">
-        <div style="font-size:2.5rem;margin-bottom:8px;">📁</div>
-        <div style="font-weight:600;margin-bottom:4px;">Click to select an image</div>
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('b64Input').click()">
+        <div class="drop-icon">📁</div>
+        <div class="drop-text">Click or drag & drop an image here</div>
+        <div class="drop-sub">PNG, JPG, SVG, WebP, GIF supported — runs 100% locally</div>
         <input type="file" id="b64Input" accept="image/*" style="display:none;" onchange="convert(this.files[0])" />
       </div>
-      <div id="b64Out" style="display:none;">
-        <div class="form-group"><label class="form-label">Base64 String (with Data URI)</label>
+      <div id="b64Out" style="display:none;margin-top:20px;">
+        <div class="form-group">
+          <label class="form-label">Data URI (Ready for <code>&lt;img src="..."&gt;</code> &amp; CSS)</label>
           <textarea id="b64Str" class="form-textarea" style="min-height:140px;font-family:monospace;font-size:0.75rem;" readonly></textarea>
         </div>
-        <div class="form-group"><label class="form-label">Base64 Only (no prefix)</label>
+        <div class="form-group">
+          <label class="form-label">Raw Base64 Only (No prefix)</label>
           <textarea id="b64Only" class="form-textarea" style="min-height:80px;font-family:monospace;font-size:0.75rem;" readonly></textarea>
         </div>
-        <div class="btn-group">
-          <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('b64Str').value,this)">Copy Full Data URI</button>
-          <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('b64Only').value,this)">Copy Base64 Only</button>
+        <div class="btn-group" style="margin-bottom:16px;">
+          <button class="btn btn-primary btn-sm" id="copyFullBtn" onclick="copyValue('b64Str', this)">📋 Copy Full Data URI</button>
+          <button class="btn btn-secondary btn-sm" id="copyRawBtn" onclick="copyValue('b64Only', this)">📋 Copy Raw Base64</button>
+          <button class="btn btn-secondary btn-sm" onclick="resetTool()">Change Image</button>
         </div>
-        <div style="margin-top:16px;"><label class="form-label">Preview</label><img id="b64Preview" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" /></div>
+        <div>
+          <label class="form-label">Image Preview</label>
+          <img id="b64Preview" style="max-width:100%;max-height:260px;object-fit:contain;border-radius:8px;border:1px solid var(--border);display:block;" />
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Convert Images to Base64 in 3 Steps</h2>
+    <p>Embedding images as Base64 strings allows developers to bundle graphics directly into HTML, CSS, JSON payloads, or email templates without hosting extra files or triggering external network requests.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Select your image:</strong> Drag and drop any JPG, PNG, WebP, or SVG file into the drop box above or click to select from your device.</li>
+      <li><strong>Instant encoding:</strong> The tool immediately generates both a complete Data URI (ready for web embedding) and raw Base64 characters.</li>
+      <li><strong>Copy and integrate:</strong> Click "Copy Full Data URI" to paste directly into your <code>&lt;img src="..."&gt;</code> or CSS <code>background-image: url(...)</code>.</li>
+    </ol>
+
+    <h2>When to Use Base64 Encoded Images</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Reduce HTTP Requests:</strong> Embed small UI icons, favicons, and logos directly into stylesheets to eliminate extra network roundtrips.</li>
+      <li><strong>Self-Contained HTML Documents:</strong> Perfect for generating single-file HTML reports, offline dashboards, and email newsletters.</li>
+      <li><strong>API Data Payloads:</strong> Send image data within JSON bodies to REST or GraphQL APIs without multi-part form complexities.</li>
+      <li><strong>100% Client-Side Privacy:</strong> Your sensitive graphics never leave your browser. All conversion is processed in your device's memory.</li>
+    </ul>
+
+    <p>Check out our developer utilities: <a href="json-formatter.html">JSON Formatter</a>, <a href="url-encoder.html">URL Encoder/Decoder</a>, <a href="image-compressor.html">Image Compressor</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What is a Base64 image?</h3><p>Base64 is binary-to-text encoding that represents image file bytes as an ASCII text string. This allows images to be embedded directly inside HTML or CSS without separate HTTP requests.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do I embed Base64 images into HTML?</h3><p>Paste the Data URI into an image tag: <code>&lt;img src="data:image/png;base64,..." alt="description" /&gt;</code>.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does Base64 increase image file size?</h3><p>Yes, Base64 encoding increases file size by approximately 33%. It is best suited for small icons, logos, or single-file HTML deliverables.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my images uploaded to any server?</h3><p>No. The conversion is performed 100% locally via the browser's FileReader API. Your images never leave your computer or phone.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-to-base64.html">Image to Base64</a></li><li><a href="json-formatter.html">JSON Formatter</a></li><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  function convert(f){
-    if(!f)return;
-    const reader=new FileReader();
-    reader.onload=e=>{
-      const full=e.target.result;
-      const b64=full.split(',')[1];
-      document.getElementById('b64Str').value=full;
-      document.getElementById('b64Only').value=b64;
-      document.getElementById('b64Preview').src=full;
-      document.getElementById('b64Out').style.display='';
-    };
-    reader.readAsDataURL(f);
-  }
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); convert(e.dataTransfer.files[0]); });
+
+function convert(f) {
+  if (!f || !f.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const full = e.target.result;
+    const b64 = full.split(',')[1] || '';
+    document.getElementById('b64Str').value = full;
+    document.getElementById('b64Only').value = b64;
+    document.getElementById('b64Preview').src = full;
+    document.getElementById('dropZone').style.display = 'none';
+    document.getElementById('b64Out').style.display = '';
+  };
+  reader.readAsDataURL(f);
+}
+
+function resetTool() {
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('b64Out').style.display = 'none';
+  document.getElementById('b64Input').value = '';
+}
+
+function copyValue(id, btn) {
+  const val = document.getElementById(id).value;
+  navigator.clipboard.writeText(val).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
 </script>
+<style>
+.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
+.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.images{background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6}
+</style>
 </body></html>

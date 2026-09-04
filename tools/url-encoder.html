@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>URL Encoder/Decoder — EasyToolz</title>
-  <meta name="description" content="Free URL Encoder Decoder — encode or decode any URL or query string instantly." />
+  <title>URL Encoder & Decoder Online — Percent-Encode & Decode Strings Free | EasyToolz</title>
+  <meta name="description" content="Free online URL Encoder and Decoder. Instantly percent-encode or decode URLs, query strings, and URI components in UTF-8. Fast, secure, and client-side with full parameter parsing." />
   <link rel="canonical" href="https://easytoolz.click/tools/url-encoder.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="URL Encoder & Decoder Online — Free Percent Encoding Tool | EasyToolz" />
+  <meta property="og:description" content="Encode and decode URLs, query strings, and parameters instantly in your browser. 100% private." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/url-encoder.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "URL Encoder Decoder",
+    "url": "https://easytoolz.click/tools/url-encoder.html",
+    "description": "Online tool to encode and decode Uniform Resource Locators (URLs) and query strings using UTF-8 percent-encoding.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is URL encoding (percent-encoding)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "URL encoding converts reserved or non-ASCII characters in a URI into a valid ASCII format consisting of a percent sign (%) followed by two hexadecimal digits representing the character's UTF-8 byte value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between encodeURI and encodeURIComponent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "encodeURI is meant for complete URLs and does not encode protocol delimiters or path slashes (like :, /, ?, &). encodeURIComponent encodes every special character, making it ideal for query parameter values."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is space sometimes encoded as '+' instead of '%20'?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In the query string component of HTML forms (application/x-www-form-urlencoded), spaces are historically encoded as '+'. In standard RFC 3986 percent-encoding for URI paths, space is encoded as %20."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my text or API key sent to your servers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All encoding and decoding operations run locally within your browser using native JavaScript functions. No inputs or URLs are transmitted over the internet."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,33 +69,234 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">URL Encoder/Decoder</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon developer">🔗</div><div><h1>URL Encoder / Decoder</h1><p>Encode or decode any URL or query string</p></div></div>
-  <div class="tool-layout full-width" style="max-width:700px;">
-    <div class="tool-box">
-      <div class="form-group"><label class="form-label">Input</label><textarea id="urlIn" class="form-textarea" placeholder="Paste your URL or text here…"></textarea></div>
-      <div class="btn-group" style="margin-bottom:16px;">
-        <button class="btn btn-primary" onclick="encode()">🔒 Encode URL</button>
-        <button class="btn btn-secondary" onclick="decode()">🔓 Decode URL</button>
-        <button class="btn btn-secondary" onclick="encFull()">Encode (Full)</button>
-        <button class="btn btn-secondary" onclick="swap()">⇄ Swap</button>
-      </div>
-      <div class="form-group"><label class="form-label">Output</label>
-        <div id="urlOut" class="output-box" style="min-height:80px;">—</div>
-      </div>
-      <button class="copy-btn" onclick="copyText(document.getElementById('urlOut').textContent,this)">Copy Output</button>
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">URL Encoder / Decoder</span></nav>
+  <div class="tool-page-header">
+    <div class="tool-page-icon developer">🔗</div>
+    <div>
+      <h1>URL Encoder & Decoder</h1>
+      <p>Encode or decode URLs, URI components, and query strings with real-time inspection</p>
     </div>
   </div>
+
+  <div class="tool-layout full-width" style="max-width:820px;">
+    <div class="tool-box">
+      <div class="form-group">
+        <label class="form-label">Input URL or Text String</label>
+        <textarea id="urlIn" class="form-textarea" style="min-height:110px;font-family:monospace;font-size:0.9rem;" placeholder="Paste URL, query string, or plain text here…"></textarea>
+      </div>
+
+      <div class="btn-group" style="margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+        <button class="btn btn-primary" onclick="encodeComp()">🔒 Encode Component</button>
+        <button class="btn btn-secondary" onclick="decodeStr()">🔓 Decode URL</button>
+        <button class="btn btn-secondary" onclick="encodeWhole()">🌐 Encode Full URL</button>
+        <button class="btn btn-secondary" onclick="swap()">⇄ Swap</button>
+        <button class="btn btn-secondary" onclick="parseParams()">🔍 Parse Query Params</button>
+        <button class="btn btn-secondary" onclick="clearAll()">🗑 Clear</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Output Result</label>
+        <div id="urlOut" class="output-box" style="min-height:90px;font-family:monospace;font-size:0.9rem;word-break:break-all;white-space:pre-wrap;user-select:all;">—</div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px;">
+        <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('urlOut').textContent, this)">📋 Copy Output</button>
+        <span id="charStats" style="font-size:0.8rem;color:var(--text-3);">0 characters</span>
+      </div>
+
+      <!-- Parameter Breakdown Table -->
+      <div id="paramArea" style="display:none;margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+        <h3 style="font-size:0.95rem;margin-bottom:10px;">Query Parameters Breakdown</h3>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;text-align:left;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);color:var(--text-2);">
+                <th style="padding:6px 10px;">Key</th>
+                <th style="padding:6px 10px;">Decoded Value</th>
+              </tr>
+            </thead>
+            <tbody id="paramBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:820px;"></div>
+
+  <article class="tool-content" style="max-width:820px;margin:40px auto;line-height:1.7;">
+    <h2>Understanding URL Encoding & Percent-Encoding</h2>
+    <p>Uniform Resource Identifiers (URIs) are restricted by internet standard RFC 3986 to a defined set of ASCII characters. When you need to transmit spaces, accented letters, emoji, or characters with special syntactic meaning (such as <code>?</code>, <code>&amp;</code>, <code>=</code>, and <code>/</code>) inside a query parameter or URL path, they must be converted using <strong>percent-encoding</strong>.</p>
+
+    <h3>Common URL Character Encodings</h3>
+    <ul>
+      <li><strong>Space:</strong> Encoded as <code>%20</code> (or <code>+</code> in form data)</li>
+      <li><strong>Ampersand (&amp;):</strong> Encoded as <code>%26</code> (separates query parameters)</li>
+      <li><strong>Equals (=):</strong> Encoded as <code>%3D</code> (assigns parameter values)</li>
+      <li><strong>Forward Slash (/):</strong> Encoded as <code>%2F</code></li>
+      <li><strong>Question Mark (?):</strong> Encoded as <code>%3F</code> (marks start of query string)</li>
+      <li><strong>Hash (#):</strong> Encoded as <code>%23</code> (identifies anchor fragment)</li>
+    </ul>
+
+    <h3>Difference Between encodeURI and encodeURIComponent</h3>
+    <p>When developing web applications or debugging REST APIs, choosing the correct encoding scope is critical:</p>
+    <ul>
+      <li><strong>encodeURIComponent():</strong> Encodes all non-standard characters, including punctuation and delimiters like <code>/</code> and <code>?</code>. Use this whenever you are formatting a variable that will be appended as a parameter value.</li>
+      <li><strong>encodeURI():</strong> Assumes the input is already a complete, valid URL. It leaves structural delimiters (like <code>http://</code>, <code>?</code>, and <code>&amp;</code>) intact while encoding non-ASCII characters in the pathname.</li>
+    </ul>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>What is URL encoding (percent-encoding)?</h3>
+        <p>URL encoding replaces unsafe or reserved characters with a percent symbol (<code>%</code>) followed by two hexadecimal digits corresponding to their byte value in UTF-8 encoding.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why do query string parameters break without URL encoding?</h3>
+        <p>If a parameter value contains an unencoded ampersand (<code>&amp;</code>) or equals sign (<code>=</code>), the server parser treats it as the start of a new parameter rather than part of the intended text value.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does this tool handle multi-byte Unicode characters and emoji?</h3>
+        <p>Yes. The tool natively uses UTF-8 byte serialization, so international characters (like Chinese, Arabic, Cyrillic) and modern emoji are cleanly encoded into standard percent triplets.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my sensitive API data or token transmitted anywhere?</h3>
+        <p>No. EasyToolz processes all string transformations 100% locally in your client browser session. No data is stored, cached, or logged on remote servers.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Developer Tools</h4>
+        <ul class="footer-links">
+          <li><a href="json-formatter.html">JSON Formatter</a></li>
+          <li><a href="url-encoder.html">URL Encoder/Decoder</a></li>
+          <li><a href="image-to-base64.html">Image to Base64</a></li>
+          <li><a href="qr-code-generator.html">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Text & Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="word-counter.html">Word Counter</a></li>
+          <li><a href="case-converter.html">Case Converter</a></li>
+          <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+          <li><a href="age-calculator.html">Age Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  const inp=()=>document.getElementById('urlIn').value;
-  const out=(v)=>document.getElementById('urlOut').textContent=v;
-  function encode(){if(!inp().trim())return;try{out(encodeURIComponent(inp()));}catch(e){out('Error: '+e.message);}}
-  function decode(){if(!inp().trim())return;try{out(decodeURIComponent(inp().replace(/\+/g,' ')));}catch(e){out('Error: '+e.message);}}
-  function encFull(){if(!inp().trim())return;try{out(encodeURI(inp()));}catch(e){out('Error: '+e.message);}}
-  function swap(){const cur=document.getElementById('urlOut').textContent;document.getElementById('urlIn').value=cur==='—'?'':cur;}
+const inp = () => document.getElementById('urlIn').value;
+const out = (val) => {
+  document.getElementById('urlOut').textContent = val;
+  document.getElementById('charStats').textContent = `${val === '—' ? 0 : val.length} characters`;
+};
+
+function encodeComp() {
+  const v = inp();
+  if (!v.trim()) return;
+  try {
+    out(encodeURIComponent(v));
+    document.getElementById('paramArea').style.display = 'none';
+  } catch(e) { out('Encoding Error: ' + e.message); }
+}
+
+function decodeStr() {
+  const v = inp();
+  if (!v.trim()) return;
+  try {
+    // Replace + with space and decode
+    out(decodeURIComponent(v.replace(/\+/g, ' ')));
+    document.getElementById('paramArea').style.display = 'none';
+  } catch(e) { out('Decoding Error: ' + e.message); }
+}
+
+function encodeWhole() {
+  const v = inp();
+  if (!v.trim()) return;
+  try {
+    out(encodeURI(v));
+    document.getElementById('paramArea').style.display = 'none';
+  } catch(e) { out('Encoding Error: ' + e.message); }
+}
+
+function swap() {
+  const cur = document.getElementById('urlOut').textContent;
+  if (cur !== '—') {
+    document.getElementById('urlIn').value = cur;
+    out('—');
+  }
+}
+
+function clearAll() {
+  document.getElementById('urlIn').value = '';
+  out('—');
+  document.getElementById('paramArea').style.display = 'none';
+}
+
+function parseParams() {
+  const v = inp().trim();
+  if (!v) return;
+  const paramBody = document.getElementById('paramBody');
+  paramBody.innerHTML = '';
+  try {
+    let query = v;
+    if (v.includes('?')) query = v.split('?')[1];
+    if (query.includes('#')) query = query.split('#')[0];
+    
+    const params = new URLSearchParams(query);
+    let count = 0;
+    params.forEach((val, key) => {
+      count++;
+      const tr = document.createElement('tr');
+      tr.style.borderBottom = '1px solid var(--border)';
+      tr.innerHTML = `
+        <td style="padding:6px 10px;font-weight:600;color:var(--teal);">${key}</td>
+        <td style="padding:6px 10px;color:var(--text);word-break:break-all;">${val}</td>
+      `;
+      paramBody.appendChild(tr);
+    });
+
+    if (count > 0) {
+      document.getElementById('paramArea').style.display = '';
+      out(`Successfully parsed ${count} query parameter(s).`);
+    } else {
+      out('No query parameters found in the input string.');
+      document.getElementById('paramArea').style.display = 'none';
+    }
+  } catch(e) {
+    out('Parsing Error: ' + e.message);
+  }
+}
 </script>
-</body></html>
+</body>
+</html>

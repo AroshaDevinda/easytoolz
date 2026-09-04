@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OCR PDF — EasyToolz</title>
-  <meta name="description" content="Free OCR PDF tool — extract text from scanned PDF images using optical character recognition in your browser." />
+  <title>OCR PDF Online Free — Optical Character Recognition | EasyToolz</title>
+  <meta name="description" content="Free online OCR PDF tool. Extract text from scanned PDFs, photos, and book pages using optical character recognition in your browser. Supports English, Spanish, French, German, Hindi, and more. 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/ocr-pdf.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="OCR PDF Online Free — Optical Character Recognition | EasyToolz" />
+  <meta property="og:description" content="Convert scanned paper documents and photo PDFs into editable, searchable text directly in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/ocr-pdf.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"OCR PDF Tool","url":"https://easytoolz.click/tools/ocr-pdf.html","description":"Recognize and extract text from scanned PDFs and photos using client-side Tesseract OCR in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is OCR and how does it work on PDFs?","acceptedAnswer":{"@type":"Answer","text":"OCR (Optical Character Recognition) analyzes shapes of letters and numbers in scanned photos and images, converting static pictures of text into editable, searchable digital characters."}},
+    {"@type":"Question","name":"Which languages are supported by this OCR tool?","acceptedAnswer":{"@type":"Answer","text":"EasyToolz supports English, Spanish, French, German, Hindi, Portuguese, Chinese (Simplified), and Arabic."}},
+    {"@type":"Question","name":"Are my sensitive scanned documents uploaded to a remote server?","acceptedAnswer":{"@type":"Answer","text":"No. OCR runs 100% client-side in your browser using Tesseract.js WebAssembly. Your scanned IDs, receipts, and invoices never leave your computer."}},
+    {"@type":"Question","name":"Can I copy the recognized text or download as a .txt file?","acceptedAnswer":{"@type":"Answer","text":"Yes! You can copy the extracted text to your clipboard with one click or download it as a plain .txt file."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,140 +29,212 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">OCR PDF</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">🔍</div><div><h1>OCR PDF</h1><p>Extract text from scanned PDFs using optical character recognition</p></div></div>
-  <div class="tool-layout full-width" style="max-width:720px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">🔍</div><div><h1>OCR PDF &amp; Image to Text</h1><p>Extract text from scanned PDFs and photos using browser-based OCR — free & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
-      <div class="info-chip" style="margin-bottom:16px;">⚠️ OCR runs in your browser using Tesseract.js. First use may take ~10 seconds to load the language model.</div>
+      <div class="info-chip" style="margin-bottom:16px;">ℹ️ Runs 100% inside your browser using Tesseract.js WebAssembly. Initial neural model load takes ~5-10s.</div>
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-icon">🔍</div>
         <div class="drop-text">Click or drag & drop a PDF or image here</div>
-        <div class="drop-sub">PDF, JPG, PNG supported · Scanned documents work best</div>
+        <div class="drop-sub">Scanned PDFs, JPG, PNG supported • 100% private</div>
         <input type="file" id="pdfInput" accept=".pdf,application/pdf,image/*" style="display:none" onchange="loadFile(this.files[0])" />
       </div>
       <div id="controls" style="display:none;margin-top:16px;">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Language</label>
+            <label class="form-label">Language Model</label>
             <select id="lang" class="form-select">
-              <option value="eng">English</option>
-              <option value="hin">Hindi</option>
-              <option value="fra">French</option>
-              <option value="deu">German</option>
-              <option value="spa">Spanish</option>
-              <option value="por">Portuguese</option>
-              <option value="chi_sim">Chinese (Simplified)</option>
-              <option value="ara">Arabic</option>
+              <option value="eng" selected>English</option>
+              <option value="spa">Spanish (Español)</option>
+              <option value="fra">French (Français)</option>
+              <option value="deu">German (Deutsch)</option>
+              <option value="hin">Hindi (हिन्दी)</option>
+              <option value="por">Portuguese (Português)</option>
+              <option value="chi_sim">Chinese (Simplified / 简体中文)</option>
+              <option value="ara">Arabic (العربية)</option>
             </select>
           </div>
           <div class="form-group" id="pageGroup">
-            <label class="form-label">Page to OCR (PDF only)</label>
+            <label class="form-label">Page to OCR (PDF)</label>
             <input type="number" id="pageNum" class="form-input" value="1" min="1" />
           </div>
         </div>
-        <button class="btn btn-primary btn-block" onclick="doOCR()">🔍 Run OCR</button>
+        <button class="btn btn-primary btn-block" onclick="doOCR()">🔍 Run OCR &amp; Extract Text</button>
+        <button class="btn btn-secondary btn-block" onclick="resetTool()" style="margin-top:8px;">Choose Different File</button>
       </div>
       <div id="progress" style="display:none;margin-top:16px;">
-        <div style="font-size:.85rem;color:var(--text-2);margin-bottom:8px;" id="progressText">Loading OCR engine…</div>
-        <div style="background:var(--border);border-radius:4px;overflow:hidden;height:6px;">
-          <div id="progressBar" style="height:100%;background:var(--gradient);width:0%;transition:width .3s;"></div>
+        <div style="font-size:.85rem;color:var(--text-2);margin-bottom:8px;font-weight:500;" id="progressText">Initializing OCR neural network…</div>
+        <div style="background:var(--border);border-radius:4px;overflow:hidden;height:8px;">
+          <div id="progressBar" style="height:100%;background:linear-gradient(90deg,var(--teal),#6366f1);width:0%;transition:width .3s;"></div>
         </div>
       </div>
       <div id="output" style="display:none;margin-top:20px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-          <span id="confInfo" style="font-size:.82rem;color:var(--text-3);"></span>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+          <span id="confInfo" style="font-size:.85rem;color:var(--text-2);font-weight:600;"></span>
           <div style="display:flex;gap:8px;">
-            <button class="btn btn-secondary btn-sm" onclick="copyText(document.getElementById('ocrOut').value,this)">📋 Copy</button>
-            <button class="btn btn-primary btn-sm" onclick="downloadTxt()">⬇ .txt</button>
+            <button class="btn btn-secondary btn-sm" id="copyBtn" onclick="copyContent(this)">📋 Copy to Clipboard</button>
+            <button class="btn btn-primary btn-sm" onclick="downloadTxt()">⬇ Download .txt</button>
           </div>
         </div>
-        <textarea id="ocrOut" class="form-textarea" style="min-height:320px;font-family:monospace;font-size:.85rem;" readonly></textarea>
+        <textarea id="ocrOut" class="form-textarea" style="min-height:340px;font-family:monospace;font-size:0.85rem;line-height:1.6;" readonly></textarea>
       </div>
       <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to OCR Scanned PDFs and Photos to Text Online Free</h2>
+    <p>Scanned paper documents, receipts, book pages, and mobile photos are saved as flat images with no selectable or searchable text. EasyToolz OCR PDF uses state-of-the-art Optical Character Recognition running right inside your web browser to transform image pixels into editable text.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Upload scanned document:</strong> Drop your scanned PDF, JPEG, or PNG file into the tool above.</li>
+      <li><strong>Select language:</strong> Choose the document's language (English, Spanish, French, German, Hindi, etc.) to ensure highest recognition accuracy.</li>
+      <li><strong>Run OCR:</strong> Click "Run OCR & Extract Text". Tesseract recognizes the characters and provides a confidence rating and word count.</li>
+      <li><strong>Copy or save:</strong> Copy the text directly or download as a <code>.txt</code> file for your notes, spreadsheet, or AI editor.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz for OCR?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>100% Private in Browser:</strong> Unlike cloud OCR services that store your personal tax documents, invoices, or identity cards on remote servers, EasyToolz processes everything in local device RAM.</li>
+      <li><strong>Multi-Language Neural Engine:</strong> Powered by Tesseract.js, the industry standard open-source OCR engine with neural character models.</li>
+      <li><strong>Completely Free:</strong> No credit cards, subscriptions, or document quotas.</li>
+    </ul>
+
+    <p>Check out our text tools: <a href="pdf-text-extractor.html">PDF Text Extractor</a>, <a href="word-counter.html">Word Counter</a>, <a href="case-converter.html">Case Converter</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What is OCR and how does it work on PDFs?</h3><p>OCR (Optical Character Recognition) analyzes shapes of letters and numbers in scanned photos and images, converting static pictures of text into editable, searchable digital characters.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Which languages are supported by this OCR tool?</h3><p>EasyToolz supports English, Spanish, French, German, Hindi, Portuguese, Chinese (Simplified), and Arabic.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my sensitive scanned documents uploaded to a remote server?</h3><p>No. OCR runs 100% client-side in your browser using Tesseract.js WebAssembly. Your scanned IDs, receipts, and invoices never leave your computer.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I copy the recognized text or download as a .txt file?</h3><p>Yes! You can copy the extracted text to your clipboard with one click or download it as a plain .txt file.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="ocr-pdf.html">OCR PDF</a></li><li><a href="pdf-text-extractor.html">PDF Text Extractor</a></li><li><a href="word-counter.html">Word Counter</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-let fileData=null, fileType='', extractedText='';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+let fileData = null, fileType = '', extractedText = '', baseFileName = '';
 
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadFile(e.dataTransfer.files[0]);});
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
 
-async function loadFile(file){
-  if(!file)return;
-  fileData=await file.arrayBuffer();
-  fileType=file.type;
-  document.getElementById('pageGroup').style.display=file.type==='application/pdf'?'':'none';
-  document.getElementById('controls').style.display='';
-  document.getElementById('errMsg').style.display='none';
-  document.getElementById('output').style.display='none';
+async function loadFile(file) {
+  if (!file) return;
+  baseFileName = file.name.replace(/\.[^/.]+$/, '');
+  fileData = await file.arrayBuffer();
+  fileType = file.type;
+  document.getElementById('pageGroup').style.display = file.type === 'application/pdf' ? '' : 'none';
+  document.getElementById('dropZone').style.display = 'none';
+  document.getElementById('controls').style.display = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('output').style.display = 'none';
 }
 
-async function doOCR(){
-  if(!fileData)return;
-  document.getElementById('progress').style.display='block';
-  document.getElementById('output').style.display='none';
-  document.getElementById('errMsg').style.display='none';
-  try{
+function resetTool() {
+  fileData = null; extractedText = '';
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('output').style.display = 'none';
+  document.getElementById('progress').style.display = 'none';
+  document.getElementById('pdfInput').value = '';
+}
+
+async function doOCR() {
+  if (!fileData) return;
+  document.getElementById('progress').style.display = 'block';
+  document.getElementById('output').style.display = 'none';
+  document.getElementById('errMsg').style.display = 'none';
+  try {
     let imageUrl;
-    if(fileType==='application/pdf'){
-      // Render PDF page to canvas first
-      const pageN=parseInt(document.getElementById('pageNum').value)||1;
-      const pdf=await pdfjsLib.getDocument({data:fileData}).promise;
-      const page=await pdf.getPage(Math.min(pageN,pdf.numPages));
-      const vp=page.getViewport({scale:2});
-      const cv=document.createElement('canvas');cv.width=vp.width;cv.height=vp.height;
-      await page.render({canvasContext:cv.getContext('2d'),viewport:vp}).promise;
-      imageUrl=cv.toDataURL('image/png');
+    if (fileType === 'application/pdf') {
+      const pageN = parseInt(document.getElementById('pageNum').value) || 1;
+      const pdf = await pdfjsLib.getDocument({ data: fileData }).promise;
+      const page = await pdf.getPage(Math.min(pageN, pdf.numPages));
+      const vp = page.getViewport({ scale: 2 });
+      const cv = document.createElement('canvas');
+      cv.width = vp.width; cv.height = vp.height;
+      await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+      imageUrl = cv.toDataURL('image/png');
     } else {
-      const blob=new Blob([fileData],{type:fileType});
-      imageUrl=URL.createObjectURL(blob);
+      const blob = new Blob([fileData], { type: fileType });
+      imageUrl = URL.createObjectURL(blob);
     }
-    // Load Tesseract dynamically
-    if(!window.Tesseract){
-      await new Promise((res,rej)=>{
-        const s=document.createElement('script');
-        s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-        s.onload=res;s.onerror=rej;document.head.appendChild(s);
+
+    if (!window.Tesseract) {
+      setProgress(5, 'Loading Tesseract.js OCR library…');
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+        s.onload = res; s.onerror = rej; document.head.appendChild(s);
       });
     }
-    const lang=document.getElementById('lang').value;
-    setProgress(10,'Initializing OCR…');
-    const result=await Tesseract.recognize(imageUrl,lang,{
-      logger:m=>{
-        if(m.status==='recognizing text')setProgress(20+m.progress*75,`Recognizing… ${Math.round(m.progress*100)}%`);
-        else if(m.status==='loading tesseract core')setProgress(5,'Loading OCR engine…');
-        else if(m.status==='loading language traineddata')setProgress(10,'Loading language data…');
+
+    const lang = document.getElementById('lang').value;
+    setProgress(15, 'Initializing language recognition models…');
+    const result = await Tesseract.recognize(imageUrl, lang, {
+      logger: m => {
+        if (m.status === 'recognizing text') setProgress(25 + m.progress * 70, `Scanning text… ${Math.round(m.progress * 100)}%`);
+        else if (m.status === 'loading tesseract core') setProgress(10, 'Loading WebAssembly engine…');
+        else if (m.status === 'loading language traineddata') setProgress(18, 'Loading language dictionary…');
       }
     });
-    setProgress(100,'Done!');
-    extractedText=result.data.text;
-    const conf=result.data.confidence;
-    document.getElementById('ocrOut').value=extractedText||'(No text detected — ensure the PDF/image contains readable text)';
-    document.getElementById('confInfo').textContent=`Confidence: ${conf.toFixed(0)}% · ${extractedText.split(/\s+/).filter(Boolean).length} words`;
-    document.getElementById('output').style.display='block';
-    document.getElementById('progress').style.display='none';
-  }catch(e){showErr('OCR failed: '+e.message);document.getElementById('progress').style.display='none';}
+
+    setProgress(100, 'OCR Complete!');
+    extractedText = result.data.text;
+    const conf = result.data.confidence;
+    document.getElementById('ocrOut').value = extractedText || '(No text detected — please ensure the image is well-lit and clear)';
+    document.getElementById('confInfo').textContent = `Confidence: ${Math.round(conf)}% · ${extractedText.split(/\s+/).filter(Boolean).length} words detected`;
+    document.getElementById('output').style.display = 'block';
+    document.getElementById('progress').style.display = 'none';
+  } catch(e) {
+    document.getElementById('progress').style.display = 'none';
+    showErr('OCR processing failed: ' + e.message);
+  }
 }
-function setProgress(pct,txt){
-  document.getElementById('progressBar').style.width=pct+'%';
-  document.getElementById('progressText').textContent=txt;
+
+function setProgress(pct, txt) {
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = txt;
 }
-function downloadTxt(){
-  const blob=new Blob([extractedText],{type:'text/plain'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ocr-result.txt';a.click();
+
+function copyContent(btn) {
+  navigator.clipboard.writeText(extractedText).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
 }
-function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+
+function downloadTxt() {
+  const blob = new Blob([extractedText], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = `${baseFileName}-ocr.txt`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
+
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
 </script>
 <style>
 .drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
 .drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.pdf{background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c}
 .info-chip{background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;color:var(--text-2);}
 </style>
 </body></html>

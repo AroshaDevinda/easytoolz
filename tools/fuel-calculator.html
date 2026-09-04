@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fuel Cost Calculator — EasyToolz</title>
-  <meta name="description" content="Free Fuel Cost Calculator — calculate the fuel cost for any trip based on distance and mileage." />
+  <title>Fuel Cost Calculator — Gas & Mileage Trip Cost Estimator | EasyToolz</title>
+  <meta name="description" content="Free Fuel Cost Calculator. Calculate trip fuel cost, gas consumption, and split travel expenses per passenger. Supports Metric (km, L) & Imperial (miles, MPG) with instant results." />
   <link rel="canonical" href="https://easytoolz.click/tools/fuel-calculator.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Fuel Cost Calculator — Free Gas & Mileage Estimator | EasyToolz" />
+  <meta property="og:description" content="Calculate your driving expenses, fuel needed, and carpool costs instantly in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/fuel-calculator.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Fuel Cost Calculator",
+    "url": "https://easytoolz.click/tools/fuel-calculator.html",
+    "description": "Calculate gas and petrol costs for daily commutes or road trips with support for metric and imperial units.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you calculate fuel cost for a road trip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Divide total distance by fuel efficiency to find total fuel consumed, then multiply by the fuel price per unit. For example, a 300 km trip at 15 km/L requires 20 litres; at $1.50/L, total cost is $30."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate cost per person for carpooling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Calculate the total fuel cost for the trip and divide by the number of travelers (passengers plus driver) to get an equitable split."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between MPG (US) and L/100km?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Miles Per Gallon (MPG) measures how far you travel on a gallon (higher is better), while Litres per 100km (L/100km) measures fuel consumed over distance (lower is better)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this fuel calculator save or transmit my travel information?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations run strictly in your web browser. No locations, distances, or vehicle details are sent to any remote server."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,57 +69,210 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Fuel Cost Calculator</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon daily">⛽</div><div><h1>Fuel Cost Calculator</h1><p>Calculate the fuel cost for any trip</p></div></div>
-  <div class="tool-layout full-width" style="max-width:600px;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon daily">⛽</div>
+    <div>
+      <h1>Fuel Cost Calculator</h1>
+      <p>Estimate gas expenses, fuel volume & carpool splits for any road trip or daily commute</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:740px;">
     <div class="tool-box">
-      <div class="form-group">
-        <label class="form-label">Unit System</label>
-        <select id="unitSys" class="form-select" onchange="toggleUnits()">
-          <option value="metric">Metric (km, litres)</option>
-          <option value="imperial">Imperial (miles, gallons)</option>
-        </select>
+      <div class="form-row" style="margin-bottom:16px;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Measurement Units</label>
+          <select id="unitSys" class="form-select" onchange="toggleUnits()">
+            <option value="metric" selected>Metric (km, Litres, km/L)</option>
+            <option value="imperial">Imperial (Miles, Gallons, MPG)</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Currency Symbol</label>
+          <select id="currSym" class="form-select" onchange="calcFuel()">
+            <option value="$">$ (USD/CAD/AUD)</option>
+            <option value="€">€ (EUR)</option>
+            <option value="£">£ (GBP)</option>
+            <option value="₹" selected>₹ (INR)</option>
+            <option value="¥">¥ (JPY/CNY)</option>
+            <option value="AED ">AED</option>
+          </select>
+        </div>
       </div>
+
       <div class="form-row">
-        <div class="form-group"><label class="form-label" id="distLabel">Distance (km)</label><input type="number" id="distance" class="form-input" placeholder="e.g. 200" /></div>
-        <div class="form-group"><label class="form-label" id="mileLabel">Fuel Efficiency (km/L)</label><input type="number" id="efficiency" class="form-input" placeholder="e.g. 15" /></div>
+        <div class="form-group">
+          <label class="form-label" id="distLabel">One-Way Distance (km)</label>
+          <input type="number" id="distance" class="form-input" placeholder="e.g. 250" min="0" step="any" oninput="calcFuel()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="effLabel">Fuel Mileage (km/L)</label>
+          <input type="number" id="efficiency" class="form-input" placeholder="e.g. 15" min="0.1" step="any" oninput="calcFuel()" />
+        </div>
       </div>
-      <div class="form-group"><label class="form-label" id="priceLabel">Fuel Price (per litre)</label><input type="number" id="fuelPrice" class="form-input" placeholder="e.g. 95" step="0.01" /></div>
-      <button class="btn btn-primary btn-block" onclick="calcFuel()">Calculate Cost</button>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" id="priceLabel">Fuel Price (per Litre)</label>
+          <input type="number" id="fuelPrice" class="form-input" placeholder="e.g. 96.50" min="0" step="any" oninput="calcFuel()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Number of People (Carpool)</label>
+          <input type="number" id="passengers" class="form-input" value="1" min="1" max="50" oninput="calcFuel()" />
+        </div>
+      </div>
+
+      <div style="margin:12px 0 20px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;color:var(--text-2);">
+          <input type="checkbox" id="roundTrip" onchange="calcFuel()" style="accent-color:var(--teal);" />
+          Include Return Journey (Round Trip / 2× Distance)
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="calcFuel()">Calculate Fuel Expense</button>
+
       <div class="result-box" id="result" style="margin-top:20px;">
-        <div class="result-value" id="totalCost"></div>
+        <div class="result-value" id="totalCost">—</div>
         <div class="result-label" id="fuelUsed"></div>
-        <div class="result-sub" id="costPer"></div>
+        <div class="result-sub" id="splitInfo" style="margin-top:8px;"></div>
+        <div class="result-sub" id="rateInfo" style="color:var(--text-3);font-size:0.8rem;margin-top:4px;"></div>
       </div>
     </div>
   </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:740px;"></div>
+
+  <article class="tool-content" style="max-width:800px;margin:40px auto;line-height:1.7;">
+    <h2>Accurate Fuel Cost Calculation for Any Journey</h2>
+    <p>Whether you are planning a weekend road trip, tracking monthly commuting expenses, or coordinating a carpool split with coworkers, our free online <strong>Fuel Cost Calculator</strong> delivers instantaneous, precise cost breakdowns. It dynamically computes total distance, fuel consumption volume, aggregate costs, and per-passenger contributions in both Metric and Imperial units.</p>
+
+    <h3>Mathematical Fuel Consumption Formulas</h3>
+    <p>The math behind vehicle travel expenditure is straightforward:</p>
+    <ul>
+      <li><strong>Total Fuel Volume:</strong> <code>Total Distance ÷ Vehicle Mileage</code></li>
+      <li><strong>Total Journey Cost:</strong> <code>Fuel Consumed × Price Per Unit</code></li>
+      <li><strong>Cost Per Person (Carpool):</strong> <code>Total Cost ÷ Total Travelers</code></li>
+      <li><strong>Fuel Cost per 100 km / Miles:</strong> <code>(Price Per Unit ÷ Mileage) × 100</code></li>
+    </ul>
+
+    <h3>Practical Tips to Maximize Vehicle Fuel Economy</h3>
+    <ol>
+      <li><strong>Maintain Optimal Tire Pressure:</strong> Under-inflated tires increase rolling resistance, reducing fuel mileage by up to 3% to 5%.</li>
+      <li><strong>Smooth Acceleration & Braking:</strong> Aggressive starts and heavy braking can waste up to 30% more petrol or diesel compared to smooth, anticipatory driving.</li>
+      <li><strong>Cruise Control on Highways:</strong> Using cruise control on flat terrain helps maintain a steady engine RPM, dramatically cutting highway fuel consumption.</li>
+      <li><strong>Reduce Excess Payload:</strong> Removing unnecessary luggage or rooftop racks lowers vehicular drag and engine workload.</li>
+    </ol>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>How do you calculate fuel cost for a road trip?</h3>
+        <p>Divide your total travel distance by your vehicle's fuel efficiency to determine total fuel consumed. Multiply that number by the local price per litre or gallon to calculate your total cost.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I calculate cost per person for carpooling?</h3>
+        <p>Take the total fuel expense calculated for the trip and divide it equally among all riders in the vehicle. Our tool automatically computes this when you adjust the traveler count.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is the difference between MPG and km/L?</h3>
+        <p>Both are distance-per-volume metrics. 1 km/L is approximately equal to 2.35 US MPG (or 2.82 Imperial MPG). In contrast, the European L/100km system measures fuel volume needed per 100 kilometres.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Are my route inputs or calculations stored on your server?</h3>
+        <p>No. EasyToolz executes all calculations client-side in your web browser. No location coordinates, vehicle metrics, or trip logs are stored or monitored.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Image Tools</h4>
+        <ul class="footer-links">
+          <li><a href="image-compressor.html">Image Compressor</a></li>
+          <li><a href="image-resizer.html">Image Resizer</a></li>
+          <li><a href="image-converter.html">Image Converter</a></li>
+          <li><a href="image-cropper.html">Image Cropper</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>PDF & Utilities</h4>
+        <ul class="footer-links">
+          <li><a href="pdf-merger.html">PDF Merger</a></li>
+          <li><a href="pdf-compress.html">PDF Compressor</a></li>
+          <li><a href="fuel-calculator.html">Fuel Calculator</a></li>
+          <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  function toggleUnits(){
-    const m = document.getElementById('unitSys').value === 'metric';
-    document.getElementById('distLabel').textContent  = m ? 'Distance (km)' : 'Distance (miles)';
-    document.getElementById('mileLabel').textContent  = m ? 'Fuel Efficiency (km/L)' : 'Fuel Efficiency (mpg)';
-    document.getElementById('priceLabel').textContent = m ? 'Fuel Price (per litre)' : 'Fuel Price (per gallon)';
-    document.getElementById('efficiency').placeholder = m ? 'e.g. 15' : 'e.g. 30';
-    document.getElementById('fuelPrice').placeholder  = m ? 'e.g. 95' : 'e.g. 3.50';
+function toggleUnits() {
+  const isMetric = document.getElementById('unitSys').value === 'metric';
+  document.getElementById('distLabel').textContent = isMetric ? 'One-Way Distance (km)' : 'One-Way Distance (miles)';
+  document.getElementById('effLabel').textContent = isMetric ? 'Fuel Mileage (km/L)' : 'Fuel Mileage (MPG)';
+  document.getElementById('priceLabel').textContent = isMetric ? 'Fuel Price (per Litre)' : 'Fuel Price (per Gallon)';
+  document.getElementById('distance').placeholder = isMetric ? 'e.g. 250' : 'e.g. 150';
+  document.getElementById('efficiency').placeholder = isMetric ? 'e.g. 15' : 'e.g. 30';
+  calcFuel();
+}
+
+function calcFuel() {
+  const distIn = parseFloat(document.getElementById('distance').value);
+  const eff = parseFloat(document.getElementById('efficiency').value);
+  const price = parseFloat(document.getElementById('fuelPrice').value);
+  const passengers = parseInt(document.getElementById('passengers').value) || 1;
+  const roundTrip = document.getElementById('roundTrip').checked;
+  const isMetric = document.getElementById('unitSys').value === 'metric';
+  const sym = document.getElementById('currSym').value;
+
+  if (!distIn || distIn <= 0 || !eff || eff <= 0 || !price || price <= 0) {
+    document.getElementById('result').classList.remove('show');
+    return;
   }
-  function calcFuel(){
-    const dist  = parseFloat(document.getElementById('distance').value);
-    const eff   = parseFloat(document.getElementById('efficiency').value);
-    const price = parseFloat(document.getElementById('fuelPrice').value);
-    if(!dist||!eff||!price) return alert('Please fill all fields.');
-    const metric = document.getElementById('unitSys').value === 'metric';
-    const fuel   = dist / eff;
-    const cost   = fuel * price;
-    const unit   = metric ? 'litres' : 'gallons';
-    const sym    = metric ? '₹' : '$';
-    document.getElementById('totalCost').textContent = sym + cost.toFixed(2);
-    document.getElementById('fuelUsed').textContent  = fuel.toFixed(2) + ' ' + unit + ' required';
-    document.getElementById('costPer').textContent   = sym + (cost/dist*100).toFixed(2) + ' per 100 ' + (metric?'km':'miles');
-    document.getElementById('result').classList.add('show');
-  }
+
+  const effectiveDist = roundTrip ? distIn * 2 : distIn;
+  const fuelUsed = effectiveDist / eff;
+  const totalCost = fuelUsed * price;
+  const perPerson = totalCost / Math.max(1, passengers);
+  const volUnit = isMetric ? 'Litres' : 'Gallons';
+  const distUnit = isMetric ? 'km' : 'miles';
+
+  document.getElementById('totalCost').textContent = sym + totalCost.toFixed(2);
+  document.getElementById('fuelUsed').textContent = `${fuelUsed.toFixed(2)} ${volUnit} of fuel for ${effectiveDist.toFixed(1)} ${distUnit}`;
+  document.getElementById('splitInfo').textContent = passengers > 1 
+    ? `👥 Carpool Split: ${sym}${perPerson.toFixed(2)} per person (${passengers} people)`
+    : `Total one-person travel expense`;
+  document.getElementById('rateInfo').textContent = `Equivalent to ${sym}${(totalCost / effectiveDist * 100).toFixed(2)} per 100 ${distUnit}`;
+  document.getElementById('result').classList.add('show');
+}
 </script>
-</body></html>
+</body>
+</html>

@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF to Images — EasyToolz</title>
-  <meta name="description" content="Free PDF to Images converter — convert each PDF page to a PNG image in your browser. No upload, 100% private." />
+  <title>PDF to Images Online Free — Convert PDF to PNG &amp; JPG | EasyToolz</title>
+  <meta name="description" content="Free online PDF to Images converter. Convert every page of any PDF into high-resolution PNG pictures instantly in your browser. Choose 72, 144, or 216 DPI. No upload, 100% private." />
   <link rel="canonical" href="https://easytoolz.click/tools/pdf-to-images.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="PDF to Images Online Free — Convert PDF to PNG &amp; JPG | EasyToolz" />
+  <meta property="og:description" content="Convert PDF documents into crisp PNG or JPEG image files. Download individual pages or all at once." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/pdf-to-images.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"PDF to Images Converter","url":"https://easytoolz.click/tools/pdf-to-images.html","description":"Convert PDF pages into high-resolution PNG image files directly in your web browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What image resolution does the PDF to Image converter produce?","acceptedAnswer":{"@type":"Answer","text":"You can choose between 1× (72 DPI for web sharing), 2× (144 DPI for crisp displays), and 3× (216 DPI for high-resolution print and presentations)."}},
+    {"@type":"Question","name":"Can I download all pages at once?","acceptedAnswer":{"@type":"Answer","text":"Yes! Click 'Download All' to batch download each converted page image consecutively to your device."}},
+    {"@type":"Question","name":"Are my sensitive documents uploaded to a remote server?","acceptedAnswer":{"@type":"Answer","text":"Never. All PDF rendering is executed client-side via Mozilla's PDF.js library running inside your browser. Your files never leave your device."}},
+    {"@type":"Question","name":"What image format are pages saved in?","acceptedAnswer":{"@type":"Answer","text":"Pages are rendered in lossless PNG format to ensure all text lines and graphics remain razor-sharp."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,53 +29,91 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">PDF to Images</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">🖼️</div><div><h1>PDF to Images</h1><p>Convert every PDF page to a PNG image — free, browser-only</p></div></div>
-  <div class="tool-layout full-width" style="max-width:700px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">🖼️</div><div><h1>PDF to Images Converter</h1><p>Convert every PDF page into crisp PNG images — free, browser-only & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-icon">📄</div>
         <div class="drop-text">Click or drag & drop a PDF here</div>
-        <div class="drop-sub">Each page will be converted to a PNG image</div>
+        <div class="drop-sub">Each page renders into a high-resolution PNG picture</div>
         <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="handleFile(this.files[0])" />
       </div>
       <div class="form-row" style="margin-top:16px;align-items:center;gap:16px;">
         <div class="form-group" style="flex:1;">
-          <label class="form-label">Scale / Quality</label>
+          <label class="form-label">Render Resolution / DPI</label>
           <select id="scale" class="form-select">
-            <option value="1">1× — Fast (72 DPI)</option>
-            <option value="2" selected>2× — Good (144 DPI)</option>
-            <option value="3">3× — High (216 DPI)</option>
+            <option value="2" selected>2× — Sharp &amp; Crisp (144 DPI — Recommended)</option>
+            <option value="3">3× — Ultra High-Res (216 DPI)</option>
+            <option value="1">1× — Fast Web (72 DPI)</option>
           </select>
         </div>
-        <div style="display:flex;align-items:flex-end;padding-bottom:18px;">
-          <button class="btn btn-primary" id="dlAllBtn" style="display:none;" onclick="downloadAll()">⬇ Download All</button>
+        <div style="display:flex;align-items:flex-end;padding-bottom:18px;gap:8px;">
+          <button class="btn btn-primary" id="dlAllBtn" style="display:none;" onclick="downloadAll()">⬇ Download All Pages</button>
+          <button class="btn btn-secondary" id="changePdfBtn" style="display:none;" onclick="resetTool()">Change PDF</button>
         </div>
       </div>
-      <div id="loading" style="display:none;text-align:center;padding:24px;color:var(--text-2);">⏳ Converting pages…</div>
+      <div id="loading" style="display:none;text-align:center;padding:24px;color:var(--text-2);">⏳ Rendering PDF pages to PNG…</div>
       <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
-      <div id="pagesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:20px;"></div>
+      <div id="pagesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:20px;"></div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Convert PDF Documents to Images Online Free</h2>
+    <p>Sometimes you need to insert a PDF invoice into a PowerPoint deck, post an infographic from a whitepaper onto social media, or embed a certificate onto your portfolio. EasyToolz PDF to Images transforms every page of your PDF into crisp, standalone PNG graphics.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Add your PDF:</strong> Drag and drop your file into the tool above or select it from your device.</li>
+      <li><strong>Choose your quality:</strong> Pick 2× (144 DPI) for crisp online viewing or 3× (216 DPI) for ultra-sharp prints and presentations.</li>
+      <li><strong>Download your images:</strong> Download individual page images or click "Download All Pages" to batch save every page to your device.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz PDF to Images?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Zero Server Uploads:</strong> Built with Mozilla's PDF.js WebAssembly engine, every page is rendered in your browser. Confidential client files never leave your computer.</li>
+      <li><strong>Lossless PNG Clarity:</strong> Fonts, logos, vector diagrams, and illustrations are rendered cleanly without JPEG compression artifacts.</li>
+      <li><strong>No Software Installation:</strong> Works right inside Chrome, Safari, Edge, and mobile browsers on iOS and Android.</li>
+    </ul>
+
+    <p>Check out our image tools: <a href="images-to-pdf.html">Images to PDF</a>, <a href="image-compressor.html">Image Compressor</a>, <a href="image-cropper.html">Image Cropper</a>, <a href="pdf-merger.html">PDF Merger</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What image resolution does the PDF to Image converter produce?</h3><p>You can choose between 1× (72 DPI for web sharing), 2× (144 DPI for crisp displays), and 3× (216 DPI for high-resolution print and presentations).</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I download all pages at once?</h3><p>Yes! Click "Download All" to batch download each converted page image consecutively to your device.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my sensitive documents uploaded to a remote server?</h3><p>Never. All PDF rendering is executed client-side via Mozilla's PDF.js library running inside your browser. Your files never leave your device.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What image format are pages saved in?</h3><p>Pages are rendered in lossless PNG format to ensure all text lines and graphics remain razor-sharp.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="pdf-to-images.html">PDF to Images</a></li><li><a href="images-to-pdf.html">Images to PDF</a></li><li><a href="pdf-merger.html">PDF Merger</a></li><li><a href="pdf-compress.html">Compress PDF</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-let pageImages = [];
+let pageBlobs = [];
+let currentFile = null;
 
 const dropZone = document.getElementById('dropZone');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f=e.dataTransfer.files[0]; if(f) handleFile(f); });
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if(f) handleFile(f); });
 
 async function handleFile(file) {
-  if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF.'); return; }
+  if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF file.'); return; }
+  currentFile = file;
   document.getElementById('pagesGrid').innerHTML = '';
   document.getElementById('dlAllBtn').style.display = 'none';
+  document.getElementById('changePdfBtn').style.display = 'none';
   document.getElementById('errMsg').style.display = 'none';
   document.getElementById('loading').style.display = 'block';
-  pageImages = [];
+  pageBlobs = [];
   const scale = parseFloat(document.getElementById('scale').value);
   try {
     const buf = await file.arrayBuffer();
@@ -73,30 +125,57 @@ async function handleFile(file) {
       const canvas = document.createElement('canvas');
       canvas.width = vp.width; canvas.height = vp.height;
       await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-      const dataUrl = canvas.toDataURL('image/png');
-      pageImages.push({ dataUrl, name: `page-${i}.png` });
+      
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+      const url = URL.createObjectURL(blob);
+      pageBlobs.push({ blob, url, name: `page-${i}.png` });
+
       const card = document.createElement('div');
       card.className = 'page-card';
-      card.innerHTML = `<img src="${dataUrl}" alt="Page ${i}" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+      card.style.cssText = 'background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;';
+      card.innerHTML = `<img src="${url}" alt="Page ${i}" style="width:100%;height:180px;object-fit:contain;border-radius:6px;background:#fff;">
         <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.75rem;color:var(--text-3);">Page ${i}</span>
-          <button class="btn btn-secondary btn-sm" onclick="dlOne(${i-1})">⬇</button>
+          <span style="font-size:0.8rem;color:var(--text-2);font-weight:600;">Page ${i}</span>
+          <button class="btn btn-secondary btn-sm" onclick="dlOne(${i-1})">⬇ Save</button>
         </div>`;
       grid.appendChild(card);
     }
     document.getElementById('loading').style.display = 'none';
     document.getElementById('dlAllBtn').style.display = '';
+    document.getElementById('changePdfBtn').style.display = '';
   } catch(e) {
     document.getElementById('loading').style.display = 'none';
-    showErr('Could not read PDF. It may be corrupt or password-protected.');
+    showErr('Could not render PDF. File may be encrypted or corrupted.');
   }
 }
+
+function resetTool() {
+  pageBlobs.forEach(p => URL.revokeObjectURL(p.url));
+  pageBlobs = [];
+  document.getElementById('pagesGrid').innerHTML = '';
+  document.getElementById('dlAllBtn').style.display = 'none';
+  document.getElementById('changePdfBtn').style.display = 'none';
+  document.getElementById('pdfInput').value = '';
+}
+
 function dlOne(idx) {
-  const a = document.createElement('a'); a.href = pageImages[idx].dataUrl; a.download = pageImages[idx].name; a.click();
+  const item = pageBlobs[idx];
+  if (!item) return;
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = item.url;
+  a.download = item.name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => document.body.removeChild(a), 150);
 }
+
 function downloadAll() {
-  pageImages.forEach((img, i) => { setTimeout(() => dlOne(i), i * 200); });
+  pageBlobs.forEach((item, i) => {
+    setTimeout(() => dlOne(i), i * 250);
+  });
 }
+
 function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
 </script>
 <style>

@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Remove PDF Pages — EasyToolz</title>
-  <meta name="description" content="Free PDF page remover — delete specific pages from any PDF file in your browser. No upload needed." />
+  <title>Remove PDF Pages Online Free — Delete Pages from PDF | EasyToolz</title>
+  <meta name="description" content="Free online PDF page remover. Delete unwanted pages, blank sheets, or confidential sections from any PDF file. Interactive visual page selector, 100% private in your browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/pdf-remove-pages.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Remove PDF Pages Online Free — Delete Pages from PDF | EasyToolz" />
+  <meta property="og:description" content="Quickly delete unwanted pages from your PDF documents. Free, browser-based, and completely private." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/pdf-remove-pages.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Remove PDF Pages","url":"https://easytoolz.click/tools/pdf-remove-pages.html","description":"Delete unwanted pages from any PDF document directly in your browser without uploading files to remote servers.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How do I delete unwanted pages from my PDF?","acceptedAnswer":{"@type":"Answer","text":"Click on the page numbers you want to delete in the interactive grid (they turn red), or type numbers like '1, 4, 7-9', then click 'Remove Pages & Download'."}},
+    {"@type":"Question","name":"Will removing pages affect the formatting of the rest of the document?","acceptedAnswer":{"@type":"Answer","text":"No. The remaining pages retain their exact layout, vector lines, text layers, and embedded imagery intact."}},
+    {"@type":"Question","name":"Are my PDF documents uploaded to an external server?","acceptedAnswer":{"@type":"Answer","text":"Never. All page removal logic runs locally inside your browser using PDF-lib WebAssembly. Nothing is ever transmitted to a server."}},
+    {"@type":"Question","name":"Can I delete multiple pages at once?","acceptedAnswer":{"@type":"Answer","text":"Yes! You can delete individual pages, non-consecutive pages, or continuous page ranges (e.g. 5-10) in a single click."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,112 +29,185 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Remove PDF Pages</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon pdf">🗑️</div><div><h1>Remove PDF Pages</h1><p>Delete specific pages from any PDF — free, no upload needed</p></div></div>
-  <div class="tool-layout full-width" style="max-width:680px;">
+  <div class="tool-page-header"><div class="tool-page-icon pdf">🗑️</div><div><h1>Remove PDF Pages</h1><p>Delete unwanted pages from any PDF document — free, instant & 100% private</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
     <div class="tool-box">
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('pdfInput').click()">
         <div class="drop-icon">📄</div>
         <div class="drop-text">Click or drag & drop a PDF here</div>
-        <div class="drop-sub">File stays on your device — never uploaded</div>
+        <div class="drop-sub">File stays on your device — 100% confidential</div>
         <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display:none" onchange="loadPDF(this.files[0])" />
       </div>
       <div id="controls" style="display:none;margin-top:20px;">
         <div id="fileInfo" style="font-size:.85rem;color:var(--text-3);margin-bottom:16px;"></div>
         <div class="form-group">
-          <label class="form-label">Pages to remove <span style="color:var(--text-3);font-weight:400;">(e.g. 1, 3, 5-8)</span></label>
+          <label class="form-label">Pages to Remove <span style="color:var(--text-3);font-weight:400;">(Click buttons below to mark for deletion, or type e.g. 1, 3, 5-8)</span></label>
           <input type="text" id="pagesToRemove" class="form-input" placeholder="e.g. 1, 3, 5-8" />
         </div>
         <div id="pageGrid" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
-        <button class="btn btn-primary btn-block" onclick="doRemove()">🗑️ Remove Pages & Download</button>
-        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Processing…</div>
+        <button class="btn btn-primary btn-block" onclick="doRemove()">🗑️ Remove Pages &amp; Download PDF</button>
+        <button class="btn btn-secondary btn-block" onclick="resetTool()" style="margin-top:8px;">Choose Different PDF</button>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Removing pages…</div>
         <div id="errMsg" style="display:none;color:#f87171;margin-top:12px;"></div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Delete Pages from a PDF Document Free Online</h2>
+    <p>Scanned documents frequently contain accidental blank pages, duplicate scans, or outdated annexes. EasyToolz Remove PDF Pages lets you strip out unnecessary or confidential pages in seconds without buying Adobe Acrobat Pro.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Upload your document:</strong> Drop your PDF into the upload area above or select it from your computer or phone.</li>
+      <li><strong>Select pages to delete:</strong> Click on any page button in the visual selector grid to mark it red for removal, or type numbers directly (e.g. <code>2, 5, 8-10</code>).</li>
+      <li><strong>Save your updated PDF:</strong> Click "Remove Pages & Download PDF" to retrieve your streamlined, clean document instantly.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz to Delete PDF Pages?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Visual Feedback:</strong> Pages selected for deletion turn distinctively red so you can easily verify you're removing the right content.</li>
+      <li><strong>100% Private Processing:</strong> Your legal files, medical reports, and internal company memos never leave your device. All operations happen in local browser RAM.</li>
+      <li><strong>Zero Quality Loss:</strong> Remaining pages are transferred without compression degradation or font re-encoding.</li>
+    </ul>
+
+    <p>Explore more document tools: <a href="pdf-extract-pages.html">Extract PDF Pages</a>, <a href="pdf-split.html">PDF Splitter</a>, <a href="pdf-merger.html">PDF Merger</a>, <a href="pdf-compress.html">Compress PDF</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do I delete unwanted pages from my PDF?</h3><p>Click on the page numbers you want to delete in the interactive grid (they turn red), or type numbers like "1, 4, 7-9", then click "Remove Pages & Download".</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Will removing pages affect the formatting of the rest of the document?</h3><p>No. The remaining pages retain their exact layout, vector lines, text layers, and embedded imagery intact.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my PDF documents uploaded to an external server?</h3><p>Never. All page removal logic runs locally inside your browser using PDF-lib WebAssembly. Nothing is ever transmitted to a server.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I delete multiple pages at once?</h3><p>Yes! You can delete individual pages, non-consecutive pages, or continuous page ranges (e.g. 5-10) in a single click.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="pdf-remove-pages.html">Remove PDF Pages</a></li><li><a href="pdf-extract-pages.html">Extract PDF Pages</a></li><li><a href="pdf-merger.html">PDF Merger</a></li><li><a href="pdf-compress.html">Compress PDF</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
 const { PDFDocument } = PDFLib;
-let pdfDoc=null, totalPages=0, fileName='', selectedPages=new Set();
+let pdfDoc = null, totalPages = 0, fileName = '', selectedPages = new Set();
 
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadPDF(e.dataTransfer.files[0]);});
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); loadPDF(e.dataTransfer.files[0]); });
 
-async function loadPDF(file){
-  if(!file||file.type!=='application/pdf'){showErr('Please select a valid PDF.');return;}
-  fileName=file.name.replace(/\.pdf$/i,'');
-  const buf=await file.arrayBuffer();
-  try{
-    pdfDoc=await PDFDocument.load(buf);
-    totalPages=pdfDoc.getPageCount();
-    document.getElementById('fileInfo').textContent=`📄 ${file.name} · ${totalPages} pages`;
+async function loadPDF(file) {
+  if (!file || file.type !== 'application/pdf') { showErr('Please select a valid PDF file.'); return; }
+  fileName = file.name.replace(/\.pdf$/i, '');
+  const buf = await file.arrayBuffer();
+  try {
+    pdfDoc = await PDFDocument.load(buf);
+    totalPages = pdfDoc.getPageCount();
+    document.getElementById('fileInfo').textContent = `📄 ${file.name} · ${totalPages} pages detected`;
     renderPageGrid();
-    document.getElementById('controls').style.display='';
-    document.getElementById('errMsg').style.display='none';
-  }catch(e){showErr('Could not read PDF.');}
+    document.getElementById('dropZone').style.display = 'none';
+    document.getElementById('controls').style.display = '';
+    document.getElementById('errMsg').style.display = 'none';
+  } catch(e) { showErr('Could not read PDF. File may be encrypted or corrupted.'); }
 }
-function renderPageGrid(){
-  const grid=document.getElementById('pageGrid');
-  grid.innerHTML='<div style="width:100%;font-size:.8rem;color:var(--text-3);margin-bottom:4px;">Click pages to select for removal:</div>';
-  for(let i=1;i<=totalPages;i++){
-    const btn=document.createElement('button');
-    btn.textContent=i; btn.dataset.page=i;
-    btn.style.cssText='width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);cursor:pointer;font-size:.85rem;transition:all .15s;';
-    btn.onclick=()=>togglePage(i,btn);
+
+function resetTool() {
+  pdfDoc = null; totalPages = 0; fileName = ''; selectedPages.clear();
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('pdfInput').value = '';
+}
+
+function renderPageGrid() {
+  const grid = document.getElementById('pageGrid');
+  grid.innerHTML = '<div style="width:100%;font-size:.8rem;color:var(--text-3);margin-bottom:6px;font-weight:600;">Click pages to select for removal:</div>';
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = i; btn.dataset.page = i;
+    btn.style.cssText = 'width:40px;height:40px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .15s;';
+    btn.onclick = () => togglePage(i, btn);
     grid.appendChild(btn);
   }
-  document.getElementById('pagesToRemove').addEventListener('input',syncFromInput);
+  document.getElementById('pagesToRemove').addEventListener('input', syncFromInput);
 }
-function togglePage(n,btn){
-  if(selectedPages.has(n)){selectedPages.delete(n);btn.style.background='var(--glass)';btn.style.borderColor='var(--border)';btn.style.color='var(--text)';}
-  else{selectedPages.add(n);btn.style.background='rgba(248,113,113,.15)';btn.style.borderColor='rgba(248,113,113,.5)';btn.style.color='#f87171';}
+
+function togglePage(n, btn) {
+  if (selectedPages.has(n)) {
+    selectedPages.delete(n);
+    btn.style.background = 'var(--glass)'; btn.style.borderColor = 'var(--border)'; btn.style.color = 'var(--text)';
+  } else {
+    selectedPages.add(n);
+    btn.style.background = 'rgba(248,113,113,.18)'; btn.style.borderColor = 'rgba(248,113,113,.6)'; btn.style.color = '#f87171';
+  }
   syncToInput();
 }
-function syncToInput(){document.getElementById('pagesToRemove').value=[...selectedPages].sort((a,b)=>a-b).join(', ');}
-function syncFromInput(){
+
+function syncToInput() {
+  document.getElementById('pagesToRemove').value = [...selectedPages].sort((a,b) => a-b).join(', ');
+}
+
+function syncFromInput() {
   selectedPages.clear();
-  parsePageList(document.getElementById('pagesToRemove').value).forEach(n=>selectedPages.add(n));
-  document.querySelectorAll('#pageGrid button[data-page]').forEach(btn=>{
-    const n=parseInt(btn.dataset.page);
-    if(selectedPages.has(n)){btn.style.background='rgba(248,113,113,.15)';btn.style.borderColor='rgba(248,113,113,.5)';btn.style.color='#f87171';}
-    else{btn.style.background='var(--glass)';btn.style.borderColor='var(--border)';btn.style.color='var(--text)';}
+  parsePageList(document.getElementById('pagesToRemove').value).forEach(n => selectedPages.add(n));
+  document.querySelectorAll('#pageGrid button[data-page]').forEach(btn => {
+    const n = parseInt(btn.dataset.page);
+    if (selectedPages.has(n)) {
+      btn.style.background = 'rgba(248,113,113,.18)'; btn.style.borderColor = 'rgba(248,113,113,.6)'; btn.style.color = '#f87171';
+    } else {
+      btn.style.background = 'var(--glass)'; btn.style.borderColor = 'var(--border)'; btn.style.color = 'var(--text)';
+    }
   });
 }
-function parsePageList(str){
-  const pages=[];
-  str.split(',').map(s=>s.trim()).filter(Boolean).forEach(p=>{
-    if(p.includes('-')){const[a,b]=p.split('-').map(Number);for(let i=a;i<=b;i++)pages.push(i);}
-    else{const n=parseInt(p);if(!isNaN(n))pages.push(n);}
+
+function parsePageList(str) {
+  const pages = [];
+  str.split(',').map(s => s.trim()).filter(Boolean).forEach(p => {
+    if (p.includes('-')) {
+      const [a, b] = p.split('-').map(Number);
+      for (let i = a; i <= b; i++) if (i >= 1 && i <= totalPages) pages.push(i);
+    } else {
+      const n = parseInt(p);
+      if (!isNaN(n) && n >= 1 && n <= totalPages) pages.push(n);
+    }
   });
   return pages;
 }
-async function doRemove(){
-  if(!pdfDoc){return;}
-  if(!selectedPages.size){showErr('Please select at least one page to remove.');return;}
-  if(selectedPages.size>=totalPages){showErr('Cannot remove all pages.');return;}
-  document.getElementById('loading').style.display='block';
-  document.getElementById('errMsg').style.display='none';
-  try{
-    const toRemove=new Set([...selectedPages].map(n=>n-1));
-    const keepIndices=[...Array(totalPages).keys()].filter(i=>!toRemove.has(i));
-    const newDoc=await PDFDocument.create();
-    const copied=await newDoc.copyPages(pdfDoc,keepIndices);
-    copied.forEach(p=>newDoc.addPage(p));
-    const bytes=await newDoc.save();
-    const blob=new Blob([bytes],{type:'application/pdf'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${fileName}-removed.pdf`;a.click();
-  }catch(e){showErr('Failed: '+e.message);}
-  document.getElementById('loading').style.display='none';
+
+async function doRemove() {
+  if (!pdfDoc) return;
+  if (!selectedPages.size) { showErr('Please select at least one page to remove.'); return; }
+  if (selectedPages.size >= totalPages) { showErr('Cannot remove all pages from the document.'); return; }
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('errMsg').style.display = 'none';
+  try {
+    const toRemove = new Set([...selectedPages].map(n => n - 1));
+    const keepIndices = [...Array(totalPages).keys()].filter(i => !toRemove.has(i));
+    const newDoc = await PDFDocument.create();
+    const copied = await newDoc.copyPages(pdfDoc, keepIndices);
+    copied.forEach(p => newDoc.addPage(p));
+    const bytes = await newDoc.save();
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `${fileName}-removed.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  } catch(e) { showErr('Page removal failed: ' + e.message); }
+  document.getElementById('loading').style.display = 'none';
 }
-function showErr(m){document.getElementById('errMsg').textContent=m;document.getElementById('errMsg').style.display='block';}
+
+function showErr(m) { document.getElementById('errMsg').textContent = m; document.getElementById('errMsg').style.display = 'block'; }
 </script>
 <style>
 .drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
 .drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
+.tool-page-icon.pdf{background:linear-gradient(135deg,rgba(251,146,60,.15),rgba(251,146,60,.05));color:#fb923c}
 </style>
 </body></html>

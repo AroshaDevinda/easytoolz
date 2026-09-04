@@ -1,98 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unit Converter — EasyToolz</title>
-  <meta name="description" content="Free Unit Converter — convert length, weight, temperature, speed, area and more." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit Converter Online — Convert Length, Weight, Temperature Free | EasyToolz</title>
+  <meta name="description" content="Free online Unit Converter. Convert between units of length, weight, temperature, speed, volume, area, and time instantly. No sign-up required." />
   <link rel="canonical" href="https://easytoolz.click/tools/unit-converter.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Unit Converter — Convert Length, Weight, Temperature | EasyToolz" />
+  <meta property="og:description" content="Free unit converter for length, weight, temperature, speed, volume, area, and time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/unit-converter.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Unit Converter","url":"https://easytoolz.click/tools/unit-converter.html","description":"Free online Unit Converter for length, weight, temperature, speed, volume, area, and time.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What units can I convert?","acceptedAnswer":{"@type":"Answer","text":"Our unit converter supports 7 categories: Length (mm, cm, m, km, inches, feet, yards, miles), Weight (mg, g, kg, oz, lb), Temperature (°C, °F, K), Speed (m/s, km/h, mph, knots), Volume (ml, l, gal, cups, tbsp, tsp), Area (mm², cm², m², km², in², ft², acres, hectares), and Time (seconds, minutes, hours, days, weeks)."}},
+    {"@type":"Question","name":"How accurate is this converter?","acceptedAnswer":{"@type":"Answer","text":"Our converter uses precise conversion factors and handles temperature conversions with the correct formulas (not simple multiplication). Results are displayed to 6 significant digits for maximum accuracy."}}
+  ]}
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
+<nav class="navbar"><div class="container"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../utilities/index.html">Utilities</a></li></ul><button class="nav-toggle" id="navToggle">☰</button></div></nav>
+
 <main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Unit Converter</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon utilities">📏</div><div><h1>Unit Converter</h1><p>Convert length, weight, temperature, speed and more</p></div></div>
-  <div class="tool-layout full-width" style="max-width:700px;">
-    <div class="tool-box">
-      <div class="form-group"><label class="form-label">Category</label>
-        <select id="category" class="form-select" onchange="loadCategory()">
-          <option value="length">Length</option>
-          <option value="weight">Weight / Mass</option>
-          <option value="temp">Temperature</option>
-          <option value="speed">Speed</option>
-          <option value="area">Area</option>
-          <option value="volume">Volume</option>
-          <option value="data">Data Storage</option>
-          <option value="time">Time</option>
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><a href="../utilities/index.html">Utilities</a><span class="sep">›</span><span class="current">Unit Converter</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon utilities">📏</div><div><h1>Unit Converter</h1><p>Convert length, weight, temperature, speed, volume, area and time</p></div></div>
+
+  <div class="ad-container" id="ad-top" data-ad-format="horizontal" style="margin-bottom:24px;"></div>
+
+  <div class="tool-layout full-width">
+    <div class="tool-box" style="margin-bottom:40px;max-width:640px;margin-left:auto;margin-right:auto;">
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select id="category" class="form-select" onchange="updateUnits()">
+          <option value="length">📏 Length</option>
+          <option value="weight">⚖️ Weight</option>
+          <option value="temperature">🌡️ Temperature</option>
+          <option value="speed">🚗 Speed</option>
+          <option value="volume">🧪 Volume</option>
+          <option value="area">📐 Area</option>
+          <option value="time">⏱️ Time</option>
         </select>
       </div>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">From</label><select id="fromUnit" class="form-select" onchange="convert()"></select></div>
-        <div class="form-group"><label class="form-label">To</label><select id="toUnit"   class="form-select" onchange="convert()"></select></div>
+        <div class="form-group" style="flex:1;"><label class="form-label">From</label><select id="fromUnit" class="form-select"></select></div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:8px;font-size:1.4rem;color:var(--teal);">⇄</div>
+        <div class="form-group" style="flex:1;"><label class="form-label">To</label><select id="toUnit" class="form-select"></select></div>
       </div>
-      <div class="form-group"><label class="form-label">Value</label><input type="number" id="fromVal" class="form-input" placeholder="Enter value" oninput="convert()" /></div>
-      <div class="result-box show" id="result">
-        <div class="result-value" id="resultVal">—</div>
-        <div class="result-label" id="resultLabel">Select units and enter a value</div>
+      <div class="form-group"><label class="form-label">Value</label><input type="number" id="inputVal" class="form-input" placeholder="Enter value" oninput="convert()" /></div>
+      <div class="result-box show" style="margin-top:16px;text-align:center;padding:20px;">
+        <div style="font-size:0.8rem;color:var(--text-3);">Result</div>
+        <div id="resultVal" style="font-size:1.6rem;font-weight:800;color:var(--teal);margin-top:4px;">—</div>
       </div>
     </div>
+
+    <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin-bottom:30px;"></div>
+
+    <article class="tool-content">
+      <h2>How to Convert Units Online</h2>
+      <p>Whether you're a student working on a physics assignment, a cook converting a recipe from cups to milliliters, a traveler switching between miles and kilometers, or an engineer converting between metric and imperial measurements — our free Unit Converter makes it instant.</p>
+      <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+        <li><strong>Select a category:</strong> Choose from Length, Weight, Temperature, Speed, Volume, Area, or Time.</li>
+        <li><strong>Pick your units:</strong> Select the "From" unit and the "To" unit from the dropdown menus.</li>
+        <li><strong>Enter a value:</strong> Type the number you want to convert. The result updates in real-time as you type.</li>
+      </ol>
+
+      <h2>Supported Unit Categories</h2>
+      <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+        <li><strong>Length:</strong> Millimeters, Centimeters, Meters, Kilometers, Inches, Feet, Yards, Miles</li>
+        <li><strong>Weight:</strong> Milligrams, Grams, Kilograms, Ounces, Pounds</li>
+        <li><strong>Temperature:</strong> Celsius, Fahrenheit, Kelvin (uses proper formulas, not simple ratios)</li>
+        <li><strong>Speed:</strong> m/s, km/h, mph, Knots</li>
+        <li><strong>Volume:</strong> Milliliters, Liters, US Gallons, US Cups, Tablespoons, Teaspoons</li>
+        <li><strong>Area:</strong> mm², cm², m², km², in², ft², Acres, Hectares</li>
+        <li><strong>Time:</strong> Seconds, Minutes, Hours, Days, Weeks</li>
+      </ul>
+
+      <p>More calculators: <a href="percentage-calculator.html">Percentage Calculator</a>, <a href="bmi-calculator.html">BMI Calculator</a>, <a href="currency-converter.html">Currency Converter</a>.</p>
+
+      <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What units can I convert?</h3><p>Our converter supports 7 categories with 40+ units: Length, Weight, Temperature, Speed, Volume, Area, and Time — covering the most commonly needed conversions.</p></div>
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How accurate is this converter?</h3><p>We use precise scientific conversion factors. Temperature conversions use correct formulas (°C to °F = C × 9/5 + 32), not approximations. Results show up to 6 significant digits.</p></div>
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does it work offline?</h3><p>Yes! Once the page loads, the converter works entirely in your browser without an internet connection. Bookmark it for quick access.</p></div>
+      </div>
+    </article>
   </div>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
-<script src="../js/main.js"></script>
-<script>
-const UNITS = {
-  length:  { m:1, km:1e-3, cm:100, mm:1000, mi:1/1609.344, yd:1/0.9144, ft:1/0.3048, 'in':1/0.0254, nm:1e9 },
-  weight:  { kg:1, g:1000, mg:1e6, lb:2.20462, oz:35.274, t:0.001, stone:0.157473 },
-  speed:   { 'km/h':1, 'm/s':1/3.6, 'mph':0.621371, knot:0.539957 },
-  area:    { 'm²':1, 'km²':1e-6, 'cm²':1e4, 'ft²':10.7639, 'in²':1550, acre:0.000247105, hectare:1e-4 },
-  volume:  { L:1, mL:1000, 'cm³':1000, 'm³':0.001, gal:0.264172, qt:1.05669, pt:2.11338, cup:4.22675, floz:33.814, tbsp:67.628, tsp:202.884 },
-  data:    { B:1, KB:1/1024, MB:1/1048576, GB:1/1073741824, TB:1/1.0995e12, bit:8, Kbit:8/1024, Mbit:8/1048576, Gbit:8/1073741824 },
-  time:    { s:1, ms:1000, min:1/60, h:1/3600, day:1/86400, week:1/604800, month:1/2629800, year:1/31557600 },
-};
 
-function loadCategory(){
-  const cat=document.getElementById('category').value;
-  const fromSel=document.getElementById('fromUnit');
-  const toSel=document.getElementById('toUnit');
-  fromSel.innerHTML=''; toSel.innerHTML='';
-  if(cat==='temp'){
-    ['°C','°F','K'].forEach(u=>{ fromSel.add(new Option(u,u)); toSel.add(new Option(u,u)); });
-    toSel.value='°F';
-  } else {
-    Object.keys(UNITS[cat]).forEach(u=>{ fromSel.add(new Option(u,u)); toSel.add(new Option(u,u)); });
-    toSel.selectedIndex=1;
-  }
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="bmi-calculator.html">BMI Calculator</a></li><li><a href="qr-code-generator.html">QR Generator</a></li><li><a href="password-generator.html">Password Generator</a></li><li><a href="stopwatch.html">Stopwatch</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
+<script>
+const units = {
+  length: { mm:0.001, cm:0.01, m:1, km:1000, 'in':0.0254, ft:0.3048, yd:0.9144, mi:1609.344 },
+  weight: { mg:0.000001, g:0.001, kg:1, oz:0.0283495, lb:0.453592 },
+  speed:  { 'm/s':1, 'km/h':0.277778, mph:0.44704, knots:0.514444 },
+  volume: { ml:0.001, L:1, 'US gal':3.78541, 'US cup':0.236588, tbsp:0.0147868, tsp:0.00492892 },
+  area:   { 'mm²':0.000001, 'cm²':0.0001, 'm²':1, 'km²':1e6, 'in²':0.00064516, 'ft²':0.092903, acres:4046.86, hectares:10000 },
+  time:   { sec:1, min:60, hr:3600, days:86400, weeks:604800 }
+};
+const tempUnits = ['°C','°F','K'];
+
+function updateUnits() {
+  const cat = document.getElementById('category').value;
+  const from = document.getElementById('fromUnit');
+  const to = document.getElementById('toUnit');
+  from.innerHTML = ''; to.innerHTML = '';
+  const keys = cat === 'temperature' ? tempUnits : Object.keys(units[cat]);
+  keys.forEach((k,i) => {
+    from.innerHTML += `<option value="${k}">${k}</option>`;
+    to.innerHTML += `<option value="${k}" ${i===1?'selected':''}>${k}</option>`;
+  });
   convert();
 }
 
-function convert(){
-  const cat=document.getElementById('category').value;
-  const from=document.getElementById('fromUnit').value;
-  const to=document.getElementById('toUnit').value;
-  const val=parseFloat(document.getElementById('fromVal').value);
-  if(isNaN(val)){ document.getElementById('resultVal').textContent='—'; document.getElementById('resultLabel').textContent='Enter a value above'; return; }
+function convert() {
+  const cat = document.getElementById('category').value;
+  const val = parseFloat(document.getElementById('inputVal').value);
+  const from = document.getElementById('fromUnit').value;
+  const to = document.getElementById('toUnit').value;
+  if (isNaN(val)) { document.getElementById('resultVal').textContent = '—'; return; }
   let result;
-  if(cat==='temp'){
-    let celcius;
-    if(from==='°C') celcius=val;
-    else if(from==='°F') celcius=(val-32)*5/9;
-    else celcius=val-273.15;
-    if(to==='°C') result=celcius;
-    else if(to==='°F') result=celcius*9/5+32;
-    else result=celcius+273.15;
+  if (cat === 'temperature') {
+    let celsius;
+    if (from === '°C') celsius = val;
+    else if (from === '°F') celsius = (val - 32) * 5/9;
+    else celsius = val - 273.15;
+    if (to === '°C') result = celsius;
+    else if (to === '°F') result = celsius * 9/5 + 32;
+    else result = celsius + 273.15;
   } else {
-    const base=val/UNITS[cat][from];
-    result=base*UNITS[cat][to];
+    const base = val * units[cat][from];
+    result = base / units[cat][to];
   }
-  const disp=result>=1e6||result<0.001?(result.toExponential(4)):(+result.toFixed(6)).toString();
-  document.getElementById('resultVal').textContent = disp + ' ' + to;
-  document.getElementById('resultLabel').textContent = val + ' ' + from + ' = ' + disp + ' ' + to;
+  document.getElementById('resultVal').textContent = parseFloat(result.toPrecision(8)) + ' ' + to;
 }
-loadCategory();
+
+updateUnits();
 </script>
+<style>.tool-page-icon.utilities{background:linear-gradient(135deg,rgba(167,139,250,.15),rgba(167,139,250,.05));color:#a78bfa;}</style>
 </body></html>

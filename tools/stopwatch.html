@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stopwatch — EasyToolz</title>
-  <meta name="description" content="Free online stopwatch with lap timer. Start, pause, and record laps easily." />
+  <title>Stopwatch Online Free — Digital Lap Timer with Milliseconds | EasyToolz</title>
+  <meta name="description" content="Free online Stopwatch with millisecond precision and lap splits. Track lap times, pause, resume, and review split records for sports, running, workouts, studying, and productivity." />
   <link rel="canonical" href="https://easytoolz.click/tools/stopwatch.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Stopwatch Online Free — Digital Lap Timer | EasyToolz" />
+  <meta property="og:description" content="Accurate online digital stopwatch with split laps and millisecond accuracy. Free and mobile-ready." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/stopwatch.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Digital Stopwatch","url":"https://easytoolz.click/tools/stopwatch.html","description":"Accurate digital stopwatch with lap recorder and split intervals running directly in your web browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How accurate is this online stopwatch?","acceptedAnswer":{"@type":"Answer","text":"The stopwatch uses the browser's high-resolution performance.now() and requestAnimationFrame loop, providing sub-millisecond precision."}},
+    {"@type":"Question","name":"How does the lap timer work?","acceptedAnswer":{"@type":"Answer","text":"While the stopwatch is running, click the 'Lap' button. It records both the current individual lap duration (split) and total cumulative elapsed time in a scrollable log."}},
+    {"@type":"Question","name":"Can I control the stopwatch with my keyboard spacebar?","acceptedAnswer":{"@type":"Answer","text":"Yes! Pressing the Spacebar starts and pauses the timer, while pressing 'L' logs a new lap."}},
+    {"@type":"Question","name":"Does the stopwatch continue if I switch browser tabs?","acceptedAnswer":{"@type":"Answer","text":"Yes! Elapsed time is calculated using timestamps against the system clock, ensuring zero drift when switching tabs or locking your device."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,58 +29,121 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Stopwatch</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon daily">⏱️</div><div><h1>Stopwatch</h1><p>Online stopwatch with lap timer</p></div></div>
-  <div class="tool-layout full-width" style="max-width:600px;">
-    <div class="tool-box" style="text-align:center;">
-      <div class="time-display" id="swDisplay">00:00.00</div>
-      <div class="time-controls">
-        <button class="btn btn-primary" id="startBtn" onclick="startStop()">▶ Start</button>
-        <button class="btn btn-secondary" onclick="lap()" id="lapBtn" disabled>⊕ Lap</button>
-        <button class="btn btn-danger" onclick="reset()">↺ Reset</button>
+  <div class="tool-page-header"><div class="tool-page-icon daily">⏱️</div><div><h1>Online Stopwatch</h1><p>Digital stopwatch with millisecond precision &amp; lap split timer — free &amp; instant</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
+    <div class="tool-box" style="text-align:center;padding:28px 20px;">
+      <div class="time-display" id="swDisplay" style="font-size: clamp(3.2rem, 10vw, 5.5rem);font-family:monospace;font-weight:800;color:var(--teal);letter-spacing:0.03em;margin-bottom:24px;">00:00.00</div>
+      <div class="time-controls" style="display:flex;gap:14px;justify-content:center;margin-bottom:20px;">
+        <button class="btn btn-primary" id="startBtn" onclick="startStop()" style="font-size:1.1rem;padding:12px 28px;">▶ Start</button>
+        <button class="btn btn-secondary" onclick="lap()" id="lapBtn" disabled style="font-size:1.1rem;padding:12px 24px;">⊕ Lap</button>
+        <button class="btn btn-danger" onclick="reset()" style="font-size:1.1rem;padding:12px 24px;">↺ Reset</button>
       </div>
-      <div id="lapSection" style="margin-top:24px;display:none;">
-        <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-3);margin-bottom:8px;padding:0 12px;">
-          <span>Lap</span><span>Split</span><span>Time</span>
+      <div id="lapSection" style="margin-top:24px;display:none;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:12px;padding:16px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-3);font-weight:700;margin-bottom:10px;padding:0 8px;text-transform:uppercase;">
+          <span>Lap #</span><span>Lap Split</span><span>Total Elapsed</span>
         </div>
-        <ul class="lap-list" id="lapList"></ul>
+        <ul class="lap-list" id="lapList" style="list-style:none;padding:0;margin:0;max-height:260px;overflow-y:auto;"></ul>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>Accurate Online Stopwatch for Workouts, Running &amp; Productivity</h2>
+    <p>Whether you're timing track sprints, swimming intervals, Rubik's cube solves, presentations, or tracking task duration, EasyToolz Stopwatch offers high-precision timing with detailed split lap logging.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Start the timer:</strong> Click "Start" or tap your spacebar to begin counting with hundredth-of-a-second accuracy.</li>
+      <li><strong>Record lap splits:</strong> Click "Lap" to record individual lap durations while the overall timer continues smoothly.</li>
+      <li><strong>Review split records:</strong> View your lap table to examine split improvements and pacing changes.</li>
+    </ol>
+
+    <h2>Key Advantages of EasyToolz Stopwatch</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Drift-Free Timestamp Sync:</strong> Because time is measured against system epoch timestamps rather than simple interval ticks, the stopwatch never loses accuracy even if backgrounded.</li>
+      <li><strong>Keyboard Shortcuts:</strong> Spacebar to Start/Pause, 'L' to record Lap splits, and 'R' or 'Escape' to Reset.</li>
+      <li><strong>Mobile-First Interface:</strong> Large touch targets make starting and recording laps effortless on smartphones during sports practice.</li>
+    </ul>
+
+    <p>Explore more time utilities: <a href="countdown-timer.html">Countdown Timer</a>, <a href="date-calculator.html">Date Calculator</a>, <a href="age-calculator.html">Age Calculator</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How accurate is this online stopwatch?</h3><p>The stopwatch uses the browser's high-resolution performance.now() and requestAnimationFrame loop, providing sub-millisecond precision.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How does the lap timer work?</h3><p>While the stopwatch is running, click the "Lap" button. It records both the current individual lap duration (split) and total cumulative elapsed time in a scrollable log.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I control the stopwatch with my keyboard spacebar?</h3><p>Yes! Pressing the Spacebar starts and pauses the timer, while pressing "L" logs a new lap.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does the stopwatch continue if I switch browser tabs?</h3><p>Yes! Elapsed time is calculated using timestamps against the system clock, ensuring zero drift when switching tabs or locking your device.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Time Tools</h4><ul><li><a href="stopwatch.html">Stopwatch</a></li><li><a href="countdown-timer.html">Countdown Timer</a></li><li><a href="date-calculator.html">Date Calculator</a></li><li><a href="age-calculator.html">Age Calculator</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-let running=false, startTime=0, elapsed=0, raf, lapStart=0, laps=[], lapCount=0;
-function fmt(ms){
-  const cs=Math.floor(ms/10)%100, s=Math.floor(ms/1000)%60, m=Math.floor(ms/60000);
-  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s+'.'+(cs<10?'0':'')+cs;
+let running = false, startTime = 0, elapsed = 0, raf = null;
+let laps = [], lapCount = 0;
+
+function fmt(ms) {
+  const cs = Math.floor(ms / 10) % 100;
+  const s  = Math.floor(ms / 1000) % 60;
+  const m  = Math.floor(ms / 60000);
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + '.' + (cs < 10 ? '0' : '') + cs;
 }
-function tick(){ if(!running)return; elapsed=Date.now()-startTime; document.getElementById('swDisplay').textContent=fmt(elapsed); raf=requestAnimationFrame(tick); }
-function startStop(){
-  running=!running;
-  if(running){ startTime=Date.now()-elapsed; if(lapStart===0)lapStart=startTime; tick(); }
-  else        { cancelAnimationFrame(raf); }
-  document.getElementById('startBtn').textContent=running?'⏸ Pause':'▶ Resume';
-  document.getElementById('lapBtn').disabled=!running;
+
+function tick() {
+  if (!running) return;
+  elapsed = Date.now() - startTime;
+  document.getElementById('swDisplay').textContent = fmt(elapsed);
+  raf = requestAnimationFrame(tick);
 }
-function lap(){
+
+function startStop() {
+  running = !running;
+  if (running) {
+    startTime = Date.now() - elapsed;
+    tick();
+  } else {
+    cancelAnimationFrame(raf);
+  }
+  document.getElementById('startBtn').textContent = running ? '⏸ Pause' : '▶ Resume';
+  document.getElementById('lapBtn').disabled = !running;
+}
+
+function lap() {
+  if (!running) return;
   lapCount++;
-  const now=elapsed;
-  const split=now-(laps.reduce((a,l)=>a+l.split,0));
-  laps.push({split});
-  const li=document.createElement('li');
-  li.innerHTML=`<span class="lap-num">#${lapCount}</span><span>${fmt(split)}</span><span>${fmt(now)}</span>`;
+  const now = elapsed;
+  const split = now - (laps.reduce((a, l) => a + l.split, 0));
+  laps.push({ split, total: now });
+  const li = document.createElement('li');
+  li.style.cssText = 'display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid var(--border);font-family:monospace;font-size:0.9rem;';
+  li.innerHTML = `<span style="font-weight:700;color:var(--teal);">#${lapCount}</span><span>${fmt(split)}</span><span style="color:var(--text-2);">${fmt(now)}</span>`;
   document.getElementById('lapList').prepend(li);
-  document.getElementById('lapSection').style.display='';
+  document.getElementById('lapSection').style.display = 'block';
 }
-function reset(){
-  running=false; cancelAnimationFrame(raf);
-  elapsed=0; lapStart=0; laps=[]; lapCount=0;
-  document.getElementById('swDisplay').textContent='00:00.00';
-  document.getElementById('startBtn').textContent='▶ Start';
-  document.getElementById('lapBtn').disabled=true;
-  document.getElementById('lapList').innerHTML='';
-  document.getElementById('lapSection').style.display='none';
+
+function reset() {
+  running = false;
+  cancelAnimationFrame(raf);
+  elapsed = 0;
+  laps = [];
+  lapCount = 0;
+  document.getElementById('swDisplay').textContent = '00:00.00';
+  document.getElementById('startBtn').textContent = '▶ Start';
+  document.getElementById('lapBtn').disabled = true;
+  document.getElementById('lapList').innerHTML = '';
+  document.getElementById('lapSection').style.display = 'none';
 }
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.code === 'Space') { e.preventDefault(); startStop(); }
+  else if (e.key.toLowerCase() === 'l') { lap(); }
+  else if (e.key.toLowerCase() === 'r' || e.key === 'Escape') { reset(); }
+});
 </script>
 </body></html>

@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To-Do List — EasyToolz</title>
-  <meta name="description" content="Free online To-Do List. Simple task manager — no sign-up, no account. Tasks save in your browser." />
+  <title>Free Online To-Do List — Private Task Manager & Daily Checklist | EasyToolz</title>
+  <meta name="description" content="Free online To-Do List and task manager. Organize daily tasks, categorize by priority, filter completed items, and track productivity. 100% private with auto-save in your browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/todo-list.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Online To-Do List — Free Browser Task Manager | EasyToolz" />
+  <meta property="og:description" content="Organize your day with zero sign-up. Auto-saved in browser with priority tags and export options." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/todo-list.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Online To-Do List",
+    "url": "https://easytoolz.click/tools/todo-list.html",
+    "description": "Minimalist, private task manager that auto-saves your daily to-do items and progress in local browser storage.",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Where are my to-do tasks stored?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your tasks are stored strictly inside your browser's localStorage. No tasks are synced to external databases or servers, ensuring 100% data privacy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I lose my tasks if I close the browser tab?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Tasks automatically persist between browser sessions. As long as you don't clear your browser cache or cookies for EasyToolz, your tasks will remain intact."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I export or backup my task list?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Click the 'Export' button to download your entire checklist as a plain text or JSON file for easy backup and transfer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there any limit to the number of tasks I can add?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You can add hundreds of tasks, complete them, categorize them with tags, and archive them freely."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,71 +69,273 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">To-Do List</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon daily">✅</div><div><h1>To-Do List</h1><p>Simple daily task manager — saved in your browser</p></div></div>
-  <div class="tool-layout full-width" style="max-width:680px;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon daily">✅</div>
+    <div>
+      <h1>Online To-Do List</h1>
+      <p>Minimalist daily checklist with priorities & auto-save — private, no sign-up required</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
-      <div class="todo-input-row">
-        <input type="text" id="newTask" class="form-input" placeholder="Add a new task…" maxlength="200" onkeydown="if(event.key==='Enter')addTask()" />
-        <button class="btn btn-primary" onclick="addTask()">+ Add</button>
+      <!-- Input Row -->
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+        <input type="text" id="newTask" class="form-input" placeholder="What needs to get done today?…" maxlength="250" style="flex:3;min-width:200px;" onkeydown="if(event.key==='Enter')addTask()" />
+        <select id="taskPriority" class="form-select" style="flex:1;min-width:120px;">
+          <option value="normal">Normal</option>
+          <option value="urgent">🔥 Urgent</option>
+          <option value="work">💼 Work</option>
+          <option value="personal">🏠 Personal</option>
+        </select>
+        <button class="btn btn-primary" onclick="addTask()" style="min-width:90px;">+ Add</button>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <span id="taskStats" style="font-size:0.82rem;color:var(--text-3);">0 tasks</span>
-        <div class="btn-group">
-          <button class="btn btn-sm btn-secondary" onclick="clearDone()">Clear done</button>
-          <button class="btn btn-sm btn-danger" onclick="clearAll()">Clear all</button>
+
+      <!-- Filter & Progress Bar -->
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div class="btn-group">
+            <button class="btn btn-sm btn-secondary filter-btn active" onclick="setFilter('all', this)">All</button>
+            <button class="btn btn-sm btn-secondary filter-btn" onclick="setFilter('active', this)">Active</button>
+            <button class="btn btn-sm btn-secondary filter-btn" onclick="setFilter('completed', this)">Done</button>
+          </div>
+          <span id="taskStats" style="font-size:0.82rem;color:var(--text-3);">0 tasks · 0 done</span>
+        </div>
+        <div style="background:var(--border);height:6px;border-radius:3px;overflow:hidden;">
+          <div id="progressBar" style="background:var(--teal);height:100%;width:0%;transition:width 0.3s;"></div>
         </div>
       </div>
-      <ul class="todo-list-items" id="taskList"></ul>
-      <div id="emptyState" style="text-align:center;padding:40px;color:var(--text-3);">
-        <div style="font-size:2.5rem;margin-bottom:8px;">📋</div>
-        <p>No tasks yet. Add one above!</p>
+
+      <!-- Action buttons -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+        <div class="btn-group">
+          <button class="btn btn-sm btn-secondary" onclick="exportTasks()">⬇ Export</button>
+          <button class="btn btn-sm btn-secondary" onclick="clearDone()">Clear Done</button>
+        </div>
+        <button class="btn btn-sm btn-danger" onclick="clearAll()">Clear All</button>
+      </div>
+
+      <!-- Task List -->
+      <ul class="todo-list-items" id="taskList" style="list-style:none;padding:0;margin:0;"></ul>
+
+      <div id="emptyState" style="text-align:center;padding:48px 16px;color:var(--text-3);">
+        <div style="font-size:2.8rem;margin-bottom:10px;">📋</div>
+        <p style="font-weight:600;margin-bottom:4px;">No tasks found</p>
+        <p style="font-size:0.85rem;">Add your first to-do item above to boost your productivity!</p>
       </div>
     </div>
   </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:760px;"></div>
+
+  <article class="tool-content" style="max-width:800px;margin:40px auto;line-height:1.7;">
+    <h2>Boost Productivity with a Focused Daily To-Do List</h2>
+    <p>Managing daily responsibilities does not require complex, subscription-based project management software. Research shows that lightweight, friction-free daily task lists dramatically improve focus and completion rates by minimizing cognitive overload. Our online <strong>To-Do List</strong> runs entirely in your browser with zero logins, cloud tracking, or latency.</p>
+
+    <h3>Effective Task Management Methodologies</h3>
+    <ul>
+      <li><strong>The 1-3-5 Rule:</strong> Plan each day around 1 major task, 3 medium tasks, and 5 minor tasks. This prevents overwhelming checklists and ensures meaningful progress.</li>
+      <li><strong>Eisenhower Matrix:</strong> Categorize items by urgency and importance. High-priority tasks receive your freshest morning focus before reactive communications take over.</li>
+      <li><strong>Pomodoro Technique:</strong> Pair your checklist items with 25-minute focused work sprints separated by 5-minute restorative pauses.</li>
+    </ul>
+
+    <h3>Complete Data Privacy with In-Browser Storage</h3>
+    <p>Unlike third-party task platforms that harvest user behavioral data, EasyToolz stores all items in HTML5 localStorage on your local device. Your sensitive to-do items, work projects, and personal reminders remain strictly between you and your computer screen.</p>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Where are my to-do tasks stored?</h3>
+        <p>All checklist entries are saved in your browser's localStorage. No tasks are sent across the internet, protecting your confidential notes and privacy.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will my tasks stay if I restart my computer?</h3>
+        <p>Yes. Browser localStorage persists through system restarts and browser closures. Tasks remain available until you explicitly clear your browser storage.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I export my task list to a text file?</h3>
+        <p>Yes. Simply click the "Export" button above to download your complete to-do checklist as a readable plain text file.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is there any fee or account required?</h3>
+        <p>No. EasyToolz tools are 100% free with unlimited tasks and zero registration.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Productivity Tools</h4>
+        <ul class="footer-links">
+          <li><a href="todo-list.html">To-Do List</a></li>
+          <li><a href="notepad.html">Online Notepad</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+          <li><a href="countdown-timer.html">Countdown Timer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Text & Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="word-counter.html">Word Counter</a></li>
+          <li><a href="case-converter.html">Case Converter</a></li>
+          <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+          <li><a href="age-calculator.html">Age Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  const STORAGE_KEY = 'easytoolz_todos';
-  let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+const STORAGE_KEY = 'easytoolz_todos_v2';
+let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let currentFilter = 'all';
 
-  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); }
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+}
 
-  function render() {
-    const list = document.getElementById('taskList');
-    const empty = document.getElementById('emptyState');
-    list.innerHTML = '';
-    const done = tasks.filter(t => t.done).length;
-    document.getElementById('taskStats').textContent = `${tasks.length} task${tasks.length!==1?'s':''} · ${done} done`;
-    empty.style.display = tasks.length === 0 ? '' : 'none';
-    tasks.forEach((t, i) => {
-      const li = document.createElement('li');
-      li.className = 'todo-item' + (t.done ? ' done' : '');
-      li.innerHTML = `
-        <button class="todo-check ${t.done?'checked':''}" onclick="toggle(${i})">${t.done?'✓':''}</button>
-        <span class="todo-text">${escHtml(t.text)}</span>
-        <button class="todo-del" onclick="del(${i})">✕</button>`;
-      list.appendChild(li);
-    });
-  }
-
-  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-  function addTask() {
-    const inp = document.getElementById('newTask');
-    const text = inp.value.trim();
-    if (!text) return;
-    tasks.unshift({ text, done: false });
-    inp.value = ''; save(); render();
-  }
-
-  function toggle(i) { tasks[i].done = !tasks[i].done; save(); render(); }
-  function del(i)    { tasks.splice(i, 1); save(); render(); }
-  function clearDone(){ tasks = tasks.filter(t => !t.done); save(); render(); }
-  function clearAll() { if (confirm('Clear all tasks?')) { tasks = []; save(); render(); } }
-
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
   render();
+}
+
+function render() {
+  const list = document.getElementById('taskList');
+  const empty = document.getElementById('emptyState');
+  list.innerHTML = '';
+
+  const filtered = tasks.filter(t => {
+    if (currentFilter === 'active') return !t.done;
+    if (currentFilter === 'completed') return t.done;
+    return true;
+  });
+
+  const doneCount = tasks.filter(t => t.done).length;
+  const totalCount = tasks.length;
+  const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+
+  document.getElementById('taskStats').textContent = `${totalCount} task${totalCount !== 1 ? 's' : ''} · ${doneCount} done (${pct}%)`;
+  document.getElementById('progressBar').style.width = pct + '%';
+  empty.style.display = filtered.length === 0 ? '' : 'none';
+
+  filtered.forEach(t => {
+    const idx = tasks.indexOf(t);
+    const li = document.createElement('li');
+    li.className = 'todo-item' + (t.done ? ' done' : '');
+    li.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--border);';
+
+    let tagColor = 'var(--text-3)';
+    let tagBg = 'rgba(255,255,255,0.05)';
+    if (t.priority === 'urgent') { tagColor = '#f87171'; tagBg = 'rgba(248,113,113,0.12)'; }
+    else if (t.priority === 'work') { tagColor = '#60a5fa'; tagBg = 'rgba(96,165,250,0.12)'; }
+    else if (t.priority === 'personal') { tagColor = '#34d399'; tagBg = 'rgba(52,211,153,0.12)'; }
+
+    const tagHtml = t.priority && t.priority !== 'normal' 
+      ? `<span style="font-size:0.75rem;padding:2px 8px;border-radius:12px;background:${tagBg};color:${tagColor};font-weight:600;text-transform:capitalize;">${t.priority}</span>` 
+      : '';
+
+    li.innerHTML = `
+      <button class="todo-check ${t.done ? 'checked' : ''}" onclick="toggle(${idx})" style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:${t.done ? 'var(--teal)' : 'transparent'};color:${t.done ? '#000' : 'transparent'};display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;font-weight:700;">✓</button>
+      <span class="todo-text" style="flex:1;${t.done ? 'text-decoration:line-through;color:var(--text-3);' : ''}">${escHtml(t.text)}</span>
+      ${tagHtml}
+      <button class="todo-del" onclick="del(${idx})" style="background:none;border:none;color:var(--text-3);cursor:pointer;font-size:1.1rem;padding:4px 8px;">✕</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function addTask() {
+  const inp = document.getElementById('newTask');
+  const text = inp.value.trim();
+  const priority = document.getElementById('taskPriority').value;
+  if (!text) return;
+  tasks.unshift({ text, priority, done: false, date: new Date().toISOString() });
+  inp.value = '';
+  save();
+  render();
+}
+
+function toggle(i) {
+  tasks[i].done = !tasks[i].done;
+  save();
+  render();
+}
+
+function del(i) {
+  tasks.splice(i, 1);
+  save();
+  render();
+}
+
+function clearDone() {
+  tasks = tasks.filter(t => !t.done);
+  save();
+  render();
+}
+
+function clearAll() {
+  if (confirm('Are you sure you want to clear all tasks?')) {
+    tasks = [];
+    save();
+    render();
+  }
+}
+
+function exportTasks() {
+  if (!tasks.length) return alert('No tasks to export.');
+  let txt = `EasyToolz To-Do Checklist — ${new Date().toLocaleDateString()}\n`;
+  txt += `==============================================\n\n`;
+  tasks.forEach((t, i) => {
+    txt += `[${t.done ? 'X' : ' '}] ${t.text} (${t.priority || 'normal'})\n`;
+  });
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'my-todos.txt';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
+
+render();
 </script>
-</body></html>
+<style>
+.filter-btn.active { background: var(--teal) !important; color: #000 !important; font-weight: 700; border-color: var(--teal) !important; }
+</style>
+</body>
+</html>

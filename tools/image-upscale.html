@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Upscale — EasyToolz</title>
-  <meta name="description" content="Free Image Upscaler — enlarge images 2× or 4× in your browser. No upload, no AI required." />
+  <title>Image Upscaler Online — Enlarge Images 2× & 4× Free | EasyToolz</title>
+  <meta name="description" content="Free online Image Upscaler. Enlarge photos and graphics up to 4× their resolution using multi-pass high quality canvas interpolation. No file size limits, 100% private in your browser." />
   <link rel="canonical" href="https://easytoolz.click/tools/image-upscale.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Image Upscaler Online — Enlarge Photos 2× and 4× Free | EasyToolz" />
+  <meta property="og:description" content="Enlarge your low-resolution images 2×, 3×, or 4× without downloading software. Free, instant, and runs locally." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/image-upscale.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Image Upscaler","url":"https://easytoolz.click/tools/image-upscale.html","description":"Enlarge low-resolution images up to 4× with multi-pass bicubic smoothing directly in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How does this image upscaler enlarge images without losing quality?","acceptedAnswer":{"@type":"Answer","text":"Our tool uses stepped interpolation. Instead of blowing up an image in one harsh jump, it applies multiple smoothing passes to avoid pixelation and retain sharp edges."}},
+    {"@type":"Question","name":"Is there a file size limit or daily quota?","acceptedAnswer":{"@type":"Answer","text":"No! Because processing happens in your device's browser memory, you can upscale as many photos as you want with zero limits."}},
+    {"@type":"Question","name":"Are my uploaded pictures stored on any server?","acceptedAnswer":{"@type":"Answer","text":"Never. All image processing is 100% client-side. Your photos stay strictly on your computer or mobile device."}},
+    {"@type":"Question","name":"Can I save the upscaled image as PNG, JPEG, or WebP?","acceptedAnswer":{"@type":"Answer","text":"Yes, you can choose between lossless PNG (best quality), WebP (modern web format), or JPEG (smaller file size)."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,10 +29,10 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Image Upscale</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon images">🔭</div><div><h1>Image Upscale</h1><p>Enlarge your images 2× or 4× — free, browser-based</p></div></div>
-  <div class="tool-layout full-width" style="max-width:680px;">
+  <div class="tool-page-header"><div class="tool-page-icon images">🔭</div><div><h1>Image Upscaler</h1><p>Enlarge and upscale images 2×, 3×, or 4× — free, instant & browser-based</p></div></div>
+  <div class="tool-layout full-width" style="max-width:700px;">
     <div class="tool-box">
-      <div class="info-chip" style="margin-bottom:16px;">ℹ️ This tool uses high-quality canvas interpolation. For AI-powered upscaling, try waifu2x or Upscayl.</div>
+      <div class="info-chip" style="margin-bottom:16px;">ℹ️ High-fidelity stepped interpolation preserves edges and minimizes pixelation. 100% private in your browser.</div>
       <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
         <div class="drop-icon">🔭</div>
         <div class="drop-text">Click or drag & drop an image here</div>
@@ -31,82 +45,157 @@
           <div class="form-group">
             <label class="form-label">Upscale Factor</label>
             <select id="factor" class="form-select" onchange="updateInfo()">
-              <option value="2">2× (double size)</option>
-              <option value="4">4× (quadruple size)</option>
-              <option value="1.5">1.5×</option>
-              <option value="3">3×</option>
+              <option value="2" selected>2× (Double resolution)</option>
+              <option value="3">3× (Triple resolution)</option>
+              <option value="4">4× (Quadruple resolution)</option>
+              <option value="1.5">1.5× (Subtle boost)</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-label">Quality</label>
+            <label class="form-label">Output Format</label>
             <select id="fmt" class="form-select">
-              <option value="image/png">PNG (lossless)</option>
-              <option value="image/jpeg">JPEG (smaller)</option>
-              <option value="image/webp">WebP</option>
+              <option value="image/png" selected>PNG (Lossless & Sharpest)</option>
+              <option value="image/jpeg">JPEG (Compressed)</option>
+              <option value="image/webp">WebP (Modern Compact)</option>
             </select>
           </div>
         </div>
-        <div id="newInfo" style="font-size:.82rem;color:var(--text-2);margin-bottom:16px;"></div>
+        <div id="newInfo" style="font-size:.85rem;color:var(--teal);margin-bottom:16px;font-weight:600;"></div>
         <button class="btn btn-primary btn-block" onclick="doUpscale()">🔭 Upscale & Download</button>
-        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Upscaling…</div>
+        <button class="btn btn-secondary btn-block" onclick="resetTool()" style="margin-top:8px;">Change Image</button>
+        <div id="loading" style="display:none;text-align:center;padding:16px;color:var(--text-2);">⏳ Upscaling image with multi-pass smoothing…</div>
       </div>
     </div>
   </div>
-</div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
-<script src="../js/main.js"></script>
-<script>
-let img=null;
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');loadImg(e.dataTransfer.files[0]);});
 
-function loadImg(file){
-  if(!file||!file.type.startsWith('image/'))return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const i=new Image();
-    i.onload=()=>{img=i;document.getElementById('origInfo').textContent=`Original: ${i.naturalWidth} × ${i.naturalHeight} px`;updateInfo();document.getElementById('controls').style.display='';};
-    i.src=e.target.result;
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Upscale Low Resolution Photos for Free</h2>
+    <p>Have a small, grainy photo, avatar, or graphic that looks blurry when printed or displayed on modern high-DPI screens? Our browser-based Image Upscaler lets you blow up images up to 400% (4×) using multi-pass high-quality canvas interpolation.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Select your photo:</strong> Drag and drop your image into the drop box above or click to select from your phone, tablet, or PC.</li>
+      <li><strong>Choose your multiplier:</strong> Select 2× (double dimensions), 3×, 4× (quadruple dimensions), or 1.5× depending on how large you need the output.</li>
+      <li><strong>Pick format & upscale:</strong> Choose PNG for crisp lines or JPEG for smaller file sizes, then click "Upscale & Download" to get your enlarged photo in seconds.</li>
+    </ol>
+
+    <h2>Why Use EasyToolz Image Upscaler?</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Stepped Scaling Smoothing:</strong> Rather than stretching pixels in a single crude operation, we apply progressive multi-step resampling with anti-aliasing to maintain natural tones and smooth gradients.</li>
+      <li><strong>Zero Server Uploads:</strong> Most online upscalers make you register an account, wait in a slow server queue, or limit you to 3 images per month. EasyToolz processes everything directly in your browser with unlimited usage.</li>
+      <li><strong>Perfect for Print & Wallpapers:</strong> Turn low-res phone photos, icons, and classic memes into high-res assets ready for framing, social headers, or high-definition screens.</li>
+    </ul>
+
+    <p>Related photo enhancement tools: <a href="image-resizer.html">Image Resizer</a>, <a href="image-compressor.html">Image Compressor</a>, <a href="image-converter.html">Image Converter</a>, <a href="photo-editor.html">Photo Editor</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How does this image upscaler enlarge images without losing quality?</h3><p>Our tool uses stepped interpolation. Instead of blowing up an image in one harsh jump, it applies multiple smoothing passes with bilinear filtering to avoid blocky pixelation and retain sharp edges.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Is there a file size limit or daily quota?</h3><p>No! Because processing happens in your device's browser memory, you can upscale as many photos as you want with zero limits.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are my uploaded pictures stored on any server?</h3><p>Never. All image processing is 100% client-side. Your photos stay strictly on your computer or mobile device.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I save the upscaled image as PNG, JPEG, or WebP?</h3><p>Yes, you can choose between lossless PNG (best quality), WebP (modern web format), or JPEG (smaller file size).</p></div>
+    </div>
+  </article>
+</div></main>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="image-upscale.html">Image Upscaler</a></li><li><a href="image-resizer.html">Image Resizer</a></li><li><a href="pdf-merger.html">PDF Merger</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
+<script>
+let img = null;
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); loadImg(e.dataTransfer.files[0]); });
+
+function loadImg(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const i = new Image();
+    i.onload = () => {
+      img = i;
+      document.getElementById('origInfo').textContent = `Original Resolution: ${i.naturalWidth} × ${i.naturalHeight} px`;
+      updateInfo();
+      document.getElementById('dropZone').style.display = 'none';
+      document.getElementById('controls').style.display = '';
+    };
+    i.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
-function updateInfo(){
-  if(!img)return;
-  const f=parseFloat(document.getElementById('factor').value);
-  document.getElementById('newInfo').textContent=`→ Output: ${Math.round(img.naturalWidth*f)} × ${Math.round(img.naturalHeight*f)} px`;
+
+function resetTool() {
+  img = null;
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('controls').style.display = 'none';
 }
-async function doUpscale(){
-  if(!img)return;
-  document.getElementById('loading').style.display='block';
-  await new Promise(r=>setTimeout(r,30));
-  const f=parseFloat(document.getElementById('factor').value);
-  const fmt=document.getElementById('fmt').value;
-  const ext=fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
-  // Multi-step upscaling for better quality
-  let src=img;
-  const steps=f>=2?2:1;
-  const stepFactor=Math.pow(f,1/steps);
-  let w=img.naturalWidth,h=img.naturalHeight;
-  let c=document.createElement('canvas');
-  for(let s=0;s<steps;s++){
-    w=Math.round(w*stepFactor);h=Math.round(h*stepFactor);
-    c=document.createElement('canvas');c.width=w;c.height=h;
-    const ctx=c.getContext('2d');
-    ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
-    ctx.drawImage(src,0,0,w,h);
-    src=c;
+
+function updateInfo() {
+  if (!img) return;
+  const f = parseFloat(document.getElementById('factor').value);
+  document.getElementById('newInfo').textContent = `→ New Resolution: ${Math.round(img.naturalWidth * f)} × ${Math.round(img.naturalHeight * f)} px`;
+}
+
+async function doUpscale() {
+  if (!img) return;
+  document.getElementById('loading').style.display = 'block';
+  await new Promise(r => setTimeout(r, 40));
+  const f = parseFloat(document.getElementById('factor').value);
+  const fmt = document.getElementById('fmt').value;
+  const ext = fmt === 'image/png' ? 'png' : fmt === 'image/webp' ? 'webp' : 'jpg';
+
+  let src = img;
+  const steps = f >= 2 ? (f >= 3 ? 3 : 2) : 1;
+  const stepFactor = Math.pow(f, 1 / steps);
+  let w = img.naturalWidth, h = img.naturalHeight;
+  let c = document.createElement('canvas');
+
+  for (let s = 0; s < steps; s++) {
+    w = Math.round(w * stepFactor);
+    h = Math.round(h * stepFactor);
+    c = document.createElement('canvas');
+    c.width = w;
+    c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(src, 0, 0, w, h);
+    src = c;
   }
-  const a=document.createElement('a');a.href=c.toDataURL(fmt,.95);a.download=`upscaled-${f}x.${ext}`;a.click();
-  document.getElementById('loading').style.display='none';
+
+  c.toBlob(blob => {
+    document.getElementById('loading').style.display = 'none';
+    if (!blob) {
+      const a = document.createElement('a');
+      a.href = c.toDataURL(fmt, 0.95);
+      a.download = `upscaled-${f}x.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `upscaled-${f}x.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+  }, fmt, 0.95);
 }
 </script>
 <style>
-.drop-zone{border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--teal);background:rgba(0,212,170,.04)}
-.drop-icon{font-size:3rem;margin-bottom:12px}.drop-text{font-weight:600;margin-bottom:6px}.drop-sub{font-size:.8rem;color:var(--text-3)}
-.tool-page-icon.images{background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6}
-.info-chip{background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;color:var(--text-2);}
+.drop-zone { border:2px dashed var(--border-hover);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all .2s; }
+.drop-zone:hover,.drop-zone.drag-over { border-color:var(--teal);background:rgba(0,212,170,.04); }
+.drop-icon { font-size:3rem;margin-bottom:12px; }
+.drop-text { font-weight:600;margin-bottom:6px; }
+.drop-sub  { font-size:.8rem;color:var(--text-3); }
+.tool-page-icon.images { background:linear-gradient(135deg,rgba(244,114,182,.15),rgba(244,114,182,.05));color:#f472b6; }
+.info-chip { background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;color:var(--text-2); }
 </style>
 </body></html>

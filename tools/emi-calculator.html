@@ -1,68 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EMI Calculator — EasyToolz</title>
-  <meta name="description" content="Free EMI Calculator — calculate your monthly loan EMI, total interest and total payment instantly." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMI Calculator Online — Calculate Loan EMI Instantly | EasyToolz</title>
+  <meta name="description" content="Free online EMI Calculator. Calculate your monthly loan EMI, total interest, and payment schedule for home loans, car loans, and personal loans instantly." />
   <link rel="canonical" href="https://easytoolz.click/tools/emi-calculator.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="EMI Calculator Online — Monthly Loan Installment Calculator | EasyToolz" />
+  <meta property="og:description" content="Calculate monthly EMI for home, car, and personal loans. See total interest payable and full repayment breakdown." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/emi-calculator.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"EMI Calculator","url":"https://easytoolz.click/tools/emi-calculator.html","description":"Free online EMI Calculator. Calculate monthly loan EMI, total interest, and payment schedule.","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is EMI?","acceptedAnswer":{"@type":"Answer","text":"EMI (Equated Monthly Installment) is the fixed amount you pay to your bank or lender every month to repay your loan. It includes both principal repayment and interest charges."}},
+    {"@type":"Question","name":"How is EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"EMI is calculated using the formula: EMI = [P × R × (1+R)^N] / [(1+R)^N - 1], where P = Principal loan amount, R = Monthly interest rate, and N = Number of monthly installments."}},
+    {"@type":"Question","name":"Does a higher tenure reduce EMI?","acceptedAnswer":{"@type":"Answer","text":"Yes, a longer loan tenure reduces your monthly EMI. However, you end up paying more total interest over the life of the loan. Our calculator shows both so you can make an informed decision."}}
+  ]}
+  </script>
 </head>
 <body>
-<nav class="navbar"><div class="container">
-  <a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a>
-  <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
-  <button class="nav-toggle" id="navToggle">☰</button>
-</div></nav>
+<nav class="navbar"><div class="container"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../calculators/index.html">Calculators</a></li></ul><button class="nav-toggle" id="navToggle">☰</button></div></nav>
+
 <main class="tool-page"><div class="container">
-  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">EMI Calculator</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon calculators">🏦</div><div><h1>EMI Calculator</h1><p>Calculate monthly loan installments & total interest</p></div></div>
-  <div class="tool-layout">
-    <div class="tool-box">
-      <div class="form-group"><label class="form-label">Loan Amount (₹ / $)</label><input type="number" id="loan" class="form-input" placeholder="e.g. 500000" /></div>
-      <div class="form-group"><label class="form-label">Annual Interest Rate (%)</label><input type="number" id="rate" class="form-input" placeholder="e.g. 8.5" step="0.1" /></div>
-      <div class="form-group"><label class="form-label">Loan Tenure (Months)</label><input type="number" id="tenure" class="form-input" placeholder="e.g. 60" /></div>
+  <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><a href="../calculators/index.html">Calculators</a><span class="sep">›</span><span class="current">EMI Calculator</span></nav>
+  <div class="tool-page-header"><div class="tool-page-icon calculators">🏦</div><div><h1>EMI Calculator</h1><p>Calculate monthly loan installments and total interest payable</p></div></div>
+
+  <div class="ad-container" id="ad-top" data-ad-format="horizontal" style="margin-bottom:24px;"></div>
+
+  <div class="tool-layout full-width">
+    <div class="tool-box" style="margin-bottom:40px;max-width:640px;margin-left:auto;margin-right:auto;">
+      <div class="form-group"><label class="form-label">Loan Amount (₹ / $ / €)</label><input type="number" id="principal" class="form-input" placeholder="e.g. 500000" /></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Annual Interest Rate (%)</label><input type="number" id="rate" class="form-input" placeholder="e.g. 8.5" step="0.1" /></div>
+        <div class="form-group"><label class="form-label">Loan Tenure (years)</label><input type="number" id="tenure" class="form-input" placeholder="e.g. 5" /></div>
+      </div>
       <button class="btn btn-primary btn-block" onclick="calcEMI()">Calculate EMI</button>
-      <div id="emiResult" style="display:none;margin-top:20px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:12px;padding:16px;text-align:center;">
-            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Monthly EMI</div>
-            <div id="emi" style="font-size:1.3rem;font-weight:800;color:var(--teal);"></div>
-          </div>
-          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.2);border-radius:12px;padding:16px;text-align:center;">
-            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Total Interest</div>
-            <div id="totalInt" style="font-size:1.3rem;font-weight:800;color:var(--purple);"></div>
-          </div>
-          <div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:12px;padding:16px;text-align:center;">
-            <div style="font-size:0.75rem;color:var(--text-3);margin-bottom:6px;">Total Payment</div>
-            <div id="totalPay" style="font-size:1.3rem;font-weight:800;color:#f87171;"></div>
-          </div>
+      <div class="result-box" id="result" style="margin-top:20px;">
+        <div class="result-value" id="emiVal"></div>
+        <div class="result-label" id="emiLabel"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;font-size:0.9rem;" id="details" >
+          <div><span style="color:var(--text-3);">Total Interest</span><div id="totalInt" style="font-weight:700;color:#f59e0b;font-size:1.1rem;"></div></div>
+          <div><span style="color:var(--text-3);">Total Payment</span><div id="totalPay" style="font-weight:700;color:var(--teal);font-size:1.1rem;"></div></div>
         </div>
       </div>
     </div>
-    <div class="sidebar">
-      <div class="ad-slot"><p>Advertisement</p></div>
-      <div class="sidebar-info"><h4>EMI Formula</h4><ul>
-        <li>EMI = P × r × (1+r)ⁿ / ((1+r)ⁿ-1)</li><li>P = Principal loan amount</li><li>r = Monthly interest rate</li><li>n = Loan tenure in months</li>
-      </ul></div>
-    </div>
+
+    <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin-bottom:30px;"></div>
+
+    <article class="tool-content">
+      <h2>How to Calculate Your Loan EMI</h2>
+      <p>Planning to take a home loan, car loan, or personal loan? Understanding your Equated Monthly Installment (EMI) before borrowing helps you budget effectively and avoid financial strain. Our free EMI Calculator gives you instant results without needing to visit a bank.</p>
+      <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+        <li><strong>Enter the loan amount:</strong> Type the total amount you plan to borrow.</li>
+        <li><strong>Set the interest rate:</strong> Enter the annual interest rate offered by your bank (e.g., 8.5%).</li>
+        <li><strong>Choose the tenure:</strong> Select how many years you want to repay the loan over.</li>
+        <li><strong>Click Calculate:</strong> Instantly see your monthly EMI, total interest payable, and total repayment amount.</li>
+      </ol>
+
+      <h2>Understanding the EMI Formula</h2>
+      <p>EMI is calculated using the standard reducing balance formula:</p>
+      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:30px;font-family:monospace;font-size:0.95rem;">
+        EMI = [P × R × (1+R)<sup>N</sup>] / [(1+R)<sup>N</sup> - 1]
+      </div>
+      <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+        <li><strong>P</strong> = Principal loan amount</li>
+        <li><strong>R</strong> = Monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+        <li><strong>N</strong> = Total number of monthly installments (years × 12)</li>
+      </ul>
+
+      <p>Also useful: <a href="percentage-calculator.html">Percentage Calculator</a>, <a href="discount-calculator.html">Discount Calculator</a>, <a href="tip-calculator.html">Tip Calculator</a>.</p>
+
+      <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What is EMI?</h3><p>EMI (Equated Monthly Installment) is the fixed amount you pay to your bank or lender every month to repay your loan. Each EMI payment includes both principal repayment and interest charges.</p></div>
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Does a higher tenure reduce EMI?</h3><p>Yes, a longer loan tenure reduces your monthly EMI. However, you end up paying significantly more total interest over the life of the loan. Our calculator shows both values so you can compare scenarios.</p></div>
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I use this for home loans and car loans?</h3><p>Absolutely. This calculator works for any type of loan — home loans, car loans, personal loans, education loans, or business loans. Just enter the principal, interest rate, and tenure.</p></div>
+        <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How can I reduce my EMI?</h3><p>You can reduce your EMI by: (1) negotiating a lower interest rate, (2) extending the loan tenure, (3) making a larger down payment to reduce the principal, or (4) making part-prepayments when you have surplus funds.</p></div>
+      </div>
+    </article>
   </div>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="bmi-calculator.html">BMI Calculator</a></li><li><a href="qr-code-generator.html">QR Generator</a></li><li><a href="password-generator.html">Password Generator</a></li><li><a href="stopwatch.html">Stopwatch</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
+function fmt(n){ return n.toLocaleString('en-IN',{maximumFractionDigits:0}); }
 function calcEMI(){
-  const P=parseFloat(document.getElementById('loan').value);
-  const annual=parseFloat(document.getElementById('rate').value);
-  const n=parseInt(document.getElementById('tenure').value);
-  if(!P||!annual||!n) return alert('Please fill all fields.');
-  const r=annual/(12*100);
-  const emi = P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  const total=emi*n, interest=total-P;
-  const fmt=v=>v.toLocaleString('en-IN',{minimumFractionDigits:0,maximumFractionDigits:0});
-  document.getElementById('emi').textContent     = '₹ '+fmt(emi);
-  document.getElementById('totalInt').textContent = '₹ '+fmt(interest);
-  document.getElementById('totalPay').textContent = '₹ '+fmt(total);
-  document.getElementById('emiResult').style.display='';
+  const P=parseFloat(document.getElementById('principal').value);
+  const annualRate=parseFloat(document.getElementById('rate').value);
+  const years=parseFloat(document.getElementById('tenure').value);
+  if(!P||!annualRate||!years) return alert('Please fill in all fields.');
+  const R=annualRate/12/100;
+  const N=years*12;
+  const emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);
+  const totalPay=emi*N;
+  const totalInt=totalPay-P;
+  document.getElementById('emiVal').textContent='₹ '+fmt(emi)+' / month';
+  document.getElementById('emiLabel').textContent='Monthly EMI';
+  document.getElementById('totalInt').textContent='₹ '+fmt(totalInt);
+  document.getElementById('totalPay').textContent='₹ '+fmt(totalPay);
+  document.getElementById('result').classList.add('show');
 }
 </script>
 </body></html>

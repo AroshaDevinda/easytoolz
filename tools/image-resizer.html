@@ -167,6 +167,7 @@
 </footer>
 
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
   let img=null,origW=0,origH=0;
   function loadImg(f){
@@ -201,10 +202,15 @@
     if(!w||!h)return alert('Enter dimensions.');
     const c=document.createElement('canvas');c.width=w;c.height=h;
     c.getContext('2d').drawImage(img,0,0,w,h);
-    const url=c.toDataURL('image/jpeg',0.92);
-    document.getElementById('resImg').src=url;
+    const dataUrl=c.toDataURL('image/jpeg',0.92);
+    document.getElementById('resImg').src=dataUrl;
     document.getElementById('resPreview').style.display='';
-    const a=document.createElement('a');a.href=url;a.download='resized_'+w+'x'+h+'.jpg';a.click();
+    c.toBlob(function(blob){
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download='resized_'+w+'x'+h+'.jpg';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    },'image/jpeg',0.92);
   }
 </script>
 </body>

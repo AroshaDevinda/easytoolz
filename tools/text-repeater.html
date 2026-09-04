@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Text Repeater — EasyToolz</title>
-  <meta name="description" content="Free Text Repeater — repeat any text or character multiple times with custom separators." />
+  <title>Text Repeater Online — Repeat Words, Sentences & Messages 10,000x Free | EasyToolz</title>
+  <meta name="description" content="Free online Text Repeater tool. Repeat any text, string, or emoji up to 10,000 times with custom separators, numbering, and case formatting. Instant copy and .txt download." />
   <link rel="canonical" href="https://easytoolz.click/tools/text-repeater.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Text Repeater Online — Repeat Text & Emojis Free | EasyToolz" />
+  <meta property="og:description" content="Multiply text, words, and emojis instantly with custom separators, numbering, and instant copy." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/text-repeater.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Text Repeater Tool",
+    "url": "https://easytoolz.click/tools/text-repeater.html",
+    "description": "Quickly repeat any string, phrase, or emoji multiple times with custom line breaks and separators.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many times can I repeat text with this tool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can repeat any text or emoji string up to 10,000 times in a single click without browser freezing or server limitations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add numbering or index tags to each repeated line?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Enable the 'Include line numbers' toggle to prefix each repetition with numerical indexing (e.g., 1. Item, 2. Item)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are common use cases for a text repeater?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Common applications include generating dummy data for software testing, stress-testing text areas, formatting social media captions, creating repetitive pattern art, and crafting emphasized messaging."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my entered text saved or sent to any server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All text manipulation is processed purely client-side inside your browser engine. Your text is never sent across the network."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -13,50 +69,209 @@
   <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </div></nav>
+
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Text Repeater</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon text">🔁</div><div><h1>Text Repeater</h1><p>Repeat any text or character any number of times</p></div></div>
-  <div class="tool-layout full-width" style="max-width:600px;">
+  <div class="tool-page-header">
+    <div class="tool-page-icon text">🔁</div>
+    <div>
+      <h1>Text Repeater</h1>
+      <p>Duplicate words, phrases, or emoji sequences up to 10,000 times in milliseconds</p>
+    </div>
+  </div>
+
+  <div class="tool-layout full-width" style="max-width:760px;">
     <div class="tool-box">
-      <div class="form-group"><label class="form-label">Text to Repeat</label><textarea id="repText" class="form-textarea" style="min-height:80px;" placeholder="Enter your text…"></textarea></div>
+      <div class="form-group">
+        <label class="form-label">Text to Repeat</label>
+        <textarea id="repText" class="form-textarea" style="min-height:90px;" placeholder="Enter word, phrase, symbol or emoji…">I love coding! 💻</textarea>
+      </div>
+
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Repeat Times</label><input type="number" id="repTimes" class="form-input" value="5" min="1" max="1000" /></div>
-        <div class="form-group"><label class="form-label">Separator</label>
-          <select id="repSep" class="form-select">
-            <option value="">None</option>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Repeat Count (1 – 10,000)</label>
+          <input type="number" id="repTimes" class="form-input" value="10" min="1" max="10000" />
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Separator</label>
+          <select id="repSep" class="form-select" onchange="toggleCustomSep()">
+            <option value="\n" selected>New Line (Enter)</option>
             <option value=" ">Space</option>
             <option value=", ">Comma + Space</option>
-            <option value="\n">New Line</option>
             <option value=" | ">Pipe ( | )</option>
-            <option value=" - ">Dash ( - )</option>
+            <option value=" - ">Hyphen ( - )</option>
+            <option value="">None (Concatenate)</option>
+            <option value="custom">Custom String…</option>
           </select>
         </div>
       </div>
-      <button class="btn btn-primary btn-block" onclick="repeat()">Repeat Text</button>
-      <div id="repOut" style="display:none;margin-top:16px;">
-        <label class="form-label">Result</label>
-        <div id="repResult" class="output-box" style="max-height:300px;overflow-y:auto;"></div>
-        <div style="margin-top:10px;display:flex;gap:8px;">
-          <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('repResult').textContent,this)">Copy</button>
-          <span style="font-size:0.8rem;color:var(--text-3);line-height:34px;" id="repInfo"></span>
+
+      <div class="form-group" id="customSepRow" style="display:none;">
+        <label class="form-label">Custom Separator String</label>
+        <input type="text" id="customSep" class="form-input" placeholder="e.g. • or //" />
+      </div>
+
+      <div class="form-row" style="margin-bottom:16px;gap:20px;flex-wrap:wrap;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.88rem;cursor:pointer;color:var(--text-2);">
+          <input type="checkbox" id="addNum" style="accent-color:var(--teal);" />
+          Add Line Numbers (1., 2., 3…)
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:0.88rem;cursor:pointer;color:var(--text-2);">
+          <input type="checkbox" id="trimEach" checked style="accent-color:var(--teal);" />
+          Trim whitespace on input
+        </label>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="doRepeat()" style="flex:2;min-width:180px;">🔁 Repeat Text Now</button>
+        <button class="btn btn-secondary" onclick="clearAll()" style="flex:1;">🗑 Clear</button>
+      </div>
+
+      <div id="repOut" style="display:none;margin-top:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <label class="form-label" style="margin:0;">Generated Output</label>
+          <span id="repInfo" style="font-size:0.82rem;color:var(--text-3);"></span>
+        </div>
+        <div id="repResult" class="output-box" style="max-height:320px;overflow-y:auto;white-space:pre-wrap;font-family:monospace;font-size:0.9rem;user-select:all;"></div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-sm" onclick="copyText(document.getElementById('repResult').textContent, this)">📋 Copy to Clipboard</button>
+          <button class="btn btn-secondary btn-sm" onclick="downloadTxt()">⬇ Download as .txt</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="ad-mid" style="margin:30px auto;max-width:760px;"></div>
+
+  <article class="tool-content" style="max-width:800px;margin:40px auto;line-height:1.7;">
+    <h2>What is a Text Repeater & Why Use It?</h2>
+    <p>A <strong>Text Repeater</strong> allows you to clone any text string, emoji sequence, or sentence thousands of times with a single tap. While typing the same line repeatedly is tedious and prone to formatting errors, an automated generator creates clean, uniformly separated repetitions tailored to your exact specifications.</p>
+
+    <h3>Top Practical Use Cases</h3>
+    <ul>
+      <li><strong>Software & QA Testing:</strong> Populate database columns, stress-test form character limits, and verify pagination with repetitive dummy strings.</li>
+      <li><strong>Social Media Formatting:</strong> Generate repetitive aesthetic borders, emphasize emojis, and create viral patterned captions for Instagram, TikTok, and WhatsApp.</li>
+      <li><strong>Chat Messaging Fun:</strong> Send harmless playful spam or repeated birthday wishes and congratulatory cheers to friends.</li>
+      <li><strong>Typographic & Design Exploration:</strong> Review how specific fonts and glyphs render when arrayed in dense, rhythmic text blocks.</li>
+    </ul>
+
+    <h3>Custom Separators & Numerical Indexing</h3>
+    <p>You have full flexibility over how repetitions are separated. Choose standard line breaks to create vertical columns, spaces or commas for inline lists, or define your own custom punctuation like bullets (•) or slashes. You can also automatically prefix an incremental counter to create numbered test lists instantly.</p>
+
+    <div id="ad-content" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>How many times can I repeat text with this tool?</h3>
+        <p>You can generate up to 10,000 repetitions at a time. The tool handles large datasets smoothly using efficient string arrays.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I repeat emoji and special symbols?</h3>
+        <p>Yes. Full Unicode support means you can repeat emojis, math symbols, Asian typography, and decorative icons without corrupted characters.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I download the output as a text file?</h3>
+        <p>Yes. After generating your repeated text, click the "Download as .txt" button to save the entire file directly to your device.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does the tool track or store my messages?</h3>
+        <p>No. EasyToolz processes all text operations purely within your browser memory. Nothing is ever sent to or stored on our servers.</p>
+      </div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></div>
+        <p class="footer-desc">Free, fast, private online tools. No installation, no registration, no cloud storage. 100% in-browser processing.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Text Tools</h4>
+        <ul class="footer-links">
+          <li><a href="word-counter.html">Word Counter</a></li>
+          <li><a href="case-converter.html">Case Converter</a></li>
+          <li><a href="text-repeater.html">Text Repeater</a></li>
+          <li><a href="lorem-ipsum.html">Lorem Ipsum</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Productivity Tools</h4>
+        <ul class="footer-links">
+          <li><a href="todo-list.html">To-Do List</a></li>
+          <li><a href="notepad.html">Online Notepad</a></li>
+          <li><a href="stopwatch.html">Stopwatch</a></li>
+          <li><a href="countdown-timer.html">Countdown Timer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About & Privacy</h4>
+        <ul class="footer-links">
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+          <li><a href="../contact.html">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyToolz.click — All Rights Reserved</span>
+      <span>100% Client-Side Privacy</span>
+    </div>
+  </div>
+</footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-  function repeat(){
-    const txt=document.getElementById('repText').value;
-    const n=Math.min(1000,parseInt(document.getElementById('repTimes').value)||1);
-    const rawSep=document.getElementById('repSep').value;
-    const sep=rawSep==='\n'?'\n':rawSep;
-    if(!txt.trim())return alert('Enter text to repeat.');
-    const result=Array(n).fill(txt).join(sep);
-    document.getElementById('repResult').textContent=result;
-    document.getElementById('repInfo').textContent=`${n} repetitions · ${result.length} chars`;
-    document.getElementById('repOut').style.display='';
+function toggleCustomSep() {
+  const isCustom = document.getElementById('repSep').value === 'custom';
+  document.getElementById('customSepRow').style.display = isCustom ? '' : 'none';
+}
+
+function doRepeat() {
+  let txt = document.getElementById('repText').value;
+  if (document.getElementById('trimEach').checked) txt = txt.trim();
+  if (!txt) return alert('Please enter some text to repeat.');
+
+  const times = Math.min(10000, Math.max(1, parseInt(document.getElementById('repTimes').value) || 1));
+  const rawSep = document.getElementById('repSep').value;
+  let sep = rawSep;
+  if (rawSep === '\\n') sep = '\n';
+  else if (rawSep === 'custom') sep = document.getElementById('customSep').value;
+
+  const addNum = document.getElementById('addNum').checked;
+  const items = [];
+  for (let i = 1; i <= times; i++) {
+    items.push(addNum ? `${i}. ${txt}` : txt);
   }
+
+  const result = items.join(sep);
+  document.getElementById('repResult').textContent = result;
+  document.getElementById('repInfo').textContent = `${times.toLocaleString()} repetitions · ${result.length.toLocaleString()} characters`;
+  document.getElementById('repOut').style.display = '';
+}
+
+function clearAll() {
+  document.getElementById('repText').value = '';
+  document.getElementById('repOut').style.display = 'none';
+}
+
+function downloadTxt() {
+  const content = document.getElementById('repResult').textContent;
+  if (!content) return;
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'repeated-text.txt';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+}
 </script>
-</body></html>
+</body>
+</html>

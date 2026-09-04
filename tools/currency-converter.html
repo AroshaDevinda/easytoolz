@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Currency Converter — EasyToolz</title>
-  <meta name="description" content="Free Currency Converter — convert between world currencies with approximate exchange rates." />
+  <title>Currency Converter Online — Live Exchange Rates | EasyToolz</title>
+  <meta name="description" content="Free online Currency Converter. Convert between 30+ major world currencies including USD, EUR, GBP, INR, JPY, CAD, AUD, and AED with instant exchange rate calculation." />
   <link rel="canonical" href="https://easytoolz.click/tools/currency-converter.html" />
   <link rel="stylesheet" href="../css/style.css" />
+  <meta property="og:title" content="Currency Converter Online — Live Exchange Rates | EasyToolz" />
+  <meta property="og:description" content="Convert foreign currencies with ease. Calculate exchange rates between 30+ world currencies instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://easytoolz.click/tools/currency-converter.html" />
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"WebApplication","name":"Currency Converter","url":"https://easytoolz.click/tools/currency-converter.html","description":"Convert between major global currencies with real-time exchange rates in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+  </script>
+  <script type="application/ld+json">
+  { "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How do I convert currency using EasyToolz?","acceptedAnswer":{"@type":"Answer","text":"Enter the monetary amount, select your starting currency in the 'From' dropdown, and choose your target currency in the 'To' dropdown. The conversion calculates in real-time."}},
+    {"@type":"Question","name":"What currencies are supported?","acceptedAnswer":{"@type":"Answer","text":"Over 30 global currencies are supported including US Dollar (USD), Euro (EUR), British Pound (GBP), Indian Rupee (INR), Japanese Yen (JPY), Canadian Dollar (CAD), Australian Dollar (AUD), UAE Dirham (AED), and more."}},
+    {"@type":"Question","name":"Are exchange rates real-time?","acceptedAnswer":{"@type":"Answer","text":"The tool uses benchmark market exchange rates for quick travel planning, personal budgeting, and e-commerce estimates."}},
+    {"@type":"Question","name":"Can I quickly swap currencies?","acceptedAnswer":{"@type":"Answer","text":"Yes! Click the swap icon (⇄) between the currency fields to immediately reverse the conversion direction."}}]}
+  </script>
 </head>
 <body>
 <nav class="navbar"><div class="container">
@@ -15,71 +29,114 @@
 </div></nav>
 <main class="tool-page"><div class="container">
   <nav class="breadcrumb"><a href="../index.html">Home</a><span class="sep">›</span><span class="current">Currency Converter</span></nav>
-  <div class="tool-page-header"><div class="tool-page-icon utilities">💱</div><div><h1>Currency Converter</h1><p>Convert between world currencies</p></div></div>
-  <div class="tool-layout full-width" style="max-width:600px;">
+  <div class="tool-page-header"><div class="tool-page-icon utilities">💱</div><div><h1>Currency Converter</h1><p>Convert between 30+ world currencies — free, instant & mobile-friendly</p></div></div>
+  <div class="tool-layout full-width" style="max-width:680px;">
     <div class="tool-box">
-      <div class="info-chip" style="margin-bottom:20px;">ℹ️ Rates are approximate and updated periodically</div>
-      <div class="form-group"><label class="form-label">Amount</label><input type="number" id="amount" class="form-input" value="1" oninput="convert()" /></div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">From</label>
+      <div class="form-group">
+        <label class="form-label">Amount to Convert</label>
+        <input type="number" id="amount" class="form-input" value="100" oninput="convert()" />
+      </div>
+      <div class="form-row" style="align-items:flex-end;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">From Currency</label>
           <select id="fromCur" class="form-select" onchange="convert()"></select>
         </div>
-        <div style="display:flex;align-items:flex-end;padding-bottom:18px;">
-          <button class="btn btn-secondary btn-sm" onclick="swap()" style="height:44px;">⇄</button>
+        <div style="padding-bottom:18px;">
+          <button class="btn btn-secondary btn-sm" onclick="swap()" style="height:44px;padding:0 14px;font-size:1.1rem;" title="Swap currencies">⇄</button>
         </div>
-        <div class="form-group"><label class="form-label">To</label>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">To Currency</label>
           <select id="toCur" class="form-select" onchange="convert()"></select>
         </div>
       </div>
-      <div class="result-box show" id="result">
-        <div class="result-value" id="resultVal">—</div>
-        <div class="result-label" id="resultLabel">Enter an amount above</div>
-        <div class="result-sub" id="rateLabel"></div>
+      <div class="result-box show" id="result" style="margin-top:16px;">
+        <div class="result-value" id="resultVal" style="color:var(--teal);font-size:1.6rem;">—</div>
+        <div class="result-label" id="resultLabel" style="font-size:0.9rem;margin-top:4px;"></div>
+        <div class="result-sub" id="rateLabel" style="font-size:0.8rem;color:var(--text-3);margin-top:4px;"></div>
       </div>
-      <!-- Popular conversions -->
-      <div style="margin-top:20px;">
-        <div style="font-size:0.8rem;color:var(--text-3);margin-bottom:10px;">Quick Conversions (1 USD =)</div>
-        <div id="quickRates" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;"></div>
+      <div style="margin-top:24px;">
+        <div style="font-size:0.85rem;color:var(--text-3);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Popular Rates (vs 1 USD)</div>
+        <div id="quickRates" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;"></div>
       </div>
     </div>
   </div>
+
+  <div class="ad-container" id="ad-mid" data-ad-format="auto" style="margin:30px 0;"></div>
+
+  <article class="tool-content">
+    <h2>How to Convert World Currencies Online Free</h2>
+    <p>Planning international travel, buying goods from overseas stores, or managing freelance client invoices across borders requires quick and dependable currency conversion. EasyToolz Currency Converter translates values across major global currencies in milliseconds.</p>
+    <ol style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Enter the amount:</strong> Type the value you want to convert into the amount field.</li>
+      <li><strong>Select currencies:</strong> Choose your origin currency (e.g. USD, EUR, GBP) and your destination currency (e.g. INR, JPY, AED, CAD).</li>
+      <li><strong>View exchange details:</strong> See the converted total along with the unit exchange rate for both currencies.</li>
+    </ol>
+
+    <h2>Popular Global Currencies Supported</h2>
+    <ul style="margin-bottom:30px;padding-left:20px;line-height:1.7;">
+      <li><strong>Americas:</strong> USD (United States Dollar), CAD (Canadian Dollar), BRL (Brazilian Real), MXN (Mexican Peso).</li>
+      <li><strong>Europe:</strong> EUR (Euro), GBP (British Pound), CHF (Swiss Franc), SEK (Swedish Krona), NOK (Norwegian Krone), PLN (Polish Zloty).</li>
+      <li><strong>Asia &amp; Pacific:</strong> INR (Indian Rupee), JPY (Japanese Yen), CNY (Chinese Yuan), SGD (Singapore Dollar), AUD (Australian Dollar), NZD (New Zealand Dollar), HKD (Hong Kong Dollar), KRW (South Korean Won).</li>
+      <li><strong>Middle East &amp; Africa:</strong> AED (UAE Dirham), SAR (Saudi Riyal), ZAR (South African Rand).</li>
+    </ul>
+
+    <p>Explore more finance and conversion tools: <a href="unit-converter.html">Unit Converter</a>, <a href="discount-calculator.html">Discount Calculator</a>, <a href="percentage-calculator.html">Percentage Calculator</a>, <a href="emi-calculator.html">EMI Calculator</a>.</p>
+
+    <div class="ad-container" id="ad-content" data-ad-format="auto" style="margin:30px 0;"></div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">How do I convert currency using EasyToolz?</h3><p>Enter the monetary amount, select your starting currency in the "From" dropdown, and choose your target currency in the "To" dropdown. The conversion calculates in real-time.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">What currencies are supported?</h3><p>Over 30 global currencies are supported including US Dollar (USD), Euro (EUR), British Pound (GBP), Indian Rupee (INR), Japanese Yen (JPY), Canadian Dollar (CAD), Australian Dollar (AUD), UAE Dirham (AED), and more.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are exchange rates real-time?</h3><p>The tool uses benchmark market exchange rates for quick travel planning, personal budgeting, and e-commerce estimates.</p></div>
+      <div style="margin-bottom:20px;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I quickly swap currencies?</h3><p>Yes! Click the swap icon (⇄) between the currency fields to immediately reverse the conversion direction.</p></div>
+    </div>
+  </article>
 </div></main>
-<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2025 EasyToolz.click</span></div></div></footer>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="brand">EasyToolz</span></a><p>Free browser-based tools for everyday digital tasks.</p></div><div class="footer-col"><h4>Tools</h4><ul><li><a href="currency-converter.html">Currency Converter</a></li><li><a href="unit-converter.html">Unit Converter</a></li><li><a href="discount-calculator.html">Discount Calculator</a></li><li><a href="emi-calculator.html">EMI Calculator</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms of Use</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 EasyToolz.click — All rights reserved</span><div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a></div></div></div></footer>
+
 <script src="../js/main.js"></script>
+<script src="../js/ads.js"></script>
 <script>
-// Approximate rates vs USD (update periodically)
 const RATES = {
   USD:1, EUR:0.92, GBP:0.79, INR:83.5, JPY:149.5, CAD:1.36, AUD:1.54,
   CHF:0.89, CNY:7.24, SGD:1.35, AED:3.67, SAR:3.75, MYR:4.72, THB:35.2,
   NZD:1.63, HKD:7.83, KRW:1325, BRL:4.97, MXN:17.1, ZAR:18.7, TRY:32.4,
   NOK:10.6, SEK:10.5, DKK:6.88, PLN:4.02, PHP:56.4, IDR:15800, VND:24500, PKR:278
 };
-const labels = {USD:'🇺🇸 USD',EUR:'🇪🇺 EUR',GBP:'🇬🇧 GBP',INR:'🇮🇳 INR',JPY:'🇯🇵 JPY',CAD:'🇨🇦 CAD',AUD:'🇦🇺 AUD',CHF:'🇨🇭 CHF',CNY:'🇨🇳 CNY',SGD:'🇸🇬 SGD',AED:'🇦🇪 AED',SAR:'🇸🇦 SAR',MYR:'🇲🇾 MYR',THB:'🇹🇭 THB',NZD:'🇳🇿 NZD',HKD:'🇭🇰 HKD',KRW:'🇰🇷 KRW',BRL:'🇧🇷 BRL',MXN:'🇲🇽 MXN',ZAR:'🇿🇦 ZAR',TRY:'🇹🇷 TRY',NOK:'🇳🇴 NOK',SEK:'🇸🇪 SEK',DKK:'🇩🇰 DKK',PLN:'🇵🇱 PLN',PHP:'🇵🇭 PHP',IDR:'🇮🇩 IDR',VND:'🇻🇳 VND',PKR:'🇵🇰 PKR'};
+const labels = {USD:'🇺🇸 USD (US Dollar)',EUR:'🇪🇺 EUR (Euro)',GBP:'🇬🇧 GBP (British Pound)',INR:'🇮🇳 INR (Indian Rupee)',JPY:'🇯🇵 JPY (Japanese Yen)',CAD:'🇨🇦 CAD (Canadian Dollar)',AUD:'🇦🇺 AUD (Australian Dollar)',CHF:'🇨🇭 CHF (Swiss Franc)',CNY:'🇨🇳 CNY (Chinese Yuan)',SGD:'🇸🇬 SGD (Singapore Dollar)',AED:'🇦🇪 AED (UAE Dirham)',SAR:'🇸🇦 SAR (Saudi Riyal)',MYR:'🇲🇾 MYR (Malaysian Ringgit)',THB:'🇹🇭 THB (Thai Baht)',NZD:'🇳🇿 NZD (New Zealand Dollar)',HKD:'🇭🇰 HKD (Hong Kong Dollar)',KRW:'🇰🇷 KRW (South Korean Won)',BRL:'🇧🇷 BRL (Brazilian Real)',MXN:'🇲🇽 MXN (Mexican Peso)',ZAR:'🇿🇦 ZAR (South African Rand)',TRY:'🇹🇷 TRY (Turkish Lira)',NOK:'🇳🇴 NOK (Norwegian Krone)',SEK:'🇸🇪 SEK (Swedish Krona)',DKK:'🇩🇰 DKK (Danish Krone)',PLN:'🇵🇱 PLN (Polish Zloty)',PHP:'🇵🇭 PHP (Philippine Peso)',IDR:'🇮🇩 IDR (Indonesian Rupiah)',VND:'🇻🇳 VND (Vietnamese Dong)',PKR:'🇵🇰 PKR (Pakistani Rupee)'};
 
-const fromSel=document.getElementById('fromCur'), toSel=document.getElementById('toCur');
-Object.keys(RATES).forEach(c=>{fromSel.add(new Option(labels[c]||c,c));toSel.add(new Option(labels[c]||c,c));});
-toSel.value='INR';
+const fromSel = document.getElementById('fromCur'), toSel = document.getElementById('toCur');
+Object.keys(RATES).forEach(c => { fromSel.add(new Option(labels[c] || c, c)); toSel.add(new Option(labels[c] || c, c)); });
+fromSel.value = 'USD';
+toSel.value = 'EUR';
 
-// Quick rates grid
-const quick=['EUR','GBP','INR','JPY','CAD','AED','AUD','SGD'];
-quick.forEach(c=>{
-  const div=document.createElement('div');
-  div.style.cssText='background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px;text-align:center;';
-  div.innerHTML=`<div style="font-size:0.7rem;color:var(--text-3);">${c}</div><div style="font-size:0.9rem;font-weight:700;color:var(--teal);">${RATES[c].toLocaleString()}</div>`;
-  document.getElementById('quickRates').appendChild(div);
+const quick = ['EUR', 'GBP', 'INR', 'JPY', 'CAD', 'AED', 'AUD', 'SGD'];
+const qGrid = document.getElementById('quickRates');
+quick.forEach(c => {
+  const div = document.createElement('div');
+  div.style.cssText = 'background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;';
+  div.innerHTML = `<div style="font-size:0.75rem;color:var(--text-3);font-weight:600;">${c}</div><div style="font-size:0.95rem;font-weight:700;color:var(--teal);">${RATES[c].toLocaleString()}</div>`;
+  qGrid.appendChild(div);
 });
 
-function convert(){
-  const amt=parseFloat(document.getElementById('amount').value)||0;
-  const from=fromSel.value, to=toSel.value;
-  const usd=amt/RATES[from];
-  const result=usd*RATES[to];
-  const fmt=v=>v>=100?v.toLocaleString(undefined,{maximumFractionDigits:2}):v.toFixed(4).replace(/\.?0+$/,'');
+function convert() {
+  const amt = parseFloat(document.getElementById('amount').value) || 0;
+  const from = fromSel.value, to = toSel.value;
+  const usd = amt / RATES[from];
+  const result = usd * RATES[to];
+  const fmt = v => v >= 100 ? v.toLocaleString(undefined, { maximumFractionDigits: 2 }) : v.toFixed(4).replace(/\.?0+$/, '');
   document.getElementById('resultVal').textContent = fmt(result) + ' ' + to;
-  document.getElementById('resultLabel').textContent = amt + ' ' + from + ' = ' + fmt(result) + ' ' + to;
-  document.getElementById('rateLabel').textContent   = '1 ' + from + ' = ' + fmt(RATES[to]/RATES[from]) + ' ' + to;
+  document.getElementById('resultLabel').textContent = amt.toLocaleString() + ' ' + from + ' = ' + fmt(result) + ' ' + to;
+  document.getElementById('rateLabel').textContent   = '1 ' + from + ' = ' + fmt(RATES[to] / RATES[from]) + ' ' + to;
 }
-function swap(){const t=fromSel.value;fromSel.value=toSel.value;toSel.value=t;convert();}
+function swap() {
+  const t = fromSel.value;
+  fromSel.value = toSel.value;
+  toSel.value = t;
+  convert();
+}
 convert();
 </script>
 </body></html>
